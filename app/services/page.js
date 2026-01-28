@@ -4,9 +4,8 @@ export default function ServicesPage() {
   return (
     <>
       <section className="mt-15">
-      <ServicesList/>
+        <ServicesList />
       </section>
-    
     </>
   );
 }
