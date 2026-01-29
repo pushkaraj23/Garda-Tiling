@@ -8,7 +8,7 @@ import WhyChooseSection from "@/components/home/WhyChooseSection";
 
 export default function page() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-x-hidden">
       <Hero />
       <RatingSection />
       <ServicesSection />

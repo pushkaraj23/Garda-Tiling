@@ -1,132 +1,131 @@
 "use client";
 
+import { motion } from "framer-motion";
+
+/* Motion presets */
+const container = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.15 },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0 },
+};
+
 export default function WhyChooseSection() {
-    return (
-        <section className="w-full bg-gray-50 py-20 px-8">
-            <div>
-
-                {/* HEADER */}
-                <div className="mb-12">
-                    <h2 className="text-5xl tracking-tight font-bebas font-bold text-[#64748B]">
-                        WHY CHOOSE <span className="text-black">GARDA </span>TILING
-                    </h2>
-                    <p className="mt-4 font-manrope text-black">
-                        We don’t just install tiles — we deliver durable finishes,
-                        compliant waterproofing, and a clean, stress-free experience
-                        from start to finish.
-                    </p>
-                </div>
-
-                {/* GRID */}
-                <div className="grid grid-cols-12 gap-6">
-
-                    {/* CARD */}
-                    <AnimatedCard className="col-span-12 lg:col-span-6 h-92">
-                        <img
-                            src="https://plus.unsplash.com/premium_photo-1681566677639-e39bdc971459?w=700&auto=format&fit=crop&q=60"
-                            alt=""
-                        />
-                        <CardText
-                            title="Quality Workmanship"
-                            text="We don’t just install tiles — we deliver durable finishes, compliant waterproofing, and a clean, stress-free experience from start to finish."
-                        />
-                    </AnimatedCard>
-
-                    <AnimatedCard className="col-span-12 lg:col-span-4 h-92">
-                        <img
-                            src="https://plus.unsplash.com/premium_photo-1681566677089-08f136195c9a?w=600&auto=format&fit=crop&q=60"
-                            alt=""
-                        />
-                        <CardText
-                            title="Waterproofing Compliance"
-                            text="All waterproofing carried out in accordance with Australian Standards, ensuring long-term protection and peace of mind."
-                        />
-                    </AnimatedCard>
-
-                    <AnimatedCard className="col-span-12 lg:col-span-2 lg:row-span-2 h-72 lg:h-auto">
-                        <img
-                            src="https://plus.unsplash.com/premium_photo-1663127307844-6dc4b2ccef85?w=600&auto=format&fit=crop&q=60"
-                            alt=""
-                        />
-                        <CardText
-                            title="Clear Timelines"
-                            text="We follow a fixed schedule and keep you informed throughout the job — no unnecessary delays or surprises."
-                        />
-                    </AnimatedCard>
-
-                    <AnimatedCard className="col-span-12 lg:col-span-10 h-64">
-                        <img
-                            src="https://plus.unsplash.com/premium_photo-1682210260871-5fcfeb4cd20e?w=600&auto=format&fit=crop&q=60"
-                            alt=""
-                        />
-                        <CardText
-                            title="Clean & Respectful Work"
-                            text="We treat your home with care, maintain a clean workspace, and leave the site tidy after completion."
-                        />
-                    </AnimatedCard>
-
-                </div>
-            </div>
-        </section>
-    );
-}
-
-/* REUSABLE ANIMATED CARD */
-function AnimatedCard({ children, className }) {
-    return (
-        <div
-            className={`
-        relative rounded-2xl overflow-hidden bg-black
-        group ${className}
-        transition-all duration-500 ease-out
-        hover:-translate-y-2 hover:shadow-2xl
-      `}
+  return (
+    <section className="w-full bg-background py-20 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        {/* HEADER */}
+        <motion.div
+          variants={item}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="mb-14 max-w-3xl"
         >
-            {/* IMAGE */}
-            <div className="absolute inset-0">
-                {children[0] && (
-                    <img
-                        src={children[0].props.src}
-                        alt=""
-                        className="
-              w-full h-full object-cover
-              transition-transform duration-700 ease-out
-              group-hover:scale-110
-            "
-                    />
-                )}
-            </div>
+          <h2 className="font-bebas text-4xl sm:text-5xl tracking-tight text-primary">
+            WHY CHOOSE <span className="text-text-primary">GARDA</span> TILING
+          </h2>
+          <div className="mt-4 flex items-center gap-3">
+            <div className="h-12 w-2 bg-accent-secondary rounded-xl" />
+            <p className="font-manrope text-text-muted text-sm sm:text-base">
+              We don’t just install tiles — we deliver durable finishes,
+              compliant waterproofing, and a clean, stress-free experience from
+              start to finish.
+            </p>
+          </div>
+        </motion.div>
 
-            {/* OVERLAY */}
-            <div className="
-        absolute inset-0 bg-black/60
-        transition-all duration-500
-        group-hover:bg-black/70
-      " />
+        {/* GRID */}
+        <motion.div
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="grid grid-cols-12 gap-6"
+        >
+          <AnimatedCard
+            variants={item}
+            className="col-span-12 lg:col-span-5 h-90"
+            img="https://plus.unsplash.com/premium_photo-1681566677639-e39bdc971459?w=900&auto=format&fit=crop&q=60"
+            title="Quality Workmanship"
+            text="Every project is executed with precision, attention to detail, and a commitment to long-lasting results."
+          />
 
-            {/* TEXT */}
-            <div className="
-        absolute bottom-6 left-6 right-6 z-10
-        transition-all duration-500 ease-out
-        opacity-90 translate-y-2
-        group-hover:opacity-100 group-hover:translate-y-0
-      ">
-                {children[1]}
-            </div>
-        </div>
-    );
+          <AnimatedCard
+            variants={item}
+            className="col-span-12 lg:col-span-4 h-90"
+            img="https://plus.unsplash.com/premium_photo-1681566677089-08f136195c9a?w=800&auto=format&fit=crop&q=60"
+            title="Waterproofing Compliance"
+            text="All waterproofing work strictly follows Australian Standards, ensuring durability and peace of mind."
+          />
+
+          <AnimatedCard
+            variants={item}
+            className="col-span-12 lg:col-span-3 lg:row-span-2 h-70 lg:h-auto"
+            img="https://plus.unsplash.com/premium_photo-1663127307844-6dc4b2ccef85?w=700&auto=format&fit=crop&q=60"
+            title="Clear Timelines"
+            text="We follow defined schedules and keep you informed — no delays, no surprises."
+          />
+
+          <AnimatedCard
+            variants={item}
+            className="col-span-12 lg:col-span-9 h-65"
+            img="https://plus.unsplash.com/premium_photo-1682210260871-5fcfeb4cd20e?w=900&auto=format&fit=crop&q=60"
+            title="Clean & Respectful Work"
+            text="Your space is treated with care. We maintain a clean site and leave your property tidy upon completion."
+          />
+        </motion.div>
+      </div>
+    </section>
+  );
 }
 
-/* TEXT BLOCK */
-function CardText({ title, text }) {
-    return (
-        <>
-            <h3 className="text-xl font-semibold mb-2 text-white">
-                {title}
-            </h3>
-            <p className="text-sm leading-relaxed text-white/90">
-                {text}
-            </p>
-        </>
-    );
+/* REUSABLE CARD */
+function AnimatedCard({ img, title, text, className, variants }) {
+  return (
+    <motion.div
+      variants={variants}
+      className={`
+        relative overflow-hidden rounded-2xl
+        group ${className}
+        transition-all duration-500
+        hover:-translate-y-2 hover:shadow-xl
+      `}
+    >
+      {/* IMAGE */}
+      <img
+        src={img}
+        alt={title}
+        className="
+          absolute inset-0 w-full h-full object-cover
+          transition-transform duration-700
+          group-hover:scale-105
+        "
+      />
+
+      {/* OVERLAY */}
+      <div
+        className="
+        absolute inset-0
+        bg-gradient-to-t
+        from-black/70 via-black/40 to-transparent
+      "
+      />
+
+      {/* TEXT */}
+      <div className="absolute bottom-6 left-6 right-6 z-10">
+        <h3 className="font-bebas text-white text-xl tracking-wide mb-2">
+          {title}
+        </h3>
+        <p className="font-manrope text-sm text-white/90 leading-relaxed">
+          {text}
+        </p>
+      </div>
+    </motion.div>
+  );
 }
