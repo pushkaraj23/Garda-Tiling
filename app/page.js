@@ -10,12 +10,12 @@ export default function page() {
   return (
     <div className="min-h-screen">
       <Hero />
-      <RatingSection/>
-      <ServicesSection/>
-      <WhyChooseSection/>
-      <RecentProjects/>
-      <HowItWorks/>
-      <WhatOurClientsSay/>
+      <RatingSection />
+      <ServicesSection />
+      <WhyChooseSection />
+      <RecentProjects />
+      <HowItWorks />
+      <WhatOurClientsSay />
     </div>
   );
 }

@@ -136,7 +136,6 @@
 
 //             {/* CTA TEXT */}
 
-
 //             {/* BUTTONS */}
 //             <div className="flex items-center gap-4">
 //               <Link
@@ -165,7 +164,6 @@
 //     </section>
 //   );
 // }
-
 
 // "use client";
 
@@ -259,7 +257,6 @@
 //   );
 // }
 
-
 // "use client";
 
 // import Link from "next/link";
@@ -268,7 +265,7 @@
 //   return (
 //     <section className="w-full bg-white mt-16 px-8">
 //       <div className="relative mx-auto overflow-hidden rounded-t-[32px] shadow-xl h-[665px]"> {/* Reduced height */}
-        
+
 //         {/* BACKGROUND IMAGE */}
 //         <img
 //           src="/home/hero.svg"
@@ -281,7 +278,7 @@
 
 //         {/* CONTENT */}
 //         <div className="relative z-10 h-full flex flex-col justify-end px-20 pb-8"> {/* Reduced padding */}
-          
+
 //           {/* FEATURE PILLS */}
 //           <div className="flex flex-wrap gap-2 mb-4"> {/* Reduced margins */}
 //             {[
@@ -345,12 +342,11 @@
 //             </p>
 //           </div>
 //         </div>
-        
+
 //       </div>
 //     </section>
 //   );
 // }
-
 
 "use client";
 
@@ -359,8 +355,7 @@ import Link from "next/link";
 export default function Hero() {
   return (
     <section className="w-full bg-white mt-16 px-8">
-      <div className="relative mx-auto overflow-hidden rounded-t-[32px] h-[675px]">
-        
+      <div className="relative mx-auto overflow-hidden rounded-t-4xl h-168.75">
         {/* BACKGROUND IMAGE */}
         <img
           src="/home/hero.svg"
@@ -369,11 +364,10 @@ export default function Hero() {
         />
 
         {/* OVERLAY GRADIENT */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/10 to-white" />
+        <div className="absolute inset-0 bg-linear-to-b from-black/10 via-black/10 to-white" />
 
         {/* CONTENT */}
         <div className="relative z-10 h-full flex flex-col justify-end px-20 pb-12">
-          
           {/* FEATURE PILLS */}
           <div className="flex flex-wrap gap-2 mb-5">
             {[
@@ -398,14 +392,15 @@ export default function Hero() {
           </p>
 
           {/* MAIN HEADING */}
-          <h1 className="font-bold font-bebas text-2xl md:text-3xl lg:text-4xl  tracking-tighter self-stretch
-  leading-tight max-w-5xl text-[#111827]">
+          <h1
+            className="font-bold font-bebas text-2xl md:text-3xl lg:text-4xl  tracking-tighter self-stretch
+  leading-tight max-w-5xl text-[#111827]"
+          >
             BATHROOM TILING & WATERPROOFING EXPERTS IN SYDNEY
           </h1>
 
           {/* CTA ROW */}
           <div className="mt-5 flex items-end justify-end">
-
             {/* BUTTONS */}
             <div className="flex items-center mr-80 gap-3">
               <Link
@@ -438,7 +433,6 @@ export default function Hero() {
             </p>
           </div>
         </div>
-        
       </div>
     </section>
   );

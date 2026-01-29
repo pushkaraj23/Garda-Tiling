@@ -1,47 +1,52 @@
 @import "tailwindcss";
 
 @theme {
-
+  /* FONTS */
   --font-bebas: "Bebas Neue", sans-serif;
   --font-manrope: "Manrope", sans-serif;
 
-  --color-primary: #3F3F46;
+  /* PRIMARY */
+  --color-primary: #1f2933;
   /* Headers / Navbar */
-  --color-background: #FAFAF9;
+
+  /* BACKGROUNDS */
+  --color-background: #ffffff;
   /* Page background */
-  --color-card: #F3F2F0;
+
+  --color-card: #ffffff;
   /* Card background */
 
-  --color-accent: #C9A24D;
+  /* ACCENTS */
+  --color-accent: #2563eb;
   /* CTA / Accent */
-  --color-accent-secondary: #A8A29E;
+
+  --color-accent-secondary: #64748b;
+  /* Secondary Accent */
 
   /* TEXT */
-  --color-text-primary: #292524;
-  --color-text-muted: #6B7280;
+  --color-text-primary: #111827;
+  /* Main text */
+
+  --color-text-muted: #6b7280;
+  /* Muted text */
 
   /* UI */
-  --color-border: #E5E7EB;
+  --color-border: #e5e7eb;
+  /* Borders / Dividers */
 
   /* DARK / SURFACE */
-  --color-surface-dark: #1F2933;
+  --color-surface-dark: #1f2933;
   --color-navy: #111827;
 
-  /* BRAND */
-  --color-brand-blue: #2563EB;
-  --color-slate: #64748B;
-
   /* COMMON */
-  --color-white: #FFFFFF;
+  --color-white: #ffffff;
 }
 
 @theme {
   --shadow-soft:
-    0 2px 8px rgba(17, 24, 39, 0.25),
-    0 12px 32px rgba(31, 41, 51, 0.15),
+    0 2px 8px rgba(17, 24, 39, 0.25), 0 12px 32px rgba(31, 41, 51, 0.15),
     0 24px 64px rgba(248, 249, 251, 0.6);
 }
-
 
 @keyframes fadeUp {
   from {
@@ -59,16 +64,11 @@
   animation: fadeUp 0.9s ease-out forwards;
 }
 
-
-
-
 /* ------------------------------------------------------ */
 
 /* ============================================
    HOW IT WORKS SECTION STYLES
    ============================================ */
-
-
 
 /* Mobile fade up animation */
 @keyframes fadeUp {
@@ -89,7 +89,6 @@
 
 /* 1. FLOATING BACKGROUND ELEMENTS */
 @keyframes floatBg1 {
-
   0%,
   100% {
     transform: translateY(0px) rotate(0deg);
@@ -103,7 +102,6 @@
 }
 
 @keyframes floatBg2 {
-
   0%,
   100% {
     transform: translateY(0px) rotate(0deg);
@@ -117,7 +115,6 @@
 }
 
 @keyframes floatBg3 {
-
   0%,
   100% {
     transform: translateX(0px) rotate(0deg);
@@ -131,7 +128,6 @@
 }
 
 @keyframes floatBg4 {
-
   0%,
   100% {
     transform: translateX(0px) rotate(0deg);
@@ -188,15 +184,18 @@
 
 /* 4. GLOW EFFECT */
 @keyframes cardGlow {
-
   0%,
   100% {
-    box-shadow: 0 0 20px rgba(100, 116, 139, 0.2), inset 0 0 30px rgba(255, 255, 255, 0.05);
+    box-shadow:
+      0 0 20px rgba(100, 116, 139, 0.2),
+      inset 0 0 30px rgba(255, 255, 255, 0.05);
     transform: translateY(0px);
   }
 
   50% {
-    box-shadow: 0 0 40px rgba(100, 116, 139, 0.4), inset 0 0 50px rgba(255, 255, 255, 0.1);
+    box-shadow:
+      0 0 40px rgba(100, 116, 139, 0.4),
+      inset 0 0 50px rgba(255, 255, 255, 0.1);
     transform: translateY(-5px);
   }
 }
@@ -208,7 +207,12 @@
   }
 
   100% {
-    background: linear-gradient(180deg, transparent 0%, rgba(100, 116, 139, 0.3) 50%, transparent 100%);
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(100, 116, 139, 0.3) 50%,
+      transparent 100%
+    );
   }
 }
 
@@ -244,7 +248,6 @@
 
 /* 8. NUMBER PULSE */
 @keyframes numberPulse {
-
   0%,
   100% {
     text-shadow: 0 0 10px rgba(100, 116, 139, 0.3);
@@ -342,13 +345,18 @@
 }
 
 .card-hover::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
   animation: shimmer 3s infinite;
   border-radius: inherit;
 }
@@ -372,15 +380,15 @@
 
 /* CENTER LINE GRADIENT */
 .line-gradient {
-  background: linear-gradient(180deg,
-      transparent 0%,
-      rgba(100, 116, 139, 0.2) 25%,
-      rgba(100, 116, 139, 0.3) 50%,
-      rgba(100, 116, 139, 0.2) 75%,
-      transparent 100%);
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(100, 116, 139, 0.2) 25%,
+    rgba(100, 116, 139, 0.3) 50%,
+    rgba(100, 116, 139, 0.2) 75%,
+    transparent 100%
+  );
 }
-
-
 
 /* ============================================
    RECENT PROJECTS SECTION STYLES
@@ -462,36 +470,44 @@
 /* 3. 3D TILT EFFECT */
 @keyframes tilt3d {
   0% {
-    transform: perspective(1000px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateY(0px);
+    transform: perspective(1000px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)
+      translateY(0px);
   }
 
   25% {
-    transform: perspective(1000px) rotateX(5deg) rotateY(-5deg) rotateZ(2deg) translateY(-15px);
+    transform: perspective(1000px) rotateX(5deg) rotateY(-5deg) rotateZ(2deg)
+      translateY(-15px);
   }
 
   50% {
-    transform: perspective(1000px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateY(-30px);
+    transform: perspective(1000px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)
+      translateY(-30px);
   }
 
   75% {
-    transform: perspective(1000px) rotateX(-5deg) rotateY(5deg) rotateZ(-2deg) translateY(-15px);
+    transform: perspective(1000px) rotateX(-5deg) rotateY(5deg) rotateZ(-2deg)
+      translateY(-15px);
   }
 
   100% {
-    transform: perspective(1000px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateY(0px);
+    transform: perspective(1000px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)
+      translateY(0px);
   }
 }
 
 /* 4. GLOW PULSE */
 @keyframes glowPulse {
-
   0%,
   100% {
-    box-shadow: 0 0 20px rgba(100, 116, 139, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.1);
+    box-shadow:
+      0 0 20px rgba(100, 116, 139, 0.3),
+      inset 0 0 20px rgba(255, 255, 255, 0.1);
   }
 
   50% {
-    box-shadow: 0 0 40px rgba(100, 116, 139, 0.6), inset 0 0 40px rgba(255, 255, 255, 0.2);
+    box-shadow:
+      0 0 40px rgba(100, 116, 139, 0.6),
+      inset 0 0 40px rgba(255, 255, 255, 0.2);
   }
 }
 
@@ -570,7 +586,6 @@
 
 /* 9. WOBBLE */
 @keyframes wobble {
-
   0%,
   100% {
     transform: translateX(0) rotate(0deg);
@@ -599,7 +614,6 @@
 
 /* 10. BREATHE EFFECT */
 @keyframes breathe {
-
   0%,
   100% {
     transform: scale(1);
@@ -743,13 +757,18 @@
 }
 
 .button-advanced::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
   transition: left 0.6s;
 }
 
@@ -785,7 +804,6 @@
 .stagger-3 {
   animation-delay: 0.6s;
 }
-
 
 /* ----------------ServiceList---------------- */
 
@@ -923,7 +941,8 @@
 
 /* Float Animation */
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -933,7 +952,8 @@
 
 /* Pulse Animation */
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -943,7 +963,8 @@
 
 /* Pulse Scale Animation */
 @keyframes pulseScale {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
   }
   50% {
@@ -953,13 +974,21 @@
 
 /* Shake Animation */
 @keyframes shake {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateX(0);
   }
-  10%, 30%, 50%, 70%, 90% {
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
     transform: translateX(-5px);
   }
-  20%, 40%, 60%, 80% {
+  20%,
+  40%,
+  60%,
+  80% {
     transform: translateX(5px);
   }
 }
@@ -1091,7 +1120,8 @@
 
 /* Heartbeat Animation */
 @keyframes heartbeat {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
   }
   14% {
@@ -1195,7 +1225,12 @@
 }
 
 .animate-shimmer {
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
   background-size: 200% 100%;
   animation: shimmer 2s infinite;
 }
@@ -1329,25 +1364,51 @@
    (For card lists, grids, etc.)
    ================== */
 
-.stagger-item:nth-child(1) { animation-delay: 0ms; }
-.stagger-item:nth-child(2) { animation-delay: 100ms; }
-.stagger-item:nth-child(3) { animation-delay: 200ms; }
-.stagger-item:nth-child(4) { animation-delay: 300ms; }
-.stagger-item:nth-child(5) { animation-delay: 400ms; }
-.stagger-item:nth-child(6) { animation-delay: 500ms; }
-.stagger-item:nth-child(7) { animation-delay: 600ms; }
-.stagger-item:nth-child(8) { animation-delay: 700ms; }
-.stagger-item:nth-child(9) { animation-delay: 800ms; }
-.stagger-item:nth-child(10) { animation-delay: 900ms; }
-.stagger-item:nth-child(11) { animation-delay: 1000ms; }
-.stagger-item:nth-child(12) { animation-delay: 1100ms; }
+.stagger-item:nth-child(1) {
+  animation-delay: 0ms;
+}
+.stagger-item:nth-child(2) {
+  animation-delay: 100ms;
+}
+.stagger-item:nth-child(3) {
+  animation-delay: 200ms;
+}
+.stagger-item:nth-child(4) {
+  animation-delay: 300ms;
+}
+.stagger-item:nth-child(5) {
+  animation-delay: 400ms;
+}
+.stagger-item:nth-child(6) {
+  animation-delay: 500ms;
+}
+.stagger-item:nth-child(7) {
+  animation-delay: 600ms;
+}
+.stagger-item:nth-child(8) {
+  animation-delay: 700ms;
+}
+.stagger-item:nth-child(9) {
+  animation-delay: 800ms;
+}
+.stagger-item:nth-child(10) {
+  animation-delay: 900ms;
+}
+.stagger-item:nth-child(11) {
+  animation-delay: 1000ms;
+}
+.stagger-item:nth-child(12) {
+  animation-delay: 1100ms;
+}
 
 /* ==================
    HOVER TRANSITIONS
    ================== */
 
 .hover-lift {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .hover-lift:hover {
@@ -1387,7 +1448,9 @@
 .scroll-animate {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
 }
 
 .scroll-animate.in-view {
@@ -1398,7 +1461,9 @@
 .scroll-animate-left {
   opacity: 0;
   transform: translateX(-30px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
 }
 
 .scroll-animate-left.in-view {
@@ -1409,7 +1474,9 @@
 .scroll-animate-right {
   opacity: 0;
   transform: translateX(30px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
 }
 
 .scroll-animate-right.in-view {
@@ -1420,7 +1487,9 @@
 .scroll-animate-scale {
   opacity: 0;
   transform: scale(0.9);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
 }
 
 .scroll-animate-scale.in-view {
@@ -1442,7 +1511,7 @@
   width: 40px;
   height: 40px;
   border: 3px solid #f3f3f3;
-  border-top: 3px solid #C9A24D;
+  border-top: 3px solid #c9a24d;
   border-radius: 50%;
   animation: rotate 1s linear infinite;
 }
@@ -1499,7 +1568,8 @@
 
 /* Smooth border animation */
 @keyframes borderGlow {
-  0%, 100% {
+  0%,
+  100% {
     border-color: rgba(201, 162, 77, 0.5);
   }
   50% {
@@ -1531,13 +1601,13 @@
 }
 
 .animated-underline::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -2px;
   left: 0;
   width: 0;
   height: 2px;
-  background: #C9A24D;
+  background: #c9a24d;
   transition: width 0.3s ease;
 }
 
@@ -1560,7 +1630,6 @@
 .animate-card-entrance {
   animation: cardEntrance 0.5s ease-out forwards;
 }
-
 
 /* ================================
    PROJECT LIST SPECIFIC ANIMATIONS
@@ -1648,15 +1717,33 @@
 }
 
 /* Stagger Animation for Grid Items */
-.grid-stagger > *:nth-child(1) { animation-delay: 0ms; }
-.grid-stagger > *:nth-child(2) { animation-delay: 100ms; }
-.grid-stagger > *:nth-child(3) { animation-delay: 200ms; }
-.grid-stagger > *:nth-child(4) { animation-delay: 300ms; }
-.grid-stagger > *:nth-child(5) { animation-delay: 400ms; }
-.grid-stagger > *:nth-child(6) { animation-delay: 500ms; }
-.grid-stagger > *:nth-child(7) { animation-delay: 600ms; }
-.grid-stagger > *:nth-child(8) { animation-delay: 700ms; }
-.grid-stagger > *:nth-child(9) { animation-delay: 800ms; }
+.grid-stagger > *:nth-child(1) {
+  animation-delay: 0ms;
+}
+.grid-stagger > *:nth-child(2) {
+  animation-delay: 100ms;
+}
+.grid-stagger > *:nth-child(3) {
+  animation-delay: 200ms;
+}
+.grid-stagger > *:nth-child(4) {
+  animation-delay: 300ms;
+}
+.grid-stagger > *:nth-child(5) {
+  animation-delay: 400ms;
+}
+.grid-stagger > *:nth-child(6) {
+  animation-delay: 500ms;
+}
+.grid-stagger > *:nth-child(7) {
+  animation-delay: 600ms;
+}
+.grid-stagger > *:nth-child(8) {
+  animation-delay: 700ms;
+}
+.grid-stagger > *:nth-child(9) {
+  animation-delay: 800ms;
+}
 
 /* Image Zoom on Card Hover */
 .image-zoom-container {
@@ -1678,13 +1765,18 @@
 }
 
 .btn-slide::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
   transition: left 0.5s ease;
 }
 
@@ -1708,7 +1800,8 @@
 
 /* Badge Pulse */
 @keyframes badgePulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -1738,7 +1831,7 @@
 }
 
 .ripple-effect::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -1770,7 +1863,9 @@
 .filter-transition-enter-active {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 300ms, transform 300ms;
+  transition:
+    opacity 300ms,
+    transform 300ms;
 }
 
 .filter-transition-exit {
@@ -1781,8 +1876,6 @@
   opacity: 0;
   transition: opacity 300ms;
 }
-
-
 
 /* ================================
    PROJECT DETAIL SPECIFIC ANIMATIONS
@@ -1811,13 +1904,18 @@
 }
 
 .before-after-container::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(45deg, transparent 45%, rgba(201, 162, 77, 0.2) 50%, transparent 55%);
+  background: linear-gradient(
+    45deg,
+    transparent 45%,
+    rgba(201, 162, 77, 0.2) 50%,
+    transparent 55%
+  );
   background-size: 200% 200%;
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -1881,7 +1979,8 @@
 
 /* Gallery Navigation Button Animation */
 @keyframes navPulse {
-  0%, 100% {
+  0%,
+  100% {
     box-shadow: 0 0 0 0 rgba(201, 162, 77, 0.4);
   }
   50% {
@@ -1904,7 +2003,7 @@
 }
 
 .spec-card:hover .spec-value {
-  color: #C9A24D;
+  color: #c9a24d;
 }
 
 /* Challenge/Solution List Item Animation */
@@ -1930,7 +2029,7 @@
 }
 
 .progress-glow::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   right: 0;
@@ -1941,7 +2040,8 @@
 }
 
 @keyframes progressGlow {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0;
     transform: translateX(-20px);
   }
@@ -1958,7 +2058,7 @@
 }
 
 .related-card::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
@@ -1985,7 +2085,7 @@
 }
 
 .cta-ripple::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -1994,7 +2094,9 @@
   background: rgba(255, 255, 255, 0.3);
   border-radius: 50%;
   transform: translate(-50%, -50%);
-  transition: width 0.6s, height 0.6s;
+  transition:
+    width 0.6s,
+    height 0.6s;
 }
 
 .cta-ripple:active::after {
@@ -2028,7 +2130,8 @@
 }
 
 @keyframes floatWithShadow {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
     filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.1));
   }
