@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function Footer() {
   const navLinks = [
     { label: "Home", href: "/" },
-    { label: "About", href: "/about" },
+    { label: "About Us", href: "/about" },
     { label: "Services", href: "/services" },
     { label: "Projects", href: "/projects" },
   ];
@@ -71,80 +71,93 @@ export default function Footer() {
   };
 
   return (
-    <footer className="w-full bg-surface-dark text-white pt-24 pb-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* TOP */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-16 pb-16 border-b border-white/10">
+    <footer className="relative w-full bg-linear-to-b from-primary to-primary/90 text-white pt-28 pb-10">
+      <div className="max-w-7xl mx-auto px-6">
+        {/* ================= TOP ================= */}
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-16 pb-20 border-b border-white/10">
           {/* BRAND */}
-          <div className="space-y-4">
-            <img
-              src="/home/logo.svg"
-              alt="Garda Tiling"
-              className="w-40 object-contain"
-            />
-            <p className="text-sm font-manrope text-text-muted max-w-sm">
-              Premium tiling & waterproofing solutions delivered with precision,
-              professionalism, and long-lasting quality.
+          <div className="lg:col-span-2 space-y-6">
+            <img src="/home/logo.svg" alt="Garda Tiling" className="w-44" />
+
+            <h3 className="text-xl font-semibold tracking-wide">
+              Precision Tiling. Engineered for Longevity.
+            </h3>
+
+            <div className="h-[2px] w-20 bg-accent" />
+
+            <p className="text-sm text-background/60 leading-relaxed max-w-lg">
+              Garda Tiling delivers premium residential and commercial tiling,
+              waterproofing, and surface solutions. Our work is defined by
+              accuracy, durability, and refined finishes — built to last for
+              decades.
+            </p>
+
+            <p className="text-xs uppercase tracking-widest text-background/60">
+              Residential • Commercial • Waterproofing
             </p>
           </div>
 
           {/* NAVIGATION */}
-          <div className="grid grid-cols-2 gap-12">
-            <div className="space-y-4">
-              <h4 className="font-bebas text-lg tracking-wide text-white">
-                Company
-              </h4>
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="block text-sm text-text-muted hover:text-white transition"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-
-            <div className="space-y-4">
-              <h4 className="font-bebas text-lg tracking-wide text-white">
-                Legal
-              </h4>
-              {legalLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="block text-sm text-text-muted hover:text-white transition"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
+          <div className="space-y-6">
+            <h4 className="font-bebas text-lg tracking-wider text-white">
+              Company
+            </h4>
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="block text-sm text-background/60 hover:text-white transition"
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
 
-          {/* CTA */}
+          {/* LEGAL + CONTACT */}
           <div className="space-y-6">
-            <h4 className="font-bebas text-lg tracking-wide">
-              Start Your Project
+            <h4 className="font-bebas text-lg tracking-wider text-white">
+              Contact
             </h4>
-            <p className="text-sm font-manrope text-text-muted">
-              Get in touch for a one-to-one consultation and accurate quotation.
-            </p>
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-accent text-white font-manrope text-sm font-semibold hover:scale-105 transition"
-            >
-              Request a Quote
-            </Link>
+
+            {legalLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="block text-sm text-background/60 hover:text-white transition"
+              >
+                {link.label}
+              </Link>
+            ))}
+
+            <div className="pt-4 text-sm text-background/60 leading-relaxed">
+              <p>📍 Serving Sydney & Surrounding Areas</p>
+              <p>📞 Fast Response & Site Visits</p>
+              <p>✉️ info@example.com</p>
+            </div>
           </div>
         </div>
 
-        {/* BOTTOM */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-8">
-          <p className="text-xs sm:text-sm text-text-muted">
-            © {new Date().getFullYear()} Garda Tiling. All rights reserved.
+        {/* ================= CTA STRIP ================= */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 py-10 border-b border-white/10">
+          <p className="text-lg font-semibold tracking-wide">
+            Have a project in mind?
           </p>
 
-          <div className="flex items-center gap-6">
+          <Link
+            href="/contact"
+            className="inline-flex items-center justify-center px-8 py-4 rounded-full bg-background/70 text-black font-semibold text-sm hover:scale-105 transition"
+          >
+            Request a Detailed Quote
+          </Link>
+        </div>
+
+        {/* ================= BOTTOM ================= */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-8">
+          <p className="text-xs sm:text-sm text-background/60">
+            © {new Date().getFullYear()} Garda Tiling. Crafted with precision.
+          </p>
+
+          <div className="flex items-center gap-4 bg-white/5 backdrop-blur px-5 py-3 rounded-full">
             {socialLinks.map((social) => (
               <a
                 key={social.label}
@@ -152,7 +165,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={social.label}
-                className="text-text-muted hover:text-white transition"
+                className="text-background/60 hover:text-white transition"
               >
                 {renderIcon(social.icon)}
               </a>

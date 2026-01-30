@@ -36,10 +36,10 @@ export default function RecentProjects() {
   const [cursor, setCursor] = useState({ x: 0, y: 0, content: null });
 
   return (
-    <section className="w-full h-320 overflow-hidden relative bg-background overflow-x-hidden py-20 max-sm:py-10 px-4 sm:px-6 lg:px-8">
+    <section className="w-full overflow-hidden relative bg-background overflow-x-hidden py-20 max-sm:py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto relative grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         {/* LEFT CONTENT */}
-        <div className="relative mt-32 max-sm:mt-0 z-10 flex flex-col gap-8 max-w-md">
+        <div className="relative md:ml-12 max-sm:mt-0 z-10 flex flex-col gap-8 max-w-md">
           {/* Heading */}
           <div>
             <h2 className="font-bebas text-4xl sm:text-6xl tracking-tight text-primary">
@@ -125,7 +125,7 @@ export default function RecentProjects() {
         </div>
 
         {/* RIGHT DIAMOND GRID */}
-        <section className="absolute rotate-45 right-0 top-[120%] md:right-16 md:top-0 flex flex-col gap-5">
+        <section className="rotate-45 max-sm:py-10 w-full md:w-109 -right-1 flex flex-col gap-5">
           {/* TOP */}
           <section className="flex w-full">
             <DiamondCard
@@ -137,7 +137,7 @@ export default function RecentProjects() {
           </section>
 
           {/* MIDDLE ROW */}
-          <section className="flex gap-5">
+          <section className="flex gap-5 full">
             <DiamondCard
               image={projects[1].img}
               title={projects[1].title}
@@ -194,7 +194,7 @@ function DiamondCard({ image, title, subtitle, link }) {
   return (
     <Link
       href={link}
-      className="w-45 h-45 md:w-76 md:h-76 px-6 py-8 rounded-xl border hover:cursor-pointer overflow-hidden group relative"
+      className="w-40 h-40 md:w-52 md:h-52 px-6 py-8 rounded-xl border hover:cursor-pointer overflow-hidden group relative"
     >
       <img
         className="w-full h-full z-0 -rotate-45 absolute -top-5 -left-5 scale-[2]
@@ -207,7 +207,7 @@ function DiamondCard({ image, title, subtitle, link }) {
         className="relative -rotate-45 opacity-0 transition-opacity duration-400
                       flex flex-col h-full justify-center group-hover:opacity-100"
       >
-        <h1 className="font-bebas text-background text-2xl">{title}</h1>
+        <h1 className="font-bebas text-background text-xl">{title}</h1>
         <p className="text-background/80 text-sm font-manrope font-thin">
           {subtitle}
         </p>
