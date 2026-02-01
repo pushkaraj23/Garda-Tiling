@@ -4,13 +4,13 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 const serviceAreas = [
-  "Sydney CBD",
+  "Brisbane CBD",
   "Inner West",
   "Eastern Suburbs",
   "Northern Beaches",
   "North Shore",
-  "Western Sydney",
-  "South West Sydney",
+  "Western Brisbane",
+  "South West Brisbane",
   "Sutherland Shire",
   "Parramatta Region",
   "Hills District",
@@ -34,7 +34,7 @@ export default function AreasWeServe() {
             <div className="mt-6 pl-4 border-l-4 border-accent">
               <p className="font-manrope text-text-muted leading-relaxed">
                 Garda Tiling delivers professional tiling and waterproofing
-                services across Sydney and surrounding suburbs — combining
+                services across Brisbane and surrounding suburbs — combining
                 quality craftsmanship, compliance, and reliable timelines.
               </p>
             </div>
@@ -57,7 +57,7 @@ export default function AreasWeServe() {
           <div className="hidden lg:block">
             <div className="bg-card border border-border rounded-3xl p-8 shadow-lg">
               <h3 className="font-bebas text-2xl mb-4">
-                Trusted Across Sydney
+                Trusted Across Brisbane
               </h3>
               <p className="font-manrope text-text-muted text-sm leading-relaxed">
                 From inner-city apartments to large suburban homes and
@@ -150,7 +150,7 @@ export default function AreasWeServe() {
           <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               ["Fast Response", "Quick inspections and project starts"],
-              ["Local Knowledge", "Built for Sydney conditions"],
+              ["Local Knowledge", "Built for Brisbane conditions"],
               ["Reliable Scheduling", "Clear timelines & site presence"],
               ["Ongoing Support", "Easy follow-ups after completion"],
             ].map(([title, desc]) => (

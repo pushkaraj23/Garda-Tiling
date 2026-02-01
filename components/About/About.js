@@ -87,7 +87,7 @@
 //           <div className="max-w-3xl">
 //             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
 //               <FaStar className="text-[#C9A24D]" />
-//               <span className="text-white font-medium">MELBOURNE'S TRUSTED TILING EXPERTS</span>
+//               <span className="text-white font-medium">BRISBANE'S TRUSTED TILING EXPERTS</span>
 //             </div>
             
 //             <h1 className="text-5xl md:text-5xl font-bold text-white mb-6 leading-tight">
@@ -96,7 +96,7 @@
 //             </h1>
             
 //             <p className="text-xl text-white/90 mb-8">
-//               We transform Melbourne homes and businesses with precision tiling, expert waterproofing, 
+//               We transform Brisbane homes and businesses with precision tiling, expert waterproofing, 
 //               and unparalleled craftsmanship. Your vision, our expertise.
 //             </p>
             
@@ -121,17 +121,17 @@
 //             </div>
             
 //             <h2 className="text-4xl font-bold text-[#111827] mb-6">
-//               From Humble Beginnings to Melbourne's Premier Tiling Service
+//               From Humble Beginnings to Brisbane's Premier Tiling Service
 //             </h2>
             
 //             <p className="text-lg text-[#3F3F46] mb-6">
 //               Founded in 2010 by Michael Garda, what started as a one-man operation has grown into 
-//               Melbourne's most trusted tiling and waterproofing company. Our commitment to excellence 
+//               Brisbane's most trusted tiling and waterproofing company. Our commitment to excellence 
 //               has earned us a reputation for quality workmanship and reliable service.
 //             </p>
             
 //             <p className="text-lg text-[#3F3F46] mb-8">
-//               Today, we're proud to serve homeowners and businesses across Melbourne with a team of 
+//               Today, we're proud to serve homeowners and businesses across Brisbane with a team of 
 //               certified professionals who share our passion for creating beautiful, durable spaces.
 //             </p>
             
@@ -381,7 +381,7 @@
 //               <FaMapMarkerAlt className="text-[#C9A24D]" />
 //               <div>
 //                 <div className="font-semibold">Service Area</div>
-//                 <div className="text-lg">All Melbourne</div>
+//                 <div className="text-lg">All Brisbane</div>
 //               </div>
 //             </div>
 //           </div>
@@ -505,7 +505,7 @@ export default function About() {
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6 animate-fade-in-down">
               <FaStar className="text-[#C9A24D] animate-float" />
-              <span className="text-white font-medium">MELBOURNE'S TRUSTED TILING EXPERTS</span>
+              <span className="text-white font-medium">BRISBANE'S TRUSTED TILING EXPERTS</span>
             </div>
             
             <h1 className="text-5xl md:text-5xl font-bold text-white mb-6 leading-tight animate-fade-in-up animation-delay-200">
@@ -514,7 +514,7 @@ export default function About() {
             </h1>
             
             <p className="text-xl text-white/90 mb-8 animate-fade-in-up animation-delay-500">
-              We transform Melbourne homes and businesses with precision tiling, expert waterproofing, 
+              We transform Brisbane homes and businesses with precision tiling, expert waterproofing, 
               and unparalleled craftsmanship. Your vision, our expertise.
             </p>
             
@@ -540,17 +540,17 @@ export default function About() {
             </div>
             
             <h2 className="text-4xl font-bold text-[#111827] mb-6 animate-fade-in-up animation-delay-400">
-              From Humble Beginnings to Melbourne's Premier Tiling Service
+              From Humble Beginnings to Brisbane's Premier Tiling Service
             </h2>
             
             <p className="text-lg text-[#3F3F46] mb-6 animate-fade-in-up animation-delay-500">
               Founded in 2010 by Michael Garda, what started as a one-man operation has grown into 
-              Melbourne's most trusted tiling and waterproofing company. Our commitment to excellence 
+              Brisbane's most trusted tiling and waterproofing company. Our commitment to excellence 
               has earned us a reputation for quality workmanship and reliable service.
             </p>
             
             <p className="text-lg text-[#3F3F46] mb-8 animate-fade-in-up animation-delay-600">
-              Today, we're proud to serve homeowners and businesses across Melbourne with a team of 
+              Today, we're proud to serve homeowners and businesses across Brisbane with a team of 
               certified professionals who share our passion for creating beautiful, durable spaces.
             </p>
             
@@ -808,7 +808,7 @@ export default function About() {
             {[
               { icon: FaPhone, label: "Call Us", value: "(03) 0000 0000" },
               { icon: FaEnvelope, label: "Email Us", value: "hello@garda-tiling.com" },
-              { icon: FaMapMarkerAlt, label: "Service Area", value: "All Melbourne" }
+              { icon: FaMapMarkerAlt, label: "Service Area", value: "All Brisbane" }
             ].map((contact, index) => (
               <div 
                 key={index}

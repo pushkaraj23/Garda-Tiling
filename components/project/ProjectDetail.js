@@ -1,1844 +1,740 @@
-// "use client"
-
-// import { useRouter, useParams } from 'next/navigation';
-// import { useState } from 'react';
-// import { 
-//   FaArrowLeft, FaCalendar, FaMapMarkerAlt, FaUser, 
-//   FaDollarSign, FaClock, FaCheckCircle, FaTools,
-//   FaShieldAlt, FaStar, FaPhone, FaEnvelope,
-//   FaImages, FaChevronLeft, FaChevronRight, FaClipboardList
-// } from 'react-icons/fa';
-// import { projects } from '../lib/projectData';
-
-// export default function ProjectDetail() {
-//   const router = useRouter();
-//   const params = useParams();
-//   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-//   // Find project by ID (in real app, this would come from API)
-//   const project = projects.find(p => p.id === params.id);
-
-//   if (!project) {
-//     return (
-//       <div className="min-h-screen flex items-center justify-center bg-gray-50">
-//         <div className="text-center">
-//           <h1 className="text-4xl font-bold text-gray-900 mb-4">Project Not Found</h1>
-//           <button 
-//             onClick={() => router.push('/projects')}
-//             className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-//           >
-//             Back to Projects
-//           </button>
-//         </div>
-//       </div>
-//     );
-//   }
-
-//   const hasImages = project.images && project.images.length > 0;
-//   const totalImages = hasImages ? project.images.length : 0;
-
-//   const nextImage = () => {
-//     if (hasImages) {
-//       setCurrentImageIndex((prev) => (prev + 1) % totalImages);
-//     }
-//   };
-
-//   const prevImage = () => {
-//     if (hasImages) {
-//       setCurrentImageIndex((prev) => (prev - 1 + totalImages) % totalImages);
-//     }
-//   };
-
-//   const getStatusColor = (status) => {
-//     switch(status) {
-//       case 'completed': return 'bg-green-100 text-green-800';
-//       case 'in-progress': return 'bg-blue-100 text-blue-800';
-//       case 'upcoming': return 'bg-yellow-100 text-yellow-800';
-//       case 'on-hold': return 'bg-orange-100 text-orange-800';
-//       default: return 'bg-gray-100 text-gray-800';
-//     }
-//   };
-
-//   return (
-//     <div className="min-h-screen bg-gray-50">
-//       {/* Back Button */}
-//       <div className="sticky top-0 z-10 bg-white shadow-sm">
-//         <div className="max-w-7xl mx-auto px-4 py-4">
-//           <button
-//             onClick={() => router.push('/projects')}
-//             className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
-//           >
-//             <FaArrowLeft />
-//             Back to Projects
-//           </button>
-//         </div>
-//       </div>
-
-//       {/* Main Content */}
-//       <div className="max-w-7xl mx-auto px-4 py-8">
-//         {/* Project Header */}
-//         <div className="bg-white rounded-xl shadow p-6 mb-8">
-//           <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6">
-//             <div>
-//               <div className="flex items-center gap-3 mb-4">
-//                 <h1 className="text-3xl font-bold text-gray-900">{project.title}</h1>
-//                 <span className={`px-4 py-1 rounded-full text-sm font-bold ${getStatusColor(project.status)}`}>
-//                   {project.status.replace('-', ' ').toUpperCase()}
-//                 </span>
-//               </div>
-
-//               <p className="text-gray-600 text-lg mb-6">{project.description}</p>
-
-//               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-//                 <div className="flex items-center gap-3">
-//                   <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-//                     <FaMapMarkerAlt className="text-blue-600" />
-//                   </div>
-//                   <div>
-//                     <div className="text-sm text-gray-500">Location</div>
-//                     <div className="font-semibold">{project.location}</div>
-//                   </div>
-//                 </div>
-
-//                 <div className="flex items-center gap-3">
-//                   <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-//                     <FaUser className="text-green-600" />
-//                   </div>
-//                   <div>
-//                     <div className="text-sm text-gray-500">Client</div>
-//                     <div className="font-semibold">{project.client}</div>
-//                   </div>
-//                 </div>
-
-//                 <div className="flex items-center gap-3">
-//                   <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center">
-//                     <FaDollarSign className="text-amber-600" />
-//                   </div>
-//                   <div>
-//                     <div className="text-sm text-gray-500">Budget</div>
-//                     <div className="font-semibold">{project.budget}</div>
-//                   </div>
-//                 </div>
-
-//                 <div className="flex items-center gap-3">
-//                   <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-//                     <FaClock className="text-purple-600" />
-//                   </div>
-//                   <div>
-//                     <div className="text-sm text-gray-500">Duration</div>
-//                     <div className="font-semibold">{project.duration}</div>
-//                   </div>
-//                 </div>
-//               </div>
-//             </div>
-
-//             {/* Progress Bar for In-Progress Projects */}
-//             {project.progress && (
-//               <div className="lg:w-64">
-//                 <div className="text-center mb-2">
-//                   <span className="text-2xl font-bold text-blue-600">{project.progress}%</span>
-//                   <div className="text-sm text-gray-500">Complete</div>
-//                 </div>
-//                 <div className="w-full bg-gray-200 rounded-full h-3">
-//                   <div 
-//                     className="bg-blue-600 h-3 rounded-full transition-all duration-300"
-//                     style={{ width: `${project.progress}%` }}
-//                   />
-//                 </div>
-//                 <div className="flex justify-between text-xs text-gray-500 mt-1">
-//                   <span>Start: {project.startDate}</span>
-//                   <span>Target: {project.completionDate}</span>
-//                 </div>
-//               </div>
-//             )}
-//           </div>
-//         </div>
-
-//         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-//           {/* Left Column - Images & Gallery */}
-//           <div className="lg:col-span-2">
-//             {/* Main Image */}
-//             <div className="bg-white rounded-xl shadow overflow-hidden mb-6">
-//               {hasImages ? (
-//                 <div className="relative">
-//                   <img 
-//                     src={project.images[currentImageIndex]} 
-//                     alt={`${project.title} - Image ${currentImageIndex + 1}`}
-//                     className="w-full h-96 object-cover"
-//                   />
-
-//                   {/* Navigation Arrows */}
-//                   {totalImages > 1 && (
-//                     <>
-//                       <button
-//                         onClick={prevImage}
-//                         className="absolute left-4 top-1/2 transform -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow flex items-center justify-center hover:bg-gray-100"
-//                       >
-//                         <FaChevronLeft />
-//                       </button>
-//                       <button
-//                         onClick={nextImage}
-//                         className="absolute right-4 top-1/2 transform -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow flex items-center justify-center hover:bg-gray-100"
-//                       >
-//                         <FaChevronRight />
-//                       </button>
-//                     </>
-//                   )}
-
-//                   {/* Image Counter */}
-//                   <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full text-sm">
-//                     {currentImageIndex + 1} / {totalImages}
-//                   </div>
-//                 </div>
-//               ) : (
-//                 <div className="h-96 bg-gradient-to-br from-gray-200 to-gray-300 flex flex-col items-center justify-center">
-//                   <FaImages className="text-gray-400 text-5xl mb-4" />
-//                   <span className="text-gray-500">No images available</span>
-//                 </div>
-//               )}
-
-//               {/* Thumbnails */}
-//               {hasImages && totalImages > 1 && (
-//                 <div className="p-4 border-t">
-//                   <div className="flex gap-2 overflow-x-auto pb-2">
-//                     {project.images.map((img, index) => (
-//                       <button
-//                         key={index}
-//                         onClick={() => setCurrentImageIndex(index)}
-//                         className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 ${
-//                           currentImageIndex === index ? 'border-blue-500' : 'border-transparent'
-//                         }`}
-//                       >
-//                         <img 
-//                           src={img} 
-//                           alt={`Thumbnail ${index + 1}`}
-//                           className="w-full h-full object-cover"
-//                         />
-//                       </button>
-//                     ))}
-//                   </div>
-//                 </div>
-//               )}
-//             </div>
-
-//             {/* Before/After Comparison */}
-//             {project.beforeAfter && (
-//               <div className="bg-white rounded-xl shadow p-6 mb-6">
-//                 <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-//                   <FaImages className="text-blue-600" />
-//                   Before & After
-//                 </h2>
-//                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-//                   <div>
-//                     <div className="text-center font-semibold text-gray-700 mb-2">Before</div>
-//                     <div className="h-64 rounded-lg overflow-hidden">
-//                       <img 
-//                         src={project.beforeAfter.before} 
-//                         alt="Before renovation"
-//                         className="w-full h-full object-cover"
-//                       />
-//                     </div>
-//                   </div>
-//                   <div>
-//                     <div className="text-center font-semibold text-gray-700 mb-2">After</div>
-//                     <div className="h-64 rounded-lg overflow-hidden">
-//                       <img 
-//                         src={project.beforeAfter.after} 
-//                         alt="After renovation"
-//                         className="w-full h-full object-cover"
-//                       />
-//                     </div>
-//                   </div>
-//                 </div>
-//               </div>
-//             )}
-//           </div>
-
-//           {/* Right Column - Details */}
-//           <div className="space-y-6">
-//             {/* Services Provided */}
-//             <div className="bg-white rounded-xl shadow p-6">
-//               <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-//                 <FaTools className="text-blue-600" />
-//                 Services Provided
-//               </h2>
-//               <ul className="space-y-3">
-//                 {project.services?.map((service, index) => (
-//                   <li key={index} className="flex items-center">
-//                     <FaCheckCircle className="text-green-500 mr-3 flex-shrink-0" />
-//                     <span>{service}</span>
-//                   </li>
-//                 ))}
-//               </ul>
-//             </div>
-
-//             {/* Project Team */}
-//             {project.team && (
-//               <div className="bg-white rounded-xl shadow p-6">
-//                 <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-//                   <FaUser className="text-green-600" />
-//                   Project Team
-//                 </h2>
-//                 <div className="space-y-4">
-//                   {project.team.map((member, index) => (
-//                     <div key={index} className="flex items-center gap-3">
-//                       <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-//                         <span className="font-semibold text-gray-700">
-//                           {member.name.split(' ').map(n => n[0]).join('')}
-//                         </span>
-//                       </div>
-//                       <div>
-//                         <div className="font-semibold">{member.name}</div>
-//                         <div className="text-sm text-gray-500">{member.role}</div>
-//                       </div>
-//                     </div>
-//                   ))}
-//                 </div>
-//               </div>
-//             )}
-
-//             {/* Specifications */}
-//             {project.specifications && (
-//               <div className="bg-white rounded-xl shadow p-6">
-//                 <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-//                   <FaClipboardList className="text-purple-600" />
-//                   Specifications
-//                 </h2>
-//                 <div className="space-y-3">
-//                   {Object.entries(project.specifications).map(([key, value]) => (
-//                     <div key={key} className="flex justify-between border-b pb-2">
-//                       <span className="text-gray-600 capitalize">{key.replace(/([A-Z])/g, ' $1')}:</span>
-//                       <span className="font-semibold">{value}</span>
-//                     </div>
-//                   ))}
-//                 </div>
-//               </div>
-//             )}
-
-//             {/* Testimonials */}
-//             {project.testimonials && (
-//               <div className="bg-white rounded-xl shadow p-6">
-//                 <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-//                   <FaStar className="text-amber-600" />
-//                   Client Feedback
-//                 </h2>
-//                 <div className="space-y-4">
-//                   {project.testimonials.map((testimonial, index) => (
-//                     <div key={index} className="border-l-4 border-amber-500 pl-4 py-2">
-//                       <div className="flex items-center gap-1 mb-2">
-//                         {[...Array(5)].map((_, i) => (
-//                           <FaStar key={i} className={i < testimonial.rating ? 'text-amber-400' : 'text-gray-300'} />
-//                         ))}
-//                       </div>
-//                       <p className="text-gray-600 italic mb-2">"{testimonial.text}"</p>
-//                       <div className="font-semibold">{testimonial.author}</div>
-//                     </div>
-//                   ))}
-//                 </div>
-//               </div>
-//             )}
-
-//             {/* CTA Card */}
-//             <div className="bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl shadow p-6 text-white">
-//               <h3 className="text-xl font-bold mb-3">Like This Project?</h3>
-//               <p className="mb-6">Get a free quote for your own tiling project</p>
-//               <div className="space-y-3">
-//                 <button className="w-full bg-white text-blue-600 font-semibold py-3 rounded-lg hover:bg-gray-100">
-//                   Request Similar Quote
-//                 </button>
-//                 <div className="flex items-center justify-center gap-4">
-//                   <button className="flex items-center gap-2 hover:text-blue-200">
-//                     <FaPhone />
-//                     <span>(03) 0000 0000</span>
-//                   </button>
-//                   <button className="flex items-center gap-2 hover:text-blue-200">
-//                     <FaEnvelope />
-//                     <span>Email Us</span>
-//                   </button>
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-
-//         {/* Challenges & Solutions (if available) */}
-//         {(project.challenges || project.solutions) && (
-//           <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
-//             {project.challenges && (
-//               <div className="bg-white rounded-xl shadow p-6">
-//                 <h2 className="text-xl font-bold text-gray-900 mb-4">Challenges</h2>
-//                 <ul className="space-y-2">
-//                   {project.challenges.map((challenge, index) => (
-//                     <li key={index} className="flex items-start">
-//                       <div className="w-6 h-6 bg-red-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
-//                         <span className="text-red-600 font-bold">!</span>
-//                       </div>
-//                       <span>{challenge}</span>
-//                     </li>
-//                   ))}
-//                 </ul>
-//               </div>
-//             )}
-
-//             {project.solutions && (
-//               <div className="bg-white rounded-xl shadow p-6">
-//                 <h2 className="text-xl font-bold text-gray-900 mb-4">Our Solutions</h2>
-//                 <ul className="space-y-2">
-//                   {project.solutions.map((solution, index) => (
-//                     <li key={index} className="flex items-start">
-//                       <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
-//                         <FaCheckCircle className="text-green-600" />
-//                       </div>
-//                       <span>{solution}</span>
-//                     </li>
-//                   ))}
-//                 </ul>
-//               </div>
-//             )}
-//           </div>
-//         )}
-
-//         {/* Related Projects */}
-//         <div className="mt-12">
-//           <h2 className="text-2xl font-bold text-gray-900 mb-6">Related Projects</h2>
-//           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-//             {projects
-//               .filter(p => p.category === project.category && p.id !== project.id)
-//               .slice(0, 3)
-//               .map(related => (
-//                 <div 
-//                   key={related.id}
-//                   onClick={() => router.push(`/projects/${related.id}`)}
-//                   className="bg-white rounded-xl shadow overflow-hidden hover:shadow-xl transition-shadow cursor-pointer"
-//                 >
-//                   {related.images && (
-//                     <div className="h-40 overflow-hidden">
-//                       <img 
-//                         src={related.images[0]} 
-//                         alt={related.title}
-//                         className="w-full h-full object-cover hover:scale-105 transition-transform"
-//                       />
-//                     </div>
-//                   )}
-//                   <div className="p-4">
-//                     <h3 className="font-bold text-gray-900 mb-2">{related.title}</h3>
-//                     <div className="flex justify-between text-sm text-gray-500">
-//                       <span>{related.location}</span>
-//                       <span className="font-semibold">{related.budget}</span>
-//                     </div>
-//                   </div>
-//                 </div>
-//               ))}
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// "use client";
-
-// import { useRouter } from "next/navigation";
-// import { useState } from "react";
-// import Image from "next/image";
-// import Link from "next/link";
-// import {
-//   FaArrowLeft,
-//   FaMapMarkerAlt,
-//   FaUser,
-//   FaDollarSign,
-//   FaClock,
-//   FaCheckCircle,
-//   FaTools,
-//   FaStar,
-//   FaPhone,
-//   FaEnvelope,
-//   FaImages,
-//   FaChevronLeft,
-//   FaChevronRight,
-//   FaClipboardList,
-//   FaCalendar,
-// } from "react-icons/fa";
-// import { projects } from "../lib/projectData";
-
-// export default function ProjectDetail({ project }) {
-//   const router = useRouter();
-//   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-//   if (!project) {
-//     return (
-//       <div className="min-h-screen flex items-center justify-center bg-gray-50">
-//         <div className="text-center">
-//           <h1 className="text-4xl font-bold text-[#292524] mb-4">
-//             Project Not Found
-//           </h1>
-//           <button
-//             onClick={() => router.push("/projects")}
-//             className="px-6 py-3 bg-[#C9A24D] text-white rounded-xl hover:bg-[#B8933E] transition-colors"
-//           >
-//             Back to Projects
-//           </button>
-//         </div>
-//       </div>
-//     );
-//   }
-
-//   const hasImages = project.images && project.images.length > 0;
-//   const totalImages = hasImages ? project.images.length : 0;
-
-//   const nextImage = () => {
-//     if (hasImages) {
-//       setCurrentImageIndex((prev) => (prev + 1) % totalImages);
-//     }
-//   };
-
-//   const prevImage = () => {
-//     if (hasImages) {
-//       setCurrentImageIndex((prev) => (prev - 1 + totalImages) % totalImages);
-//     }
-//   };
-
-//   const getStatusColor = (status) => {
-//     switch (status) {
-//       case "completed":
-//         return "bg-green-100 text-green-800";
-//       case "in-progress":
-//         return "bg-blue-100 text-blue-800";
-//       case "upcoming":
-//         return "bg-yellow-100 text-yellow-800";
-//       case "on-hold":
-//         return "bg-orange-100 text-orange-800";
-//       default:
-//         return "bg-gray-100 text-gray-800";
-//     }
-//   };
-
-//   const relatedProjects = projects
-//     .filter((p) => p.category === project.category && p.id !== project.id)
-//     .slice(0, 3);
-
-//   return (
-//     <div className="w-full bg-gray-50 py-16 px-8 rounded-t-[32px]">
-//       {/* Back Button Header */}
-//       {/* <div className="sticky top-0 z-10 bg-white shadow-sm border-b border-gray-100">
-//         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
-//           <button
-//             onClick={() => router.push("/projects")}
-//             className="flex items-center gap-2 text-[#78716C] hover:text-[#C9A24D] transition-colors"
-//           >
-//             <FaArrowLeft />
-//             <span className="font-medium">Back to Projects</span>
-//           </button>
-//         </div>
-//       </div> */}
-
-//       {/* Main Content */}
-//       <div className=" mx-auto px-4 sm:px-6 py-12">
-//         {/* Project Header */}
-//         <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 md:p-8 mb-8">
-//           <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6">
-//             <div className="flex-1">
-//               <div className="flex items-center gap-3 mb-4 flex-wrap">
-//                 <span className="bg-gray-100 text-[#3F3F46] text-sm font-medium px-3 py-1 rounded-full capitalize">
-//                   {project.category}
-//                 </span>
-//                 <span
-//                   className={`px-4 py-1 rounded-full text-sm font-bold ${getStatusColor(
-//                     project.status
-//                   )}`}
-//                 >
-//                   {project.status.replace("-", " ").toUpperCase()}
-//                 </span>
-//               </div>
-
-//               <h1 className="text-3xl md:text-4xl font-bold text-[#292524] mb-4">
-//                 {project.title}
-//               </h1>
-
-//               <p className="text-lg text-[#78716C] mb-8">{project.description}</p>
-
-//               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-//                 <div className="flex items-center gap-3 bg-gray-50 p-4 rounded-xl">
-//                   <div className="w-12 h-12 bg-[#C9A24D]/10 rounded-lg flex items-center justify-center">
-//                     <FaMapMarkerAlt className="text-[#C9A24D] text-lg" />
-//                   </div>
-//                   <div>
-//                     <div className="text-sm text-[#78716C]">Location</div>
-//                     <div className="font-semibold text-[#292524]">
-//                       {project.location}
-//                     </div>
-//                   </div>
-//                 </div>
-
-//                 <div className="flex items-center gap-3 bg-gray-50 p-4 rounded-xl">
-//                   <div className="w-12 h-12 bg-[#C9A24D]/10 rounded-lg flex items-center justify-center">
-//                     <FaUser className="text-[#C9A24D] text-lg" />
-//                   </div>
-//                   <div>
-//                     <div className="text-sm text-[#78716C]">Client</div>
-//                     <div className="font-semibold text-[#292524]">
-//                       {project.client}
-//                     </div>
-//                   </div>
-//                 </div>
-
-//                 <div className="flex items-center gap-3 bg-gray-50 p-4 rounded-xl">
-//                   <div className="w-12 h-12 bg-[#C9A24D]/10 rounded-lg flex items-center justify-center">
-//                     <FaDollarSign className="text-[#C9A24D] text-lg" />
-//                   </div>
-//                   <div>
-//                     <div className="text-sm text-[#78716C]">Budget</div>
-//                     <div className="font-semibold text-[#C9A24D]">
-//                       {project.budget}
-//                     </div>
-//                   </div>
-//                 </div>
-
-//                 <div className="flex items-center gap-3 bg-gray-50 p-4 rounded-xl">
-//                   <div className="w-12 h-12 bg-[#C9A24D]/10 rounded-lg flex items-center justify-center">
-//                     <FaClock className="text-[#C9A24D] text-lg" />
-//                   </div>
-//                   <div>
-//                     <div className="text-sm text-[#78716C]">Duration</div>
-//                     <div className="font-semibold text-[#292524]">
-//                       {project.duration}
-//                     </div>
-//                   </div>
-//                 </div>
-//               </div>
-//             </div>
-
-//             {/* Progress Bar for In-Progress Projects */}
-//             {project.progress !== undefined && (
-//               <div className="lg:w-72 bg-gray-50 p-6 rounded-xl">
-//                 <div className="text-center mb-4">
-//                   <span className="text-4xl font-bold text-[#C9A24D]">
-//                     {project.progress}%
-//                   </span>
-//                   <div className="text-sm text-[#78716C]">Complete</div>
-//                 </div>
-//                 <div className="w-full bg-gray-200 rounded-full h-3 mb-4">
-//                   <div
-//                     className="bg-[#C9A24D] h-3 rounded-full transition-all duration-300"
-//                     style={{ width: `${project.progress}%` }}
-//                   />
-//                 </div>
-//                 <div className="flex justify-between text-xs text-[#78716C]">
-//                   <span>Start: {project.startDate}</span>
-//                   <span>Target: {project.completionDate}</span>
-//                 </div>
-//               </div>
-//             )}
-//           </div>
-//         </div>
-
-//         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-//           {/* Left Column - Images & Gallery */}
-//           <div className="lg:col-span-2 space-y-8">
-//             {/* Main Image */}
-//             <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-//               {hasImages ? (
-//                 <div className="relative">
-//                   <div className="relative h-[400px] md:h-[500px]">
-//                     <Image
-//                       src={project.images[currentImageIndex]}
-//                       alt={`${project.title} - Image ${currentImageIndex + 1}`}
-//                       fill
-//                       className="object-cover"
-//                       sizes="(max-width: 1024px) 100vw, 66vw"
-//                     />
-//                   </div>
-
-//                   {/* Navigation Arrows */}
-//                   {totalImages > 1 && (
-//                     <>
-//                       <button
-//                         onClick={prevImage}
-//                         className="absolute left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white/90 rounded-full shadow-lg flex items-center justify-center hover:bg-white transition-colors"
-//                       >
-//                         <FaChevronLeft className="text-[#292524]" />
-//                       </button>
-//                       <button
-//                         onClick={nextImage}
-//                         className="absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white/90 rounded-full shadow-lg flex items-center justify-center hover:bg-white transition-colors"
-//                       >
-//                         <FaChevronRight className="text-[#292524]" />
-//                       </button>
-//                     </>
-//                   )}
-
-//                   {/* Image Counter */}
-//                   <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/60 text-white px-4 py-2 rounded-full text-sm font-medium">
-//                     {currentImageIndex + 1} / {totalImages}
-//                   </div>
-//                 </div>
-//               ) : (
-//                 <div className="h-[400px] bg-gradient-to-br from-gray-100 to-gray-200 flex flex-col items-center justify-center">
-//                   <FaImages className="text-[#78716C] text-5xl mb-4" />
-//                   <span className="text-[#78716C]">No images available</span>
-//                 </div>
-//               )}
-
-//               {/* Thumbnails */}
-//               {hasImages && totalImages > 1 && (
-//                 <div className="p-4 border-t border-gray-100">
-//                   <div className="flex gap-3 overflow-x-auto pb-2">
-//                     {project.images.map((img, index) => (
-//                       <button
-//                         key={index}
-//                         onClick={() => setCurrentImageIndex(index)}
-//                         className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all ${
-//                           currentImageIndex === index
-//                             ? "border-[#C9A24D] shadow-lg"
-//                             : "border-transparent opacity-60 hover:opacity-100"
-//                         }`}
-//                       >
-//                         <Image
-//                           src={img}
-//                           alt={`Thumbnail ${index + 1}`}
-//                           width={80}
-//                           height={80}
-//                           className="w-full h-full object-cover"
-//                         />
-//                       </button>
-//                     ))}
-//                   </div>
-//                 </div>
-//               )}
-//             </div>
-
-//             {/* Before/After Comparison */}
-//             {project.beforeAfter && (
-//               <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
-//                 <h2 className="text-xl font-bold text-[#292524] mb-6 flex items-center gap-2">
-//                   <FaImages className="text-[#C9A24D]" />
-//                   Before & After
-//                 </h2>
-//                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-//                   <div>
-//                     <div className="text-center font-semibold text-[#78716C] mb-3">
-//                       Before
-//                     </div>
-//                     <div className="relative h-64 rounded-xl overflow-hidden">
-//                       <Image
-//                         src={project.beforeAfter.before}
-//                         alt="Before renovation"
-//                         fill
-//                         className="object-cover"
-//                       />
-//                     </div>
-//                   </div>
-//                   <div>
-//                     <div className="text-center font-semibold text-[#78716C] mb-3">
-//                       After
-//                     </div>
-//                     <div className="relative h-64 rounded-xl overflow-hidden">
-//                       <Image
-//                         src={project.beforeAfter.after}
-//                         alt="After renovation"
-//                         fill
-//                         className="object-cover"
-//                       />
-//                     </div>
-//                   </div>
-//                 </div>
-//               </div>
-//             )}
-
-//             {/* Challenges & Solutions */}
-//             {(project.challenges || project.solutions) && (
-//               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-//                 {project.challenges && (
-//                   <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
-//                     <h2 className="text-xl font-bold text-[#292524] mb-4">
-//                       Challenges
-//                     </h2>
-//                     <ul className="space-y-3">
-//                       {project.challenges.map((challenge, index) => (
-//                         <li key={index} className="flex items-start">
-//                           <div className="w-6 h-6 bg-red-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
-//                             <span className="text-red-600 font-bold text-xs">
-//                               !
-//                             </span>
-//                           </div>
-//                           <span className="text-[#78716C]">{challenge}</span>
-//                         </li>
-//                       ))}
-//                     </ul>
-//                   </div>
-//                 )}
-
-//                 {project.solutions && (
-//                   <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
-//                     <h2 className="text-xl font-bold text-[#292524] mb-4">
-//                       Our Solutions
-//                     </h2>
-//                     <ul className="space-y-3">
-//                       {project.solutions.map((solution, index) => (
-//                         <li key={index} className="flex items-start">
-//                           <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
-//                             <FaCheckCircle className="text-green-600 text-xs" />
-//                           </div>
-//                           <span className="text-[#78716C]">{solution}</span>
-//                         </li>
-//                       ))}
-//                     </ul>
-//                   </div>
-//                 )}
-//               </div>
-//             )}
-//           </div>
-
-//           {/* Right Column - Details */}
-//           <div className="space-y-6">
-//             {/* Services Provided */}
-//             <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
-//               <h2 className="text-xl font-bold text-[#292524] mb-4 flex items-center gap-2">
-//                 <FaTools className="text-[#C9A24D]" />
-//                 Services Provided
-//               </h2>
-//               <ul className="space-y-3">
-//                 {project.services?.map((service, index) => (
-//                   <li key={index} className="flex items-center text-[#78716C]">
-//                     <FaCheckCircle className="text-[#C9A24D] mr-3 flex-shrink-0" />
-//                     <span>{service}</span>
-//                   </li>
-//                 ))}
-//               </ul>
-//             </div>
-
-//             {/* Project Team */}
-//             {project.team && (
-//               <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
-//                 <h2 className="text-xl font-bold text-[#292524] mb-4 flex items-center gap-2">
-//                   <FaUser className="text-[#C9A24D]" />
-//                   Project Team
-//                 </h2>
-//                 <div className="space-y-4">
-//                   {project.team.map((member, index) => (
-//                     <div key={index} className="flex items-center gap-3">
-//                       <div className="w-10 h-10 bg-[#C9A24D]/10 rounded-full flex items-center justify-center">
-//                         <span className="font-semibold text-[#C9A24D]">
-//                           {member.name
-//                             .split(" ")
-//                             .map((n) => n[0])
-//                             .join("")}
-//                         </span>
-//                       </div>
-//                       <div>
-//                         <div className="font-semibold text-[#292524]">
-//                           {member.name}
-//                         </div>
-//                         <div className="text-sm text-[#78716C]">{member.role}</div>
-//                       </div>
-//                     </div>
-//                   ))}
-//                 </div>
-//               </div>
-//             )}
-
-//             {/* Specifications */}
-//             {project.specifications && (
-//               <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
-//                 <h2 className="text-xl font-bold text-[#292524] mb-4 flex items-center gap-2">
-//                   <FaClipboardList className="text-[#C9A24D]" />
-//                   Specifications
-//                 </h2>
-//                 <div className="space-y-3">
-//                   {Object.entries(project.specifications).map(([key, value]) => (
-//                     <div
-//                       key={key}
-//                       className="flex justify-between border-b border-gray-100 pb-3"
-//                     >
-//                       <span className="text-[#78716C] capitalize">
-//                         {key.replace(/([A-Z])/g, " $1")}:
-//                       </span>
-//                       <span className="font-semibold text-[#292524]">{value}</span>
-//                     </div>
-//                   ))}
-//                 </div>
-//               </div>
-//             )}
-
-//             {/* Testimonials */}
-//             {project.testimonials && (
-//               <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
-//                 <h2 className="text-xl font-bold text-[#292524] mb-4 flex items-center gap-2">
-//                   <FaStar className="text-[#C9A24D]" />
-//                   Client Feedback
-//                 </h2>
-//                 <div className="space-y-4">
-//                   {project.testimonials.map((testimonial, index) => (
-//                     <div
-//                       key={index}
-//                       className="border-l-4 border-[#C9A24D] pl-4 py-2"
-//                     >
-//                       <div className="flex items-center gap-1 mb-2">
-//                         {[...Array(5)].map((_, i) => (
-//                           <FaStar
-//                             key={i}
-//                             className={
-//                               i < testimonial.rating
-//                                 ? "text-[#C9A24D]"
-//                                 : "text-gray-200"
-//                             }
-//                           />
-//                         ))}
-//                       </div>
-//                       <p className="text-[#78716C] italic mb-2">
-//                         "{testimonial.text}"
-//                       </p>
-//                       <div className="font-semibold text-[#292524]">
-//                         {testimonial.author}
-//                       </div>
-//                     </div>
-//                   ))}
-//                 </div>
-//               </div>
-//             )}
-
-//             {/* CTA Card */}
-//             <div className="bg-gradient-to-br from-[#292524] to-[#3F3F46] rounded-2xl shadow-lg p-6 text-white">
-//               <h3 className="text-xl font-bold mb-3">Like This Project?</h3>
-//               <p className="mb-6 text-gray-300">
-//                 Get a free quote for your own tiling project
-//               </p>
-//               <div className="space-y-3">
-//                 <button className="w-full bg-[#C9A24D] text-white font-semibold py-3 rounded-xl hover:bg-[#B8933E] transition-colors">
-//                   Request Similar Quote
-//                 </button>
-//                 <div className="flex items-center justify-center gap-6 text-sm pt-2">
-//                   <a
-//                     href="tel:0300000000"
-//                     className="flex items-center gap-2 hover:text-[#C9A24D] transition-colors"
-//                   >
-//                     <FaPhone />
-//                     <span>(03) 0000 0000</span>
-//                   </a>
-//                   <a
-//                     href="mailto:info@example.com"
-//                     className="flex items-center gap-2 hover:text-[#C9A24D] transition-colors"
-//                   >
-//                     <FaEnvelope />
-//                     <span>Email Us</span>
-//                   </a>
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-
-//         {/* Related Projects */}
-//         {relatedProjects.length > 0 && (
-//           <div className="mt-16">
-//             <h2 className="text-2xl font-bold text-[#292524] mb-8">
-//               Related Projects
-//             </h2>
-//             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-//               {relatedProjects.map((related) => (
-//                 <div
-//                   key={related.id}
-//                   onClick={() => router.push(`/projects/${related.slug}`)}
-//                   className="group bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl transition-all cursor-pointer"
-//                 >
-//                   {related.images && (
-//                     <div className="relative h-48 overflow-hidden">
-//                       <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent z-10"></div>
-//                       <Image
-//                         src={related.images[0]}
-//                         alt={related.title}
-//                         fill
-//                         className="object-cover group-hover:scale-110 transition-transform duration-500"
-//                       />
-//                     </div>
-//                   )}
-//                   <div className="p-5">
-//                     <h3 className="font-bold text-[#292524] mb-2 group-hover:text-[#C9A24D] transition-colors">
-//                       {related.title}
-//                     </h3>
-//                     <div className="flex justify-between text-sm text-[#78716C]">
-//                       <span>{related.location}</span>
-//                       <span className="font-semibold text-[#C9A24D]">
-//                         {related.budget}
-//                       </span>
-//                     </div>
-//                   </div>
-//                 </div>
-//               ))}
-//             </div>
-//           </div>
-//         )}
-//       </div>
-//     </div>
-//   );
-// }
-
-
-
 "use client";
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import {
-    FaArrowLeft,
-    FaMapMarkerAlt,
-    FaUser,
-    FaDollarSign,
-    FaClock,
-    FaCheckCircle,
-    FaTools,
-    FaStar,
-    FaPhone,
-    FaEnvelope,
-    FaImages,
-    FaChevronLeft,
-    FaChevronRight,
-    FaClipboardList,
-    FaCalendar,
-    FaBuilding,
-    FaAward,
+  FaArrowLeft,
+  FaMapMarkerAlt,
+  FaUser,
+  FaDollarSign,
+  FaClock,
+  FaCheckCircle,
+  FaImages,
+  FaChevronLeft,
+  FaChevronRight,
+  FaCalendar,
+  FaBuilding,
+  FaStar,
+  FaChevronRight as FaArrowRight,
 } from "react-icons/fa";
 import { projects } from "../lib/projectData";
 
+const fadeInUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.08, duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+  }),
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.06, delayChildren: 0.1 },
+  },
+};
+
+const staggerItem = {
+  hidden: { opacity: 0, y: 16 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+};
+
 export default function ProjectDetail({ project }) {
-    const router = useRouter();
-    const [selectedImage, setSelectedImage] = useState(0);
+  const router = useRouter();
+  const [selectedImage, setSelectedImage] = useState(0);
 
-    if (!project) {
-        return (
-            <div className="min-h-screen flex items-center justify-center bg-gray-50">
-                <div className="text-center">
-                    <h1 className="text-4xl font-bold text-[#292524] mb-4">
-                        Project Not Found
-                    </h1>
-                    <button
-                        onClick={() => router.push("/projects")}
-                        className="px-6 py-3 bg-[#C9A24D] text-white rounded-xl hover:bg-[#B8933E] transition-colors"
-                    >
-                        Back to Projects
-                    </button>
-                </div>
-            </div>
-        );
-    }
-
-    const hasImages = project.images && project.images.length > 0;
-    const totalImages = hasImages ? project.images.length : 0;
-
-    const nextImage = () => {
-        if (hasImages) {
-            setSelectedImage((prev) => (prev + 1) % totalImages);
-        }
-    };
-
-    const prevImage = () => {
-        if (hasImages) {
-            setSelectedImage((prev) => (prev - 1 + totalImages) % totalImages);
-        }
-    };
-
-    const getStatusColor = (status) => {
-        switch (status) {
-            case "completed":
-                return "bg-green-500/20 text-green-100";
-            case "in-progress":
-                return "bg-blue-500/20 text-blue-100";
-            case "upcoming":
-                return "bg-yellow-500/20 text-yellow-100";
-            case "on-hold":
-                return "bg-orange-500/20 text-orange-100";
-            default:
-                return "bg-white/20 text-white";
-        }
-    };
-
-    const getStatusColorLight = (status) => {
-        switch (status) {
-            case "completed":
-                return "bg-green-100 text-green-800";
-            case "in-progress":
-                return "bg-blue-100 text-blue-800";
-            case "upcoming":
-                return "bg-yellow-100 text-yellow-800";
-            case "on-hold":
-                return "bg-orange-100 text-orange-800";
-            default:
-                return "bg-gray-100 text-gray-800";
-        }
-    };
-
-    const relatedProjects = projects
-        .filter((p) => p.category === project.category && p.id !== project.id)
-        .slice(0, 3);
-
+  if (!project) {
     return (
-        <>
-            <div className="w-full bg-gray-50 py-16 px-8">
-                {/* Hero Section */}
-                <div className="relative h-[60vh] overflow-hidden rounded-t-[32px]">
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#111827]/95 to-[#3F3F46]/90 z-10"></div>
-                    {hasImages && (
-                        <Image
-                            src={project.images[selectedImage]}
-                            alt={`${project.title} - Melbourne Project`}
-                            fill
-                            className="object-cover"
-                            priority
-                        />
-                    )}
-                    <div className="relative z-20 h-full flex items-center justify-center px-6">
-                        <div className="text-center max-w-4xl">
-                            {/* Status & Category Badges */}
-                            <div className="flex flex-wrap items-center justify-center gap-3 mb-6">
-                                <div className="inline-block bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
-                                    <span className="text-white text-sm font-medium capitalize">
-                                        {project.category} Project
-                                    </span>
-                                </div>
-                                <div
-                                    className={`inline-block backdrop-blur-sm px-4 py-2 rounded-full ${getStatusColor(
-                                        project.status
-                                    )}`}
-                                >
-                                    <span className="text-sm font-bold">
-                                        {project.status.replace("-", " ").toUpperCase()}
-                                    </span>
-                                </div>
-                            </div>
-
-                            <h1 className="text-5xl md:text-6xl text-white font-bold mb-6">
-                                {project.title}
-                            </h1>
-                            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-                                {project.description}
-                            </p>
-
-                            {/* Quick Info Tags */}
-                            <div className="flex flex-wrap items-center justify-center gap-4 text-white">
-                                <span className="bg-[#C9A24D]/20 backdrop-blur-sm px-4 py-2 rounded-lg flex items-center gap-2">
-                                    <FaDollarSign />
-                                    {project.budget}
-                                </span>
-                                <span className="bg-[#3F3F46]/50 backdrop-blur-sm px-4 py-2 rounded-lg flex items-center gap-2">
-                                    <FaClock />
-                                    {project.duration}
-                                </span>
-                                <span className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg flex items-center gap-2">
-                                    <FaMapMarkerAlt />
-                                    {project.location}
-                                </span>
-                            </div>
-
-                            {/* Progress Indicator for In-Progress Projects */}
-                            {project.progress !== undefined && project.progress < 100 && (
-                                <div className="mt-8 max-w-md mx-auto">
-                                    <div className="flex justify-between text-white/80 text-sm mb-2">
-                                        <span>Project Progress</span>
-                                        <span>{project.progress}%</span>
-                                    </div>
-                                    <div className="w-full bg-white/20 rounded-full h-3">
-                                        <div
-                                            className="bg-[#C9A24D] h-3 rounded-full transition-all duration-300"
-                                            style={{ width: `${project.progress}%` }}
-                                        />
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                </div>
-
-                <div className="max-w-7xl mx-auto px-6 py-16">
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-                        {/* Main Content */}
-                        <div className="lg:col-span-2">
-                            {/* Project Overview */}
-                            <div className="mb-12">
-                                <div className="flex items-center gap-3 mb-6">
-                                    <h2 className="text-3xl font-bold text-[#292524]">
-                                        Project Overview
-                                    </h2>
-                                    <span className="bg-[#C9A24D] text-white text-xs font-bold px-3 py-1 rounded-full">
-                                        {project.location.split(",")[0]}
-                                    </span>
-                                </div>
-                                <p className="text-lg text-[#78716C] leading-relaxed mb-8">
-                                    {project.description}
-                                </p>
-
-                                {/* Project Details Grid */}
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-                                    <div className="flex items-center gap-4 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
-                                        <div className="w-12 h-12 bg-[#C9A24D]/10 rounded-lg flex items-center justify-center">
-                                            <FaUser className="text-[#C9A24D] text-xl" />
-                                        </div>
-                                        <div>
-                                            <div className="text-sm text-[#78716C]">Client</div>
-                                            <div className="font-semibold text-[#292524]">
-                                                {project.client}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="flex items-center gap-4 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
-                                        <div className="w-12 h-12 bg-[#C9A24D]/10 rounded-lg flex items-center justify-center">
-                                            <FaCalendar className="text-[#C9A24D] text-xl" />
-                                        </div>
-                                        <div>
-                                            <div className="text-sm text-[#78716C]">Timeline</div>
-                                            <div className="font-semibold text-[#292524]">
-                                                {project.startDate} - {project.completionDate}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="flex items-center gap-4 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
-                                        <div className="w-12 h-12 bg-[#C9A24D]/10 rounded-lg flex items-center justify-center">
-                                            <FaDollarSign className="text-[#C9A24D] text-xl" />
-                                        </div>
-                                        <div>
-                                            <div className="text-sm text-[#78716C]">Project Value</div>
-                                            <div className="font-semibold text-[#C9A24D]">
-                                                {project.budget}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="flex items-center gap-4 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
-                                        <div className="w-12 h-12 bg-[#C9A24D]/10 rounded-lg flex items-center justify-center">
-                                            <FaClock className="text-[#C9A24D] text-xl" />
-                                        </div>
-                                        <div>
-                                            <div className="text-sm text-[#78716C]">Duration</div>
-                                            <div className="font-semibold text-[#292524]">
-                                                {project.duration}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Location Info */}
-                                <div className="bg-blue-50 border border-blue-100 rounded-xl p-6 mb-8">
-                                    <h3 className="text-xl font-bold text-[#292524] mb-3 flex items-center gap-2">
-                                        <FaMapMarkerAlt className="text-blue-600" />
-                                        Project Location
-                                    </h3>
-                                    <div className="flex flex-wrap gap-2">
-                                        <span className="bg-white px-4 py-2 rounded-lg text-[#292524] border border-gray-200 font-medium">
-                                            {project.location}
-                                        </span>
-                                        <span
-                                            className={`px-4 py-2 rounded-lg font-medium ${getStatusColorLight(
-                                                project.status
-                                            )}`}
-                                        >
-                                            {project.status.replace("-", " ").toUpperCase()}
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Project Gallery */}
-                            <div className="mb-12">
-                                <h3 className="text-2xl font-bold text-[#292524] mb-6">
-                                    Project Gallery
-                                </h3>
-
-                                {/* Main Image Display */}
-                                <div className="relative mb-6 rounded-xl overflow-hidden shadow-lg">
-                                    {hasImages ? (
-                                        <>
-                                            <div className="relative h-[400px] md:h-[500px]">
-                                                <Image
-                                                    src={project.images[selectedImage]}
-                                                    alt={`${project.title} - Image ${selectedImage + 1}`}
-                                                    fill
-                                                    className="object-cover"
-                                                />
-                                            </div>
-
-                                            {/* Navigation Arrows */}
-                                            {totalImages > 1 && (
-                                                <>
-                                                    <button
-                                                        onClick={prevImage}
-                                                        className="absolute left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white/90 rounded-full shadow-lg flex items-center justify-center hover:bg-white transition-colors"
-                                                    >
-                                                        <FaChevronLeft className="text-[#292524]" />
-                                                    </button>
-                                                    <button
-                                                        onClick={nextImage}
-                                                        className="absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white/90 rounded-full shadow-lg flex items-center justify-center hover:bg-white transition-colors"
-                                                    >
-                                                        <FaChevronRight className="text-[#292524]" />
-                                                    </button>
-                                                </>
-                                            )}
-
-                                            {/* Image Counter */}
-                                            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/60 text-white px-4 py-2 rounded-full text-sm font-medium">
-                                                {selectedImage + 1} / {totalImages}
-                                            </div>
-                                        </>
-                                    ) : (
-                                        <div className="h-[400px] bg-gradient-to-br from-gray-100 to-gray-200 flex flex-col items-center justify-center">
-                                            <FaImages className="text-[#78716C] text-5xl mb-4" />
-                                            <span className="text-[#78716C]">No images available</span>
-                                        </div>
-                                    )}
-                                </div>
-
-                                {/* Thumbnails */}
-                                {hasImages && totalImages > 1 && (
-                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                        {project.images.map((img, index) => (
-                                            <button
-                                                key={index}
-                                                onClick={() => setSelectedImage(index)}
-                                                className={`relative h-24 md:h-32 rounded-lg overflow-hidden transition-all ${selectedImage === index
-                                                        ? "ring-2 ring-[#C9A24D] ring-offset-2"
-                                                        : "opacity-70 hover:opacity-100"
-                                                    }`}
-                                            >
-                                                <Image
-                                                    src={img}
-                                                    alt={`${project.title} thumbnail ${index + 1}`}
-                                                    fill
-                                                    className="object-cover"
-                                                />
-                                            </button>
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
-
-                            {/* Services Provided */}
-                            <div className="mb-12">
-                                <h3 className="text-2xl font-bold text-[#292524] mb-6">
-                                    Services Provided
-                                </h3>
-                                <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
-                                    <ul className="space-y-4">
-                                        {project.services?.map((service, i) => (
-                                            <li key={i} className="flex items-start group">
-                                                <div className="flex-shrink-0 w-8 h-8 bg-[#C9A24D]/10 rounded-full flex items-center justify-center mr-4 mt-1 group-hover:bg-[#C9A24D] transition-colors">
-                                                    <FaCheckCircle className="text-[#C9A24D] group-hover:text-white transition-colors" />
-                                                </div>
-                                                <span className="text-[#78716C] text-lg">{service}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </div>
-
-                            {/* Specifications */}
-                            {project.specifications && (
-                                <div className="mb-12 bg-gradient-to-r from-[#C9A24D]/5 to-[#3F3F46]/5 rounded-xl p-8">
-                                    <h3 className="text-2xl font-bold text-[#292524] mb-6">
-                                        Project Specifications
-                                    </h3>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                        {Object.entries(project.specifications).map(
-                                            ([key, value]) => (
-                                                <div key={key} className="bg-white p-6 rounded-xl shadow">
-                                                    <h4 className="font-bold text-[#78716C] mb-2 capitalize">
-                                                        {key.replace(/([A-Z])/g, " $1")}
-                                                    </h4>
-                                                    <div className="text-xl font-bold text-[#292524]">
-                                                        {value}
-                                                    </div>
-                                                </div>
-                                            )
-                                        )}
-                                    </div>
-                                </div>
-                            )}
-
-                            {/* Before/After Comparison */}
-                            {project.beforeAfter && (
-                                <div className="mb-12">
-                                    <h3 className="text-2xl font-bold text-[#292524] mb-6 flex items-center gap-2">
-                                        <FaImages className="text-[#C9A24D]" />
-                                        Before & After Transformation
-                                    </h3>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                        <div className="bg-white rounded-xl p-4 shadow-lg border border-gray-100">
-                                            <div className="text-center font-semibold text-[#78716C] mb-3 flex items-center justify-center gap-2">
-                                                <span className="w-3 h-3 bg-red-400 rounded-full"></span>
-                                                Before
-                                            </div>
-                                            <div className="relative h-64 rounded-lg overflow-hidden">
-                                                <Image
-                                                    src={project.beforeAfter.before}
-                                                    alt="Before renovation"
-                                                    fill
-                                                    className="object-cover"
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="bg-white rounded-xl p-4 shadow-lg border border-gray-100">
-                                            <div className="text-center font-semibold text-[#78716C] mb-3 flex items-center justify-center gap-2">
-                                                <span className="w-3 h-3 bg-green-400 rounded-full"></span>
-                                                After
-                                            </div>
-                                            <div className="relative h-64 rounded-lg overflow-hidden">
-                                                <Image
-                                                    src={project.beforeAfter.after}
-                                                    alt="After renovation"
-                                                    fill
-                                                    className="object-cover"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-
-                            {/* Challenges & Solutions */}
-                            {(project.challenges || project.solutions) && (
-                                <div className="mb-12">
-                                    <h3 className="text-2xl font-bold text-[#292524] mb-6">
-                                        Challenges & Solutions
-                                    </h3>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                        {project.challenges && (
-                                            <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
-                                                <h4 className="font-bold text-[#292524] mb-4 flex items-center gap-2">
-                                                    <span className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">
-                                                        <span className="text-red-600 font-bold">!</span>
-                                                    </span>
-                                                    Project Challenges
-                                                </h4>
-                                                <ul className="space-y-3">
-                                                    {project.challenges.map((challenge, index) => (
-                                                        <li
-                                                            key={index}
-                                                            className="flex items-start text-[#78716C]"
-                                                        >
-                                                            <div className="w-2 h-2 bg-red-400 rounded-full mr-3 mt-2 flex-shrink-0"></div>
-                                                            {challenge}
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            </div>
-                                        )}
-
-                                        {project.solutions && (
-                                            <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
-                                                <h4 className="font-bold text-[#292524] mb-4 flex items-center gap-2">
-                                                    <span className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                                                        <FaCheckCircle className="text-green-600" />
-                                                    </span>
-                                                    Our Solutions
-                                                </h4>
-                                                <ul className="space-y-3">
-                                                    {project.solutions.map((solution, index) => (
-                                                        <li
-                                                            key={index}
-                                                            className="flex items-start text-[#78716C]"
-                                                        >
-                                                            <div className="w-2 h-2 bg-green-400 rounded-full mr-3 mt-2 flex-shrink-0"></div>
-                                                            {solution}
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                            )}
-
-                            {/* Client Testimonial */}
-                            {project.testimonials && project.testimonials.length > 0 && (
-                                <div className="mb-12 bg-white rounded-xl p-8 shadow-lg border border-gray-100">
-                                    <h3 className="text-2xl font-bold text-[#292524] mb-6 flex items-center gap-2">
-                                        <FaStar className="text-[#C9A24D]" />
-                                        Client Feedback
-                                    </h3>
-                                    <div className="space-y-6">
-                                        {project.testimonials.map((testimonial, index) => (
-                                            <div
-                                                key={index}
-                                                className="border-l-4 border-[#C9A24D] pl-6 py-4"
-                                            >
-                                                <div className="flex items-center gap-1 mb-3">
-                                                    {[...Array(5)].map((_, i) => (
-                                                        <FaStar
-                                                            key={i}
-                                                            className={
-                                                                i < testimonial.rating
-                                                                    ? "text-[#C9A24D]"
-                                                                    : "text-gray-200"
-                                                            }
-                                                        />
-                                                    ))}
-                                                </div>
-                                                <p className="text-[#78716C] italic mb-3 text-lg">
-                                                    "{testimonial.text}"
-                                                </p>
-                                                <div className="flex items-center gap-3">
-                                                    <div className="w-10 h-10 bg-[#C9A24D]/10 rounded-full flex items-center justify-center">
-                                                        <span className="font-semibold text-[#C9A24D]">
-                                                            {testimonial.author
-                                                                .split(" ")
-                                                                .map((n) => n[0])
-                                                                .join("")}
-                                                        </span>
-                                                    </div>
-                                                    <div>
-                                                        <div className="font-bold text-[#292524]">
-                                                            {testimonial.author}
-                                                        </div>
-                                                        <div className="text-sm text-[#78716C]">
-                                                            {project.location}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-
-                        {/* Sidebar */}
-                        <div className="lg:col-span-1">
-                            <div className="sticky top-24 space-y-8">
-                                {/* Primary CTA Card */}
-                                <div className="bg-gradient-to-br from-[#292524] to-[#3F3F46] rounded-xl p-8 shadow-xl">
-                                    <h3 className="text-2xl font-bold text-white mb-4">
-                                        Like This Project?
-                                    </h3>
-                                    <p className="text-white/80 mb-6">
-                                        Get a free quote for your own tiling project in Melbourne
-                                    </p>
-                                    <Link
-                                        href="/contact"
-                                        className="block w-full bg-gradient-to-r from-[#C9A24D] to-[#B89246] hover:from-[#B89246] hover:to-[#A8823E] text-white text-center font-semibold py-4 px-6 rounded-lg transition-all duration-300 hover:shadow-lg mb-4"
-                                    >
-                                        Request Similar Quote
-                                    </Link>
-                                    <div className="text-center">
-                                        <div className="text-white/60 text-sm mb-2">
-                                            Or call us directly
-                                        </div>
-                                        <a
-                                            href="tel:+61300000000"
-                                            className="text-white text-xl font-bold hover:text-[#C9A24D] transition-colors"
-                                        >
-                                            (03) 0000 0000
-                                        </a>
-                                    </div>
-                                </div>
-
-                                {/* Project Summary Card */}
-                                <div className="bg-white rounded-xl p-8 shadow-lg border border-gray-100">
-                                    <h4 className="text-xl font-bold text-[#292524] mb-6">
-                                        Project Summary
-                                    </h4>
-                                    <div className="space-y-4">
-                                        <div className="flex items-center">
-                                            <div className="w-10 h-10 bg-[#C9A24D]/10 rounded-lg flex items-center justify-center mr-4">
-                                                <FaBuilding className="text-[#C9A24D]" />
-                                            </div>
-                                            <div>
-                                                <p className="text-sm text-[#78716C]">Project Type</p>
-                                                <p className="font-semibold text-[#292524] capitalize">
-                                                    {project.category}
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div className="flex items-center">
-                                            <div className="w-10 h-10 bg-[#3F3F46]/10 rounded-lg flex items-center justify-center mr-4">
-                                                <FaClock className="text-[#3F3F46]" />
-                                            </div>
-                                            <div>
-                                                <p className="text-sm text-[#78716C]">Duration</p>
-                                                <p className="font-semibold text-[#292524]">
-                                                    {project.duration}
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div className="flex items-center">
-                                            <div className="w-10 h-10 bg-[#C9A24D]/10 rounded-lg flex items-center justify-center mr-4">
-                                                <FaDollarSign className="text-[#C9A24D]" />
-                                            </div>
-                                            <div>
-                                                <p className="text-sm text-[#78716C]">Project Value</p>
-                                                <p className="font-semibold text-[#C9A24D]">
-                                                    {project.budget}
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div className="flex items-center">
-                                            <div className="w-10 h-10 bg-[#3F3F46]/10 rounded-lg flex items-center justify-center mr-4">
-                                                <FaMapMarkerAlt className="text-[#3F3F46]" />
-                                            </div>
-                                            <div>
-                                                <p className="text-sm text-[#78716C]">Location</p>
-                                                <p className="font-semibold text-[#292524]">
-                                                    {project.location}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {/* Progress Bar */}
-                                    {project.progress !== undefined && (
-                                        <div className="mt-6 pt-6 border-t border-gray-200">
-                                            <div className="flex justify-between text-sm mb-2">
-                                                <span className="text-[#78716C]">Progress</span>
-                                                <span className="font-bold text-[#C9A24D]">
-                                                    {project.progress}%
-                                                </span>
-                                            </div>
-                                            <div className="w-full bg-gray-200 rounded-full h-3">
-                                                <div
-                                                    className="bg-[#C9A24D] h-3 rounded-full transition-all duration-300"
-                                                    style={{ width: `${project.progress}%` }}
-                                                />
-                                            </div>
-                                        </div>
-                                    )}
-
-                                    <div className="mt-8 pt-8 border-t border-gray-200">
-                                        <h5 className="font-bold text-[#292524] mb-4">
-                                            Why Choose Us
-                                        </h5>
-                                        <ul className="space-y-2">
-                                            <li className="flex items-center text-sm text-[#78716C]">
-                                                <svg
-                                                    className="w-4 h-4 text-green-600 mr-2"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    viewBox="0 0 24 24"
-                                                >
-                                                    <path
-                                                        strokeLinecap="round"
-                                                        strokeLinejoin="round"
-                                                        strokeWidth={2}
-                                                        d="M5 13l4 4L19 7"
-                                                    />
-                                                </svg>
-                                                Local Melbourne Experts
-                                            </li>
-                                            <li className="flex items-center text-sm text-[#78716C]">
-                                                <svg
-                                                    className="w-4 h-4 text-green-600 mr-2"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    viewBox="0 0 24 24"
-                                                >
-                                                    <path
-                                                        strokeLinecap="round"
-                                                        strokeLinejoin="round"
-                                                        strokeWidth={2}
-                                                        d="M5 13l4 4L19 7"
-                                                    />
-                                                </svg>
-                                                Quality Guaranteed
-                                            </li>
-                                            <li className="flex items-center text-sm text-[#78716C]">
-                                                <svg
-                                                    className="w-4 h-4 text-green-600 mr-2"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    viewBox="0 0 24 24"
-                                                >
-                                                    <path
-                                                        strokeLinecap="round"
-                                                        strokeLinejoin="round"
-                                                        strokeWidth={2}
-                                                        d="M5 13l4 4L19 7"
-                                                    />
-                                                </svg>
-                                                On-Time Completion
-                                            </li>
-                                            <li className="flex items-center text-sm text-[#78716C]">
-                                                <svg
-                                                    className="w-4 h-4 text-green-600 mr-2"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    viewBox="0 0 24 24"
-                                                >
-                                                    <path
-                                                        strokeLinecap="round"
-                                                        strokeLinejoin="round"
-                                                        strokeWidth={2}
-                                                        d="M5 13l4 4L19 7"
-                                                    />
-                                                </svg>
-                                                Premium Materials
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                {/* Project Team */}
-                                {project.team && (
-                                    <div className="bg-white rounded-xl p-8 shadow-lg border border-gray-100">
-                                        <h4 className="text-xl font-bold text-[#292524] mb-6 flex items-center gap-2">
-                                            <FaUser className="text-[#C9A24D]" />
-                                            Project Team
-                                        </h4>
-                                        <div className="space-y-4">
-                                            {project.team.map((member, index) => (
-                                                <div key={index} className="flex items-center gap-3">
-                                                    <div className="w-12 h-12 bg-[#C9A24D]/10 rounded-full flex items-center justify-center">
-                                                        <span className="font-semibold text-[#C9A24D]">
-                                                            {member.name
-                                                                .split(" ")
-                                                                .map((n) => n[0])
-                                                                .join("")}
-                                                        </span>
-                                                    </div>
-                                                    <div>
-                                                        <div className="font-semibold text-[#292524]">
-                                                            {member.name}
-                                                        </div>
-                                                        <div className="text-sm text-[#78716C]">
-                                                            {member.role}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
-
-                                {/* Related Projects */}
-                                {relatedProjects.length > 0 && (
-                                    <div className="bg-white rounded-xl p-8 shadow-lg border border-gray-100">
-                                        <h4 className="text-xl font-bold text-[#292524] mb-6">
-                                            Similar Projects
-                                        </h4>
-                                        <div className="space-y-4">
-                                            {relatedProjects.map((related) => (
-                                                <Link
-                                                    key={related.id}
-                                                    href={`/projects/${related.slug}`}
-                                                    className="block p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 group"
-                                                >
-                                                    <div className="flex gap-4">
-                                                        {related.images && related.images[0] && (
-                                                            <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
-                                                                <Image
-                                                                    src={related.images[0]}
-                                                                    alt={related.title}
-                                                                    fill
-                                                                    className="object-cover"
-                                                                />
-                                                            </div>
-                                                        )}
-                                                        <div className="flex-1 min-w-0">
-                                                            <div className="font-semibold text-[#292524] group-hover:text-[#C9A24D] transition-colors truncate">
-                                                                {related.title}
-                                                            </div>
-                                                            <div className="text-sm text-[#78716C]">
-                                                                {related.location}
-                                                            </div>
-                                                            <div className="text-sm font-semibold text-[#C9A24D]">
-                                                                {related.budget}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </Link>
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Bottom CTA */}
-                    <div className="mt-16 bg-gradient-to-r from-[#111827] to-[#3F3F46] rounded-2xl p-12 text-center">
-                        <h3 className="text-3xl font-bold text-white mb-6">
-                            Ready to Start Your Own Project?
-                        </h3>
-                        <p className="text-white/90 text-xl mb-8 max-w-2xl mx-auto">
-                            Contact us today for a free, no-obligation quote on your{" "}
-                            {project.category} project in Melbourne.
-                        </p>
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <Link
-                                href="/contact"
-                                className="bg-gradient-to-r from-[#C9A24D] to-[#B89246] text-white font-bold py-3 px-8 rounded-xl hover:shadow-lg transition-all"
-                            >
-                                Get Your Free Quote
-                            </Link>
-                            <a
-                                href="tel:+61300000000"
-                                className="bg-white text-[#111827] font-bold py-3 px-8 rounded-xl hover:bg-gray-100 transition-all"
-                            >
-                                Call: (03) 0000 0000
-                            </a>
-                        </div>
-                    </div>
-
-                    {/* More Related Projects Grid */}
-                    {relatedProjects.length > 0 && (
-                        <div className="mt-16">
-                            <div className="flex items-center justify-between mb-8">
-                                <h2 className="text-2xl font-bold text-[#292524]">
-                                    More {project.category.charAt(0).toUpperCase() + project.category.slice(1)} Projects
-                                </h2>
-                                <Link
-                                    href="/projects"
-                                    className="text-[#C9A24D] hover:text-[#B89246] font-medium flex items-center gap-2"
-                                >
-                                    View All Projects
-                                    <FaChevronRight />
-                                </Link>
-                            </div>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                {relatedProjects.map((related) => (
-                                    <div
-                                        key={related.id}
-                                        onClick={() => router.push(`/projects/${related.slug}`)}
-                                        className="group bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl transition-all cursor-pointer"
-                                    >
-                                        {related.images && (
-                                            <div className="relative h-48 overflow-hidden">
-                                                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent z-10"></div>
-                                                <div className="absolute top-4 left-4 z-20">
-                                                    <span className="bg-white/20 backdrop-blur-sm text-white text-sm font-medium px-3 py-1 rounded-full">
-                                                        {related.location.split(",")[0]}
-                                                    </span>
-                                                </div>
-                                                <Image
-                                                    src={related.images[0]}
-                                                    alt={related.title}
-                                                    fill
-                                                    className="object-cover group-hover:scale-110 transition-transform duration-500"
-                                                />
-                                            </div>
-                                        )}
-                                        <div className="p-6">
-                                            <h3 className="font-bold text-[#292524] mb-2 group-hover:text-[#C9A24D] transition-colors">
-                                                {related.title}
-                                            </h3>
-                                            <p className="text-sm text-[#78716C] mb-4 line-clamp-2">
-                                                {related.description}
-                                            </p>
-                                            <div className="flex justify-between items-center">
-                                                <span className="text-sm text-[#78716C]">
-                                                    {related.duration}
-                                                </span>
-                                                <span className="font-semibold text-[#C9A24D]">
-                                                    {related.budget}
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    )}
-                </div>
-            </div>
-        </>
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <motion.div
+          className="text-center"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+        >
+          <h1 className="font-bebas text-4xl text-text-primary mb-4">Project Not Found</h1>
+          <motion.button
+            onClick={() => router.push("/projects")}
+            className="px-6 py-3 bg-accent text-white rounded-xl font-semibold"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            Back to Projects
+          </motion.button>
+        </motion.div>
+      </div>
     );
+  }
+
+  const hasImages = project.images?.length > 0;
+  const totalImages = hasImages ? project.images.length : 0;
+
+  const nextImage = () => hasImages && setSelectedImage((prev) => (prev + 1) % totalImages);
+  const prevImage = () => hasImages && setSelectedImage((prev) => (prev - 1 + totalImages) % totalImages);
+
+  const getStatusColor = (status) => {
+    switch (status) {
+      case "completed":
+        return "bg-emerald-500/20 text-emerald-100";
+      case "in-progress":
+        return "bg-accent/30 text-white";
+      case "upcoming":
+        return "bg-amber-500/20 text-amber-100";
+      case "on-hold":
+        return "bg-orange-500/20 text-orange-100";
+      default:
+        return "bg-white/20 text-white";
+    }
+  };
+
+  const getStatusColorLight = (status) => {
+    switch (status) {
+      case "completed":
+        return "bg-emerald-100 text-emerald-800";
+      case "in-progress":
+        return "bg-accent/10 text-accent";
+      case "upcoming":
+        return "bg-amber-100 text-amber-800";
+      case "on-hold":
+        return "bg-orange-100 text-orange-800";
+      default:
+        return "bg-accent-secondary/10 text-accent-secondary";
+    }
+  };
+
+  const relatedProjects = projects
+    .filter((p) => p.category === project.category && p.id !== project.id)
+    .slice(0, 3);
+
+  return (
+    <main className="w-full min-h-screen bg-background overflow-hidden">
+      {/* Back Button */}
+      <motion.div
+        className="sticky top-0 z-20 bg-background/80 backdrop-blur-md border-b border-border"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
+          <motion.button
+            onClick={() => router.push("/projects")}
+            className="flex items-center gap-2 text-text-muted hover:text-text-primary font-medium transition-colors"
+            whileHover={{ x: -4 }}
+          >
+            <FaArrowLeft className="text-sm" /> Back to Projects
+          </motion.button>
+        </div>
+      </motion.div>
+
+      {/* Hero */}
+      <section className="relative w-full">
+        <motion.div
+          className="relative h-[50vh] sm:h-[55vh] md:h-[60vh] overflow-hidden"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-surface-dark/90 to-primary/95 z-10" />
+          {hasImages ? (
+            <Image
+              src={project.images[selectedImage]}
+              alt={`${project.title} - Brisbane`}
+              fill
+              className="object-cover"
+              priority
+              sizes="100vw"
+            />
+          ) : (
+            <div className="w-full h-full bg-accent-secondary/20 flex items-center justify-center">
+              <FaImages className="text-text-muted text-6xl" />
+            </div>
+          )}
+          <div className="relative z-20 h-full flex items-center justify-center px-4 sm:px-6">
+            <div className="text-center max-w-4xl">
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={staggerContainer}
+                className="flex flex-wrap justify-center gap-3 mb-6"
+              >
+                <motion.span
+                  variants={staggerItem}
+                  className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-white text-sm font-medium capitalize"
+                >
+                  {project.category} Project
+                </motion.span>
+                <motion.span
+                  variants={staggerItem}
+                  className={`backdrop-blur-sm px-4 py-2 rounded-full text-sm font-bold ${getStatusColor(project.status)}`}
+                >
+                  {project.status.replace("-", " ").toUpperCase()}
+                </motion.span>
+              </motion.div>
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="font-bebas text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white tracking-tight mb-4 sm:mb-6"
+              >
+                {project.title.toUpperCase()}
+              </motion.h1>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="text-base sm:text-lg md:text-xl text-white/90 mb-6 max-w-2xl mx-auto line-clamp-3"
+              >
+                {project.description}
+              </motion.p>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="flex flex-wrap justify-center gap-3 sm:gap-4"
+              >
+                <span className="bg-accent/30 backdrop-blur-sm px-4 py-2 rounded-lg text-white font-medium flex items-center gap-2">
+                  <FaDollarSign /> {project.budget}
+                </span>
+                <span className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg text-white font-medium flex items-center gap-2">
+                  <FaClock /> {project.duration}
+                </span>
+                <span className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg text-white font-medium flex items-center gap-2">
+                  <FaMapMarkerAlt /> {project.location}
+                </span>
+              </motion.div>
+              {project.progress !== undefined && project.progress < 100 && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.5 }}
+                  className="mt-6 max-w-md mx-auto"
+                >
+                  <div className="flex justify-between text-white/80 text-sm mb-2">
+                    <span>Progress</span>
+                    <span>{project.progress}%</span>
+                  </div>
+                  <div className="w-full bg-white/20 rounded-full h-2 overflow-hidden">
+                    <motion.div
+                      className="h-full rounded-full bg-accent"
+                      initial={{ width: 0 }}
+                      animate={{ width: `${project.progress}%` }}
+                      transition={{ duration: 1, ease: "easeOut" }}
+                    />
+                  </div>
+                </motion.div>
+              )}
+            </div>
+          </div>
+          {hasImages && totalImages > 1 && (
+            <>
+              <motion.button
+                onClick={prevImage}
+                className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 rounded-full shadow-lg flex items-center justify-center z-20 text-primary"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <FaChevronLeft />
+              </motion.button>
+              <motion.button
+                onClick={nextImage}
+                className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 rounded-full shadow-lg flex items-center justify-center z-20 text-primary"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <FaChevronRight />
+              </motion.button>
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/60 text-white px-4 py-2 rounded-full text-sm font-medium z-20">
+                {selectedImage + 1} / {totalImages}
+              </div>
+            </>
+          )}
+        </motion.div>
+      </section>
+
+      {/* Content */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16">
+          {/* Main */}
+          <div className="lg:col-span-2 space-y-12">
+            {/* Overview */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <div className="flex flex-wrap items-center gap-3 mb-6">
+                <h2 className="font-bebas text-3xl sm:text-4xl text-text-primary tracking-tight">PROJECT OVERVIEW</h2>
+                <span className="inline-flex px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-bold">
+                  {project.location.split(",")[0]}
+                </span>
+              </div>
+              <p className="text-lg text-text-muted leading-relaxed mb-8">{project.description}</p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                {[
+                  { icon: FaUser, label: "Client", value: project.client },
+                  { icon: FaCalendar, label: "Timeline", value: `${project.startDate || ""} - ${project.completionDate || ""}`.trim() || "N/A" },
+                  { icon: FaDollarSign, label: "Project Value", value: project.budget },
+                  { icon: FaClock, label: "Duration", value: project.duration },
+                ].map((item, i) => (
+                  <motion.div
+                    key={item.label}
+                    className="flex items-center gap-4 bg-card p-4 sm:p-5 rounded-xl border border-border"
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.05 }}
+                    whileHover={{ y: -4 }}
+                  >
+                    <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center">
+                      <item.icon className="text-accent text-xl" />
+                    </div>
+                    <div>
+                      <p className="text-sm text-text-muted">{item.label}</p>
+                      <p className="font-semibold text-text-primary">{item.value}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              <motion.div
+                className="bg-accent/5 border border-accent/20 rounded-xl p-6"
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                <h3 className="font-bebas text-xl text-text-primary mb-3 flex items-center gap-2">
+                  <FaMapMarkerAlt className="text-accent" /> Project Location
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  <span className="bg-card px-4 py-2 rounded-lg text-text-primary border border-border font-medium">
+                    {project.location}
+                  </span>
+                  <span className={`px-4 py-2 rounded-lg font-medium ${getStatusColorLight(project.status)}`}>
+                    {project.status.replace("-", " ").toUpperCase()}
+                  </span>
+                </div>
+              </motion.div>
+            </motion.div>
+
+            {/* Thumbnails */}
+            {hasImages && totalImages > 1 && (
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                <h3 className="font-bebas text-2xl text-text-primary mb-6">PROJECT GALLERY</h3>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                  {project.images.map((img, i) => (
+                    <motion.button
+                      key={i}
+                      onClick={() => setSelectedImage(i)}
+                      className={`relative h-24 sm:h-32 rounded-xl overflow-hidden border-2 transition-colors ${
+                        selectedImage === i ? "border-accent ring-2 ring-accent/30" : "border-border hover:border-accent/50"
+                      }`}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <Image src={img} alt={`${project.title} ${i + 1}`} fill className="object-cover" sizes="25vw" />
+                    </motion.button>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+
+            {/* Services */}
+            {project.services?.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                <h3 className="font-bebas text-2xl text-text-primary mb-6">SERVICES PROVIDED</h3>
+                <div className="bg-card rounded-2xl p-6 sm:p-8 border border-border">
+                  <ul className="space-y-4">
+                    {project.services.map((s, i) => (
+                      <motion.li
+                        key={i}
+                        className="flex items-start gap-4"
+                        initial={{ opacity: 0, x: -16 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: i * 0.05 }}
+                      >
+                        <FaCheckCircle className="text-accent mt-1 flex-shrink-0" />
+                        <span className="text-text-primary">{s}</span>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
+            )}
+
+            {/* Specs */}
+            {project.specifications && Object.keys(project.specifications).length > 0 && (
+              <motion.div
+                className="bg-accent-secondary/5 rounded-2xl p-6 sm:p-8 border border-border"
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                <h3 className="font-bebas text-2xl text-text-primary mb-6">PROJECT SPECIFICATIONS</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {Object.entries(project.specifications).map(([key, value], i) => (
+                    <motion.div
+                      key={key}
+                      className="bg-card p-6 rounded-xl border border-border"
+                      initial={{ opacity: 0, y: 16 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.05 }}
+                    >
+                      <p className="text-sm text-text-muted mb-2 capitalize">{key.replace(/([A-Z])/g, " $1")}</p>
+                      <p className="text-xl font-bold text-text-primary">{value}</p>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+
+            {/* Before/After */}
+            {project.beforeAfter && (
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                <h3 className="font-bebas text-2xl text-text-primary mb-6 flex items-center gap-2">
+                  <FaImages className="text-accent" /> Before & After
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <motion.div className="bg-card rounded-xl overflow-hidden border border-border" whileHover={{ y: -4 }}>
+                    <div className="text-center font-semibold text-text-muted py-3 border-b border-border">Before</div>
+                    <div className="relative h-64">
+                      <Image src={project.beforeAfter.before} alt="Before" fill className="object-cover" />
+                    </div>
+                  </motion.div>
+                  <motion.div className="bg-card rounded-xl overflow-hidden border border-border" whileHover={{ y: -4 }}>
+                    <div className="text-center font-semibold text-text-muted py-3 border-b border-border">After</div>
+                    <div className="relative h-64">
+                      <Image src={project.beforeAfter.after} alt="After" fill className="object-cover" />
+                    </div>
+                  </motion.div>
+                </div>
+              </motion.div>
+            )}
+
+            {/* Challenges & Solutions */}
+            {(project.challenges?.length > 0 || project.solutions?.length > 0) && (
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                <h3 className="font-bebas text-2xl text-text-primary mb-6">Challenges & Solutions</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  {project.challenges?.length > 0 && (
+                    <div className="bg-card rounded-xl p-6 border border-border">
+                      <h4 className="font-bold text-text-primary mb-4">Project Challenges</h4>
+                      <ul className="space-y-2">
+                        {project.challenges.map((c, i) => (
+                          <li key={i} className="flex items-start gap-2 text-text-muted">
+                            <span className="w-2 h-2 rounded-full bg-orange-400 mt-2 flex-shrink-0" />
+                            {c}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {project.solutions?.length > 0 && (
+                    <div className="bg-card rounded-xl p-6 border border-border">
+                      <h4 className="font-bold text-text-primary mb-4">Our Solutions</h4>
+                      <ul className="space-y-2">
+                        {project.solutions.map((s, i) => (
+                          <li key={i} className="flex items-start gap-2 text-text-muted">
+                            <FaCheckCircle className="text-emerald-500 mt-0.5 flex-shrink-0" />
+                            {s}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            )}
+
+            {/* Testimonials */}
+            {project.testimonials?.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                <h3 className="font-bebas text-2xl text-text-primary mb-6 flex items-center gap-2">
+                  <FaStar className="text-accent" /> Client Feedback
+                </h3>
+                <div className="space-y-6">
+                  {project.testimonials.map((t, i) => (
+                    <motion.div
+                      key={i}
+                      className="bg-card rounded-xl p-6 sm:p-8 border-l-4 border-accent"
+                      initial={{ opacity: 0, x: -16 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.1 }}
+                    >
+                      <div className="flex gap-1 mb-3">
+                        {[...Array(5)].map((_, j) => (
+                          <FaStar key={j} className={j < (t.rating || 5) ? "text-accent" : "text-border"} />
+                        ))}
+                      </div>
+                      <p className="text-text-muted italic mb-4">"{t.text}"</p>
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
+                          <span className="font-semibold text-accent">
+                            {t.author?.split(" ").map((n) => n[0]).join("") || "?"}
+                          </span>
+                        </div>
+                        <div>
+                          <p className="font-bold text-text-primary">{t.author}</p>
+                          <p className="text-sm text-text-muted">{project.location}</p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </div>
+
+          {/* Sidebar */}
+          <div className="lg:col-span-1">
+            <div className="sticky top-24 space-y-8">
+              <motion.div
+                className="bg-gradient-to-br from-primary to-surface-dark rounded-2xl p-8 text-white"
+                initial={{ opacity: 0, x: 24 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -4 }}
+              >
+                <h3 className="font-bebas text-2xl mb-6">LIKE THIS PROJECT?</h3>
+                <p className="text-white/80 mb-8">Get a free quote for your own tiling project in Brisbane</p>
+                <Link href="/contact">
+                  <motion.span
+                    className="block w-full bg-accent text-white text-center font-semibold py-4 px-6 rounded-xl mb-4"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    Request Similar Quote
+                  </motion.span>
+                </Link>
+                <div className="text-center">
+                  <p className="text-white/60 text-sm mb-1">Or call us</p>
+                  <a href="tel:+61300000000" className="text-white text-xl font-bold hover:text-accent transition-colors">
+                    (03) 0000 0000
+                  </a>
+                </div>
+              </motion.div>
+
+              <motion.div
+                className="bg-card rounded-2xl p-8 border border-border"
+                initial={{ opacity: 0, x: 24 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+              >
+                <h4 className="font-bebas text-xl text-text-primary mb-6">PROJECT SUMMARY</h4>
+                <div className="space-y-4">
+                  {[
+                    { icon: FaBuilding, label: "Project Type", value: project.category },
+                    { icon: FaClock, label: "Duration", value: project.duration },
+                    { icon: FaDollarSign, label: "Project Value", value: project.budget },
+                    { icon: FaMapMarkerAlt, label: "Location", value: project.location },
+                  ].map((item) => (
+                    <div key={item.label} className="flex items-center gap-4">
+                      <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center">
+                        <item.icon className="text-accent" />
+                      </div>
+                      <div>
+                        <p className="text-xs text-text-muted">{item.label}</p>
+                        <p className="font-semibold text-text-primary capitalize">{item.value}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                {project.progress !== undefined && (
+                  <div className="mt-6 pt-6 border-t border-border">
+                    <div className="flex justify-between text-sm mb-2">
+                      <span className="text-text-muted">Progress</span>
+                      <span className="font-bold text-accent">{project.progress}%</span>
+                    </div>
+                    <div className="w-full bg-border rounded-full h-2 overflow-hidden">
+                      <motion.div
+                        className="h-full rounded-full bg-accent"
+                        initial={{ width: 0 }}
+                        animate={{ width: `${project.progress}%` }}
+                        transition={{ duration: 0.8 }}
+                      />
+                    </div>
+                  </div>
+                )}
+                <div className="mt-8 pt-8 border-t border-border">
+                  <h5 className="font-bold text-text-primary mb-4">Why Choose Us</h5>
+                  <ul className="space-y-2">
+                    {["Local Brisbane Experts", "Quality Guaranteed", "On-Time Completion", "Premium Materials"].map(
+                      (item) => (
+                        <li key={item} className="flex items-center gap-2 text-sm text-text-muted">
+                          <svg className="w-4 h-4 text-emerald-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                          {item}
+                        </li>
+                      )
+                    )}
+                  </ul>
+                </div>
+              </motion.div>
+
+              {relatedProjects.length > 0 && (
+                <motion.div
+                  className="bg-card rounded-2xl p-8 border border-border"
+                  initial={{ opacity: 0, x: 24 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                >
+                  <h4 className="font-bebas text-xl text-text-primary mb-6">SIMILAR PROJECTS</h4>
+                  <div className="space-y-4">
+                    {relatedProjects.map((r) => (
+                      <Link key={r.id} href={`/projects/${r.slug}`}>
+                        <motion.div
+                          className="flex gap-4 p-4 rounded-xl border border-border hover:border-accent/50 transition-colors"
+                          whileHover={{ x: 4 }}
+                        >
+                          {r.images?.[0] && (
+                            <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+                              <Image src={r.images[0]} alt={r.title} fill className="object-cover" />
+                            </div>
+                          )}
+                          <div className="flex-1 min-w-0">
+                            <p className="font-semibold text-text-primary truncate">{r.title}</p>
+                            <p className="text-sm text-text-muted">{r.location}</p>
+                            <p className="text-sm font-semibold text-accent">{r.budget}</p>
+                          </div>
+                          <FaArrowRight className="text-accent mt-2 flex-shrink-0" />
+                        </motion.div>
+                      </Link>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom CTA */}
+        <motion.div
+          className="mt-16 sm:mt-20 bg-gradient-to-r from-primary to-surface-dark rounded-2xl p-8 sm:p-12 text-center text-white"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <h3 className="font-bebas text-3xl sm:text-4xl mb-6">READY TO START YOUR OWN PROJECT?</h3>
+          <p className="text-white/90 text-lg sm:text-xl mb-8 max-w-2xl mx-auto">
+            Contact us for a free quote on your {project.category} project in Brisbane.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/contact">
+              <motion.span
+                className="inline-block bg-accent text-white font-semibold py-4 px-8 rounded-xl"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                Get Your Free Quote
+              </motion.span>
+            </Link>
+            <a
+              href="tel:+61300000000"
+              className="text-white font-semibold py-4 px-8 rounded-xl border-2 border-white/30 hover:bg-white/10 transition-colors"
+            >
+              Call: (03) 0000 0000
+            </a>
+          </div>
+        </motion.div>
+
+        {/* More Related */}
+        {relatedProjects.length > 0 && (
+          <motion.div
+            className="mt-16"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+              <h2 className="font-bebas text-2xl sm:text-3xl text-text-primary">
+                MORE {project.category?.toUpperCase()} PROJECTS
+              </h2>
+              <Link
+                href="/projects"
+                className="text-accent hover:text-accent/80 font-medium flex items-center gap-2"
+              >
+                View All Projects <FaArrowRight className="text-sm" />
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {relatedProjects.map((r, i) => (
+                <motion.div
+                  key={r.id}
+                  onClick={() => router.push(`/projects/${r.slug}`)}
+                  className="group bg-card rounded-2xl overflow-hidden border border-border cursor-pointer"
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  whileHover={{ y: -8 }}
+                >
+                  {r.images?.[0] && (
+                    <div className="relative h-48 overflow-hidden">
+                      <motion.div
+                        className="absolute inset-0"
+                        whileHover={{ scale: 1.1 }}
+                        transition={{ duration: 0.5 }}
+                      >
+                        <Image src={r.images[0]} alt={r.title} fill className="object-cover" />
+                      </motion.div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent" />
+                      <span className="absolute top-4 left-4 bg-white/20 backdrop-blur-sm text-white text-sm font-medium px-3 py-1 rounded-lg">
+                        {r.location?.split(",")[0]}
+                      </span>
+                    </div>
+                  )}
+                  <div className="p-6">
+                    <h3 className="font-bold text-text-primary mb-2 group-hover:text-accent transition-colors">
+                      {r.title}
+                    </h3>
+                    <p className="text-sm text-text-muted mb-4 line-clamp-2">{r.description}</p>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-text-muted">{r.duration}</span>
+                      <span className="font-semibold text-accent">{r.budget}</span>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </section>
+    </main>
+  );
 }

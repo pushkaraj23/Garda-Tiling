@@ -205,7 +205,7 @@
 export const servicesData = [
   {
     id: 1,
-    title: "Bathroom Tiling Melbourne",
+    title: "Bathroom Tiling Brisbane",
     slug: "bathroom-tiling",
     icon: "🚿",
     mainImage: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1600&q=80",
@@ -215,8 +215,8 @@ export const servicesData = [
       "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1600&q=80",
       "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=80"
     ],
-    shortDesc: "Professional bathroom tiling services in Melbourne. Luxury porcelain & stone tile installation.",
-    fullDesc: "Transform your Melbourne bathroom with our expert tiling services. We specialize in precision bathroom tiling using waterproofing systems and premium materials. Our Melbourne-based team ensures your bathroom renovation meets Australian standards while enhancing your home's value. From small ensuite renovations to master bathroom transformations, we handle everything with attention to detail.",
+    shortDesc: "Professional bathroom tiling services in Brisbane. Luxury porcelain & stone tile installation.",
+    fullDesc: "Transform your Brisbane bathroom with our expert tiling services. We specialize in precision bathroom tiling using waterproofing systems and premium materials. Our Brisbane-based team ensures your bathroom renovation meets Australian standards while enhancing your home's value. From small ensuite renovations to master bathroom transformations, we handle everything with attention to detail.",
     pricing: "From $120 per sqm",
     duration: "10-14 days",
     inclusions: [
@@ -229,22 +229,22 @@ export const servicesData = [
     ],
     faqs: [
       { 
-        q: "How long does bathroom tiling take in Melbourne?", 
-        a: "Typically 10-14 days for a standard bathroom. Larger projects may take 2-3 weeks depending on complexity and material availability in Melbourne." 
+        q: "How long does bathroom tiling take in Brisbane?", 
+        a: "Typically 10-14 days for a standard bathroom. Larger projects may take 2-3 weeks depending on complexity and material availability in Brisbane." 
       },
       { 
         q: "Do you provide waterproofing certificates?", 
-        a: "Yes, we provide 10-year waterproofing certificates as per Australian Building Codes for all our Melbourne bathroom tiling projects." 
+        a: "Yes, we provide 10-year waterproofing certificates as per Australian Building Codes for all our Brisbane bathroom tiling projects." 
       },
       { 
-        q: "What areas of Melbourne do you service?", 
-        a: "We service all Melbourne suburbs including CBD, Eastern suburbs, Northern suburbs, and surrounding areas." 
+        q: "What areas of Brisbane do you service?", 
+        a: "We service all Brisbane suburbs including CBD, Eastern suburbs, Northern suburbs, and surrounding areas." 
       }
     ],
     seo: {
-      title: "Bathroom Tiling Melbourne | Professional Tile Installation Services",
-      description: "Expert bathroom tiling services in Melbourne. Waterproofing, porcelain tile installation, and bathroom renovations. Get a free quote today!",
-      keywords: ["bathroom tiling melbourne", "tile installation melbourne", "bathroom renovation melbourne", "waterproofing certificate", "porcelain tiles melbourne"]
+      title: "Bathroom Tiling Brisbane | Professional Tile Installation Services",
+      description: "Expert bathroom tiling services in Brisbane. Waterproofing, porcelain tile installation, and bathroom renovations. Get a free quote today!",
+      keywords: ["bathroom tiling brisbane", "tile installation brisbane", "bathroom renovation brisbane", "waterproofing certificate", "porcelain tiles brisbane"]
     }
   },
   {
@@ -259,8 +259,8 @@ export const servicesData = [
       "https://images.unsplash.com/photo-1600607687644-c7171b42498b?auto=format&fit=crop&w=1600&q=80",
       "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=80"
     ],
-    shortDesc: "Complete kitchen renovations with custom splashback tiling in Melbourne.",
-    fullDesc: "Transform your Melbourne kitchen with our comprehensive renovation services. We specialize in custom splashback tiling, cabinetry installation, and complete kitchen makeovers. Our Melbourne-based team works with premium materials and modern designs to create functional, beautiful kitchen spaces. From concept to completion, we handle all aspects including electrical, plumbing, and custom tiling work.",
+    shortDesc: "Complete kitchen renovations with custom splashback tiling in Brisbane.",
+    fullDesc: "Transform your Brisbane kitchen with our comprehensive renovation services. We specialize in custom splashback tiling, cabinetry installation, and complete kitchen makeovers. Our Brisbane-based team works with premium materials and modern designs to create functional, beautiful kitchen spaces. From concept to completion, we handle all aspects including electrical, plumbing, and custom tiling work.",
     pricing: "From $15,000",
     duration: "3-5 weeks",
     inclusions: [
@@ -274,22 +274,22 @@ export const servicesData = [
     faqs: [
       { 
         q: "Can you handle splashback tiling in existing kitchens?", 
-        a: "Yes, we specialize in splashback tiling in both new and existing Melbourne kitchens without disrupting your entire kitchen." 
+        a: "Yes, we specialize in splashback tiling in both new and existing Brisbane kitchens without disrupting your entire kitchen." 
       },
       { 
         q: "Do you coordinate with other tradespeople?", 
-        a: "Absolutely, we manage all trades including electricians, plumbers, and joiners for seamless Melbourne kitchen renovations." 
+        a: "Absolutely, we manage all trades including electricians, plumbers, and joiners for seamless Brisbane kitchen renovations." 
       }
     ],
     seo: {
-      title: "Kitchen Splashback Tiling Melbourne | Kitchen Renovation Services",
-      description: "Professional kitchen splashback tiling and complete kitchen renovations in Melbourne. Custom designs, quality materials, expert installation.",
-      keywords: ["kitchen splashback tiling melbourne", "kitchen renovation melbourne", "splashback tiles melbourne", "kitchen tiling services"]
+      title: "Kitchen Splashback Tiling Brisbane | Kitchen Renovation Services",
+      description: "Professional kitchen splashback tiling and complete kitchen renovations in Brisbane. Custom designs, quality materials, expert installation.",
+      keywords: ["kitchen splashback tiling brisbane", "kitchen renovation brisbane", "splashback tiles brisbane", "kitchen tiling services"]
     }
   },
   {
     id: 3,
-    title: "Outdoor & Pool Tiling Melbourne",
+    title: "Outdoor & Pool Tiling Brisbane",
     slug: "outdoor-pool-tiling",
     icon: "🏊‍♂️",
     mainImage: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=1600&q=80",
@@ -299,8 +299,8 @@ export const servicesData = [
       "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=1600&q=80",
       "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=1600&q=80"
     ],
-    shortDesc: "Expert outdoor and pool tiling services for Melbourne homes.",
-    fullDesc: "Enhance your Melbourne outdoor living space with our professional pool and outdoor tiling services. We specialize in durable, slip-resistant tiles perfect for Australian climate conditions. From pool surrounds to outdoor entertainment areas, we use premium materials designed to withstand Melbourne's weather while maintaining aesthetic appeal.",
+    shortDesc: "Expert outdoor and pool tiling services for Brisbane homes.",
+    fullDesc: "Enhance your Brisbane outdoor living space with our professional pool and outdoor tiling services. We specialize in durable, slip-resistant tiles perfect for Australian climate conditions. From pool surrounds to outdoor entertainment areas, we use premium materials designed to withstand Brisbane's weather while maintaining aesthetic appeal.",
     pricing: "From $150 per sqm",
     duration: "2-3 weeks",
     inclusions: [
@@ -313,18 +313,18 @@ export const servicesData = [
     ],
     faqs: [
       { 
-        q: "What tiles are best for Melbourne pool areas?", 
-        a: "We recommend slip-resistant porcelain or natural stone tiles that can handle Melbourne's climate variations." 
+        q: "What tiles are best for Brisbane pool areas?", 
+        a: "We recommend slip-resistant porcelain or natural stone tiles that can handle Brisbane's climate variations." 
       },
       { 
         q: "Do you handle council approvals for pool areas?", 
-        a: "Yes, we assist with all necessary council approvals and safety requirements for Melbourne pool projects." 
+        a: "Yes, we assist with all necessary council approvals and safety requirements for Brisbane pool projects." 
       }
     ],
     seo: {
-      title: "Outdoor & Pool Tiling Melbourne | Pool Surround Tiling Services",
-      description: "Professional outdoor and pool tiling services in Melbourne. Slip-resistant tiles, pool surrounds, and outdoor entertainment area installations.",
-      keywords: ["pool tiling melbourne", "outdoor tiling melbourne", "pool surround tiles", "outdoor entertainment area tiling"]
+      title: "Outdoor & Pool Tiling Brisbane | Pool Surround Tiling Services",
+      description: "Professional outdoor and pool tiling services in Brisbane. Slip-resistant tiles, pool surrounds, and outdoor entertainment area installations.",
+      keywords: ["pool tiling brisbane", "outdoor tiling brisbane", "pool surround tiles", "outdoor entertainment area tiling"]
     }
   },
   {
@@ -339,8 +339,8 @@ export const servicesData = [
       "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1600&q=80",
       "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1600&q=80"
     ],
-    shortDesc: "Functional and stylish laundry room tiling solutions for Melbourne homes.",
-    fullDesc: "Create practical and beautiful laundry spaces with our Melbourne laundry tiling services. We focus on durable, water-resistant tiles that can handle washing machine vibrations and moisture. Our designs combine functionality with style, ensuring your laundry room is both efficient and attractive.",
+    shortDesc: "Functional and stylish laundry room tiling solutions for Brisbane homes.",
+    fullDesc: "Create practical and beautiful laundry spaces with our Brisbane laundry tiling services. We focus on durable, water-resistant tiles that can handle washing machine vibrations and moisture. Our designs combine functionality with style, ensuring your laundry room is both efficient and attractive.",
     pricing: "From $100 per sqm",
     duration: "3-5 days",
     inclusions: [
@@ -354,18 +354,18 @@ export const servicesData = [
     faqs: [
       { 
         q: "What tiles work best for laundry rooms?", 
-        a: "We recommend porcelain or ceramic tiles with water-resistant properties for Melbourne laundry rooms." 
+        a: "We recommend porcelain or ceramic tiles with water-resistant properties for Brisbane laundry rooms." 
       }
     ],
     seo: {
-      title: "Laundry Tiling Melbourne | Utility Room Tile Installation",
-      description: "Professional laundry room tiling services in Melbourne. Water-resistant tiles, functional designs, and quality installation for your utility spaces.",
-      keywords: ["laundry tiling melbourne", "utility room tiles", "laundry renovation melbourne", "waterproof laundry tiles"]
+      title: "Laundry Tiling Brisbane | Utility Room Tile Installation",
+      description: "Professional laundry room tiling services in Brisbane. Water-resistant tiles, functional designs, and quality installation for your utility spaces.",
+      keywords: ["laundry tiling brisbane", "utility room tiles", "laundry renovation brisbane", "waterproof laundry tiles"]
     }
   },
   {
     id: 5,
-    title: "Commercial Waterproofing Melbourne",
+    title: "Commercial Waterproofing Brisbane",
     slug: "commercial-waterproofing",
     icon: "🏢",
     mainImage: "https://media.istockphoto.com/id/1474041685/photo/a-blue-collar-worker-using-a-paint-roller-to-apply-waterproof-membrane-on-a-concrete-floor.jpg?s=612x612&w=0&k=20&c=ypSWG2wX-M3t7vO9MlDRmMrjv4I8XbCrblwqPOQHSzQ=",
@@ -375,8 +375,8 @@ export const servicesData = [
       "https://media.istockphoto.com/id/1474041685/photo/a-blue-collar-worker-using-a-paint-roller-to-apply-waterproof-membrane-on-a-concrete-floor.jpg?s=612x612&w=0&k=20&c=ypSWG2wX-M3t7vO9MlDRmMrjv4I8XbCrblwqPOQHSzQ=",
       "https://media.istockphoto.com/id/1474041685/photo/a-blue-collar-worker-using-a-paint-roller-to-apply-waterproof-membrane-on-a-concrete-floor.jpg?s=612x612&w=0&k=20&c=ypSWG2wX-M3t7vO9MlDRmMrjv4I8XbCrblwqPOQHSzQ="
     ],
-    shortDesc: "Professional commercial waterproofing services for Melbourne businesses.",
-    fullDesc: "Protect your commercial property with our certified waterproofing services in Melbourne. We specialize in commercial-grade waterproofing for retail spaces, office buildings, restaurants, and industrial facilities. Our team ensures compliance with Australian standards and provides comprehensive waterproofing solutions for commercial applications.",
+    shortDesc: "Professional commercial waterproofing services for Brisbane businesses.",
+    fullDesc: "Protect your commercial property with our certified waterproofing services in Brisbane. We specialize in commercial-grade waterproofing for retail spaces, office buildings, restaurants, and industrial facilities. Our team ensures compliance with Australian standards and provides comprehensive waterproofing solutions for commercial applications.",
     pricing: "Custom Quote",
     duration: "1-3 weeks",
     inclusions: [
@@ -390,22 +390,22 @@ export const servicesData = [
     faqs: [
       { 
         q: "Do you provide commercial waterproofing certificates?", 
-        a: "Yes, we provide comprehensive waterproofing certificates for all commercial projects in Melbourne." 
+        a: "Yes, we provide comprehensive waterproofing certificates for all commercial projects in Brisbane." 
       },
       { 
         q: "What areas do you service commercially?", 
-        a: "We service commercial properties across Melbourne including CBD, industrial areas, and suburban business districts." 
+        a: "We service commercial properties across Brisbane including CBD, industrial areas, and suburban business districts." 
       }
     ],
     seo: {
-      title: "Commercial Waterproofing Melbourne | Business Waterproofing Services",
-      description: "Professional commercial waterproofing services in Melbourne. Certified waterproofing for retail, office, and industrial buildings. Get your compliance certificate today.",
-      keywords: ["commercial waterproofing melbourne", "business waterproofing", "commercial building waterproofing", "waterproofing certificate melbourne"]
+      title: "Commercial Waterproofing Brisbane | Business Waterproofing Services",
+      description: "Professional commercial waterproofing services in Brisbane. Certified waterproofing for retail, office, and industrial buildings. Get your compliance certificate today.",
+      keywords: ["commercial waterproofing brisbane", "business waterproofing", "commercial building waterproofing", "waterproofing certificate brisbane"]
     }
   },
   {
     id: 6,
-    title: "Flooring Installation Melbourne",
+    title: "Flooring Installation Brisbane",
     slug: "flooring-installation",
     icon: "🪵",
     mainImage: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1600&q=80",
@@ -415,8 +415,8 @@ export const servicesData = [
       "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1600&q=80",
       "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1600&q=80"
     ],
-    shortDesc: "Premium flooring installation services for Melbourne homes and businesses.",
-    fullDesc: "Upgrade your Melbourne property with our professional flooring installation services. We specialize in timber, laminate, vinyl, and hybrid flooring solutions perfect for Australian homes. Our experienced team ensures precise installation with attention to detail, from subfloor preparation to final finishing.",
+    shortDesc: "Premium flooring installation services for Brisbane homes and businesses.",
+    fullDesc: "Upgrade your Brisbane property with our professional flooring installation services. We specialize in timber, laminate, vinyl, and hybrid flooring solutions perfect for Australian homes. Our experienced team ensures precise installation with attention to detail, from subfloor preparation to final finishing.",
     pricing: "From $60 per sqm",
     duration: "2-7 days",
     inclusions: [
@@ -429,18 +429,18 @@ export const servicesData = [
     ],
     faqs: [
       { 
-        q: "Which flooring is best for Melbourne climate?", 
-        a: "We recommend hybrid or engineered timber flooring for Melbourne's variable climate conditions." 
+        q: "Which flooring is best for Brisbane climate?", 
+        a: "We recommend hybrid or engineered timber flooring for Brisbane's variable climate conditions." 
       },
       { 
         q: "Do you handle flooring throughout entire homes?", 
-        a: "Yes, we provide complete flooring solutions for whole-house renovations in Melbourne." 
+        a: "Yes, we provide complete flooring solutions for whole-house renovations in Brisbane." 
       }
     ],
     seo: {
-      title: "Flooring Installation Melbourne | Timber & Laminate Flooring Services",
-      description: "Professional flooring installation services in Melbourne. Timber, laminate, vinyl, and hybrid flooring solutions for homes and businesses.",
-      keywords: ["flooring installation melbourne", "timber flooring melbourne", "laminate flooring installation", "floor renovation melbourne"]
+      title: "Flooring Installation Brisbane | Timber & Laminate Flooring Services",
+      description: "Professional flooring installation services in Brisbane. Timber, laminate, vinyl, and hybrid flooring solutions for homes and businesses.",
+      keywords: ["flooring installation brisbane", "timber flooring brisbane", "laminate flooring installation", "floor renovation brisbane"]
     }
   }
 ];

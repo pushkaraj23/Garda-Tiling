@@ -1533,7 +1533,7 @@
 //                             <FaMapMarkerAlt className="text-[#C9A24D]" />
 //                             <div>
 //                                 <div className="font-semibold">Service Area</div>
-//                                 <div className="text-lg">All Melbourne</div>
+//                                 <div className="text-lg">All Brisbane</div>
 //                             </div>
 //                         </div>
 //                     </div>
@@ -2195,7 +2195,7 @@ export default function Pricing() {
                         {[
                             { icon: FaPhone, label: "Call Us", value: "(03) 0000 0000" },
                             { icon: FaEnvelope, label: "Email Us", value: "hello@garda-tiling.com" },
-                            { icon: FaMapMarkerAlt, label: "Service Area", value: "All Melbourne" }
+                            { icon: FaMapMarkerAlt, label: "Service Area", value: "All Brisbane" }
                         ].map((contact, index) => (
                             <div 
                                 key={index}

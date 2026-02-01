@@ -130,7 +130,7 @@ export default function Footer() {
             ))}
 
             <div className="pt-4 text-sm text-background/60 leading-relaxed">
-              <p>📍 Serving Sydney & Surrounding Areas</p>
+              <p>📍 Serving Brisbane & Surrounding Areas</p>
               <p>📞 Fast Response & Site Visits</p>
               <p>✉️ info@example.com</p>
             </div>

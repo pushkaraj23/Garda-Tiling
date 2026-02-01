@@ -20,8 +20,8 @@
 //   const [status, setStatus] = useState({ type: '', message: '' });
 
 //   const suburbs = [
-//     'Melbourne CBD', 'South Yarra', 'Richmond', 'Brighton', 'St Kilda',
-//     'Toorak', 'Hawthorn', 'Kew', 'Camberwell', 'Prahran', 'Other Melbourne Suburb'
+//     'Brisbane CBD', 'South Yarra', 'Richmond', 'Brighton', 'St Kilda',
+//     'Toorak', 'Hawthorn', 'Kew', 'Camberwell', 'Prahran', 'Other Brisbane Suburb'
 //   ];
 
 //   const jobTypes = [
@@ -375,8 +375,8 @@ export default function ContactFormStandard({ selectedService = '' }) {
   }, []);
 
   const suburbs = [
-    'Melbourne CBD', 'South Yarra', 'Richmond', 'Brighton', 'St Kilda',
-    'Toorak', 'Hawthorn', 'Kew', 'Camberwell', 'Prahran', 'Other Melbourne Suburb'
+    'Brisbane CBD', 'South Yarra', 'Richmond', 'Brighton', 'St Kilda',
+    'Toorak', 'Hawthorn', 'Kew', 'Camberwell', 'Prahran', 'Other Brisbane Suburb'
   ];
 
   const jobTypes = [

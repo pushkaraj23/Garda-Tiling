@@ -108,7 +108,7 @@ export default function Hero() {
               max-w-5xl
             "
           >
-            BATHROOM TILING & WATERPROOFING EXPERTS IN SYDNEY
+            BATHROOM TILING & WATERPROOFING EXPERTS IN BRISBANE
           </motion.h1>
 
           {/* CTA ROW */}
