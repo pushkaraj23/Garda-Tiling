@@ -111,7 +111,7 @@ export default function ProjectDetail({ project }) {
     .slice(0, 3);
 
   return (
-    <main className="w-full min-h-screen bg-background overflow-hidden">
+    <main className="w-full min-h-screen bg-background overflow-hidden pt-24 sm:pt-28">
       {/* Back Button */}
       <motion.div
         className="sticky top-0 z-20 bg-background/80 backdrop-blur-md border-b border-border"

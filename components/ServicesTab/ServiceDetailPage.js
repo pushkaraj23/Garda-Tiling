@@ -47,7 +47,7 @@ export default function ServiceDetail({ service }) {
   ];
 
   return (
-    <main className="w-full min-h-screen bg-background overflow-hidden">
+    <main className="w-full min-h-screen bg-background overflow-hidden pt-24 sm:pt-28">
       {/* Hero */}
       <section className="relative w-full">
         <motion.div
