@@ -153,9 +153,23 @@ export default function Footer() {
 
         {/* ================= BOTTOM ================= */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-8">
-          <p className="text-xs sm:text-sm text-background/60">
-            © {new Date().getFullYear()} Garda Tiling. Crafted with precision.
-          </p>
+          <div className="text-center sm:text-left">
+            <p className="text-xs sm:text-sm text-background/60">
+              © {new Date().getFullYear()} Garda Tiling. Crafted with precision.
+            </p>
+            <p className="text-xs sm:text-sm text-background/60 mt-1">
+              Designed & Developed by{" "}
+              <a
+                href="https://www.fibonce.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white hover:text-accent transition"
+              >
+                Fibonce Tech Solutions Pvt. Ltd.
+              </a>
+              .
+            </p>
+          </div>
 
           <div className="flex items-center gap-4 bg-white/5 backdrop-blur px-5 py-3 rounded-full">
             {socialLinks.map((social) => (
