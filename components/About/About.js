@@ -1,871 +1,422 @@
-// "use client"
+"use client";
 
-// import Image from 'next/image';
-// import { 
-//   FaAward, FaShieldAlt, FaUsers, FaHandshake, 
-//   FaClock, FaStar, FaMapMarkerAlt, FaPhone, 
-//   FaEnvelope, FaCheckCircle, FaTools, FaRulerCombined 
-// } from 'react-icons/fa';
+import Link from "next/link";
+import { motion } from "framer-motion";
+import {
+  Award, ShieldCheck, Handshake, Clock,
+  CheckCircle2, Phone, Mail, MapPin, Star
+} from "lucide-react";
 
-// export default function About() {
-//   const teamMembers = [
-//     {
-//       name: "Michael Garda",
-//       role: "Founder & Master Tiler",
-//       experience: "15+ years",
-//       specialty: "Waterproofing & Bathroom Renovations",
-//       image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=400&h=400&fit=crop",
-//       quote: "Precision in every tile, excellence in every project."
-//     },
-//     {
-//       name: "Sarah Johnson",
-//       role: "Project Manager",
-//       experience: "10+ years",
-//       specialty: "Commercial Projects",
-//       image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop",
-//       quote: "Ensuring every project exceeds expectations."
-//     },
-//     {
-//       name: "David Chen",
-//       role: "Senior Tiler",
-//       experience: "12+ years",
-//       specialty: "Large Format & Natural Stone",
-//       image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w-400&h=400&fit=crop",
-//       quote: "Quality workmanship speaks for itself."
-//     }
-//   ];
+// ─── DATA ────────────────────────────────────────────────────────────────────
 
-//   const values = [
-//     {
-//       icon: <FaAward className="w-8 h-8" />,
-//       title: "Excellence",
-//       description: "We never compromise on quality. Every tile is laid with precision and care.",
-//       color: "from-[#C9A24D] to-[#B89246]"
-//     },
-//     {
-//       icon: <FaShieldAlt className="w-8 h-8" />,
-//       title: "Reliability",
-//       description: "Licensed, insured, and committed to Australian building standards.",
-//       color: "from-[#111827] to-[#3F3F46]"
-//     },
-//     {
-//       icon: <FaHandshake className="w-8 h-8" />,
-//       title: "Integrity",
-//       description: "Honest quotes, transparent pricing, and clear communication.",
-//       color: "from-[#C9A24D] to-[#B89246]"
-//     },
-//     {
-//       icon: <FaClock className="w-8 h-8" />,
-//       title: "Timeliness",
-//       description: "We respect your time and deliver projects on schedule.",
-//       color: "from-[#111827] to-[#3F3F46]"
-//     }
-//   ];
+const teamMembers = [
+  {
+    name: "Michael Garda",
+    role: "Founder & Master Tiler",
+    experience: "15+ years",
+    specialty: "Waterproofing & Bathroom Renovations",
+    image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=400&h=400&fit=crop",
+    quote: "Precision in every tile, excellence in every project.",
+  },
+  {
+    name: "Sarah Johnson",
+    role: "Project Manager",
+    experience: "10+ years",
+    specialty: "Commercial Projects",
+    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop",
+    quote: "Ensuring every project exceeds expectations.",
+  },
+  {
+    name: "David Chen",
+    role: "Senior Tiler",
+    experience: "12+ years",
+    specialty: "Large Format & Natural Stone",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
+    quote: "Quality workmanship speaks for itself.",
+  },
+];
 
-//   const milestones = [
-//     { year: "2010", event: "Founded Garda Tiling", detail: "Started with residential bathroom renovations" },
-//     { year: "2013", event: "Waterproofing Certification", detail: "Became certified waterproofing specialists" },
-//     { year: "2016", event: "Commercial Expansion", detail: "Started commercial tiling projects" },
-//     { year: "2019", event: "Team Growth", detail: "Expanded to 10+ specialist tilers" },
-//     { year: "2022", event: "Premium Service Launch", detail: "Introduced luxury tiling services" },
-//     { year: "2024", event: "1000+ Projects", detail: "Successfully completed over 1000 projects" }
-//   ];
+const values = [
+  { icon: Award,      title: "Excellence",   desc: "We never compromise on quality. Every tile is laid with precision and care." },
+  { icon: ShieldCheck, title: "Reliability", desc: "Licensed, insured, and committed to Australian building standards." },
+  { icon: Handshake,  title: "Integrity",    desc: "Honest quotes, transparent pricing, and clear communication." },
+  { icon: Clock,      title: "Timeliness",   desc: "We respect your time and deliver projects on schedule." },
+];
 
-//   return (
-//     <div className="w-full bg-gray-50 py-16 px-8 ">
-//       {/* Hero Section */}
-//       <section className="relative overflow-hidden rounded-t-[32px]">
-//         <div className="absolute inset-0 bg-gradient-to-r from-[#111827]/95 to-[#3F3F46]/90 z-10 "></div>
-//         {/* <Image
-//           src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1600&h=900&fit=crop"
-//           alt="Professional tiling work"
-//           fill
-//           className="object-cover"
-//           priority
-//         /> */}
-//         <div className="relative z-20 py-20 px-4 max-w-7xl mx-auto">
-//           <div className="max-w-3xl">
-//             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
-//               <FaStar className="text-[#C9A24D]" />
-//               <span className="text-white font-medium">BRISBANE'S TRUSTED TILING EXPERTS</span>
-//             </div>
-            
-//             <h1 className="text-5xl md:text-5xl font-bold text-white mb-6 leading-tight">
-//               Crafting Beautiful Spaces
-//               <span className="block text-[#C9A24D]">Since 2010</span>
-//             </h1>
-            
-//             <p className="text-xl text-white/90 mb-8">
-//               We transform Brisbane homes and businesses with precision tiling, expert waterproofing, 
-//               and unparalleled craftsmanship. Your vision, our expertise.
-//             </p>
-            
-//             <div className="flex flex-wrap gap-4">
-//               <button className="bg-gradient-to-r from-[#C9A24D] to-[#B89246] text-white font-bold py-3 px-8 rounded-xl hover:shadow-lg transition-all">
-//                 View Our Work
-//               </button>
-//               <button className="bg-white text-[#111827] font-bold py-3 px-8 rounded-xl hover:bg-gray-100 transition-all">
-//                 Get Free Quote
-//               </button>
-//             </div>
-//           </div>
-//         </div>
-//       </section>
+const milestones = [
+  { year: "2010", event: "Founded Garda Tiling",       detail: "Started with residential bathroom renovations" },
+  { year: "2013", event: "Waterproofing Certification", detail: "Became certified waterproofing specialists" },
+  { year: "2016", event: "Commercial Expansion",        detail: "Started commercial tiling projects" },
+  { year: "2019", event: "Team Growth",                 detail: "Expanded to 10+ specialist tilers" },
+  { year: "2022", event: "Premium Service Launch",      detail: "Introduced luxury tiling services" },
+  { year: "2024", event: "1000+ Projects",              detail: "Successfully completed over 1000 projects" },
+];
 
-//       {/* Our Story */}
-//       <section className="py-20 px-4 max-w-7xl mx-auto">
-//         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-//           <div>
-//             <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A24D]/10 to-[#B89246]/10 px-4 py-2 rounded-full mb-6">
-//               <span className="text-sm font-semibold text-[#C9A24D]">OUR JOURNEY</span>
-//             </div>
-            
-//             <h2 className="text-4xl font-bold text-[#111827] mb-6">
-//               From Humble Beginnings to Brisbane's Premier Tiling Service
-//             </h2>
-            
-//             <p className="text-lg text-[#3F3F46] mb-6">
-//               Founded in 2010 by Michael Garda, what started as a one-man operation has grown into 
-//               Brisbane's most trusted tiling and waterproofing company. Our commitment to excellence 
-//               has earned us a reputation for quality workmanship and reliable service.
-//             </p>
-            
-//             <p className="text-lg text-[#3F3F46] mb-8">
-//               Today, we're proud to serve homeowners and businesses across Brisbane with a team of 
-//               certified professionals who share our passion for creating beautiful, durable spaces.
-//             </p>
-            
-//             <div className="grid grid-cols-2 gap-6">
-//               <div className="bg-gradient-to-br from-[#C9A24D]/5 to-transparent p-6 rounded-xl">
-//                 <div className="text-3xl font-bold text-[#C9A24D] mb-2">1000+</div>
-//                 <div className="text-[#111827] font-semibold">Projects Completed</div>
-//               </div>
-//               <div className="bg-gradient-to-br from-[#111827]/5 to-transparent p-6 rounded-xl">
-//                 <div className="text-3xl font-bold text-[#111827] mb-2">15+</div>
-//                 <div className="text-[#111827] font-semibold">Years Experience</div>
-//               </div>
-//             </div>
-//           </div>
-          
-//           <div className="relative">
-//             <div className="relative h-[400px] lg:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
-//               <Image
-//                 src="https://images.unsplash.com/photo-1540518614846-7eded433c457?w=800&h=600&fit=crop"
-//                 alt="Our team at work"
-//                 fill
-//                 className="object-cover"
-//               />
-//             </div>
-//             <div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-xl shadow-lg max-w-xs">
-//               <div className="flex items-center gap-3 mb-3">
-//                 <div className="w-12 h-12 bg-gradient-to-br from-[#C9A24D] to-[#B89246] rounded-full flex items-center justify-center">
-//                   <FaHandshake className="w-6 h-6 text-white" />
-//                 </div>
-//                 <div>
-//                   <div className="font-bold text-[#111827]">Michael Garda</div>
-//                   <div className="text-sm text-[#C9A24D]">Founder</div>
-//                 </div>
-//               </div>
-//               <p className="text-[#3F3F46] italic">
-//                 "We don't just lay tiles; we build relationships through quality work."
-//               </p>
-//             </div>
-//           </div>
-//         </div>
-//       </section>
+const certifications = [
+  { name: "Waterproofing License",   number: "WP123456" },
+  { name: "Building Practitioner",   number: "BP789012" },
+  { name: "Occupational License",    number: "OL345678" },
+  { name: "Insurance Coverage",      number: "$10M Public Liability" },
+];
 
-//       {/* Our Values */}
-//       <section className="py-20 px-4 bg-gradient-to-b from-gray-50 to-white">
-//         <div className="max-w-7xl mx-auto">
-//           <div className="text-center mb-16">
-//             <h2 className="text-4xl font-bold text-[#111827] mb-4">
-//               Why Choose Garda Tiling
-//             </h2>
-//             <p className="text-lg text-[#3F3F46] max-w-3xl mx-auto">
-//               Our core values guide every project we undertake, ensuring exceptional results every time.
-//             </p>
-//           </div>
-          
-//           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-//             {values.map((value, index) => (
-//               <div key={index} className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
-//                 <div className={`w-16 h-16 bg-gradient-to-br ${value.color} rounded-xl flex items-center justify-center text-white mb-6`}>
-//                   {value.icon}
-//                 </div>
-//                 <h3 className="text-xl font-bold text-[#111827] mb-3">{value.title}</h3>
-//                 <p className="text-[#3F3F46]">{value.description}</p>
-//               </div>
-//             ))}
-//           </div>
-//         </div>
-//       </section>
+// ─── ANIMATION HELPERS ───────────────────────────────────────────────────────
 
-//       {/* Our Process */}
-//       <section className="py-20 px-4 max-w-7xl mx-auto">
-//         <div className="text-center mb-16">
-//           <h2 className="text-4xl font-bold text-[#111827] mb-4">
-//             Our Proven Process
-//           </h2>
-//           <p className="text-lg text-[#3F3F46] max-w-3xl mx-auto">
-//             From consultation to completion, we follow a meticulous process to ensure perfect results.
-//           </p>
-//         </div>
-        
-//         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-//           {[
-//             {
-//               step: "01",
-//               title: "Consultation",
-//               description: "Free site inspection & detailed quote",
-//               icon: <FaRulerCombined className="w-6 h-6" />
-//             },
-//             {
-//               step: "02",
-//               title: "Planning",
-//               description: "Material selection & project timeline",
-//               icon: <FaTools className="w-6 h-6" />
-//             },
-//             {
-//               step: "03",
-//               title: "Installation",
-//               description: "Precision work with quality materials",
-//               icon: <FaCheckCircle className="w-6 h-6" />
-//             },
-//             {
-//               step: "04",
-//               title: "Completion",
-//               description: "Final inspection & warranty handover",
-//               icon: <FaShieldAlt className="w-6 h-6" />
-//             }
-//           ].map((process, index) => (
-//             <div key={index} className="relative">
-//               <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
-//                 <div className="text-5xl font-bold text-gray-100 mb-4">{process.step}</div>
-//                 <div className="w-12 h-12 bg-gradient-to-br from-[#C9A24D] to-[#B89246] rounded-lg flex items-center justify-center text-white mb-4">
-//                   {process.icon}
-//                 </div>
-//                 <h3 className="text-xl font-bold text-[#111827] mb-2">{process.title}</h3>
-//                 <p className="text-[#3F3F46]">{process.description}</p>
-//               </div>
-//               {index < 3 && (
-//                 <div className="hidden lg:block absolute top-1/2 -right-4 transform -translate-y-1/2">
-//                   <div className="w-8 h-0.5 bg-gray-300"></div>
-//                 </div>
-//               )}
-//             </div>
-//           ))}
-//         </div>
-//       </section>
+const fadeUp = (delay = 0) => ({
+  initial: { opacity: 0, y: 24 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true },
+  transition: { duration: 0.55, delay },
+});
 
-//       {/* Our Team */}
-//       <section className="py-20 px-4 bg-gradient-to-b from-gray-50 to-white">
-//         <div className="max-w-7xl mx-auto">
-//           <div className="text-center mb-16">
-//             <h2 className="text-4xl font-bold text-[#111827] mb-4">
-//               Meet Our Expert Team
-//             </h2>
-//             <p className="text-lg text-[#3F3F46] max-w-3xl mx-auto">
-//               Certified professionals with years of experience in tiling and waterproofing.
-//             </p>
-//           </div>
-          
-//           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-//             {teamMembers.map((member, index) => (
-//               <div key={index} className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
-//                 <div className="relative h-64">
-//                   <Image
-//                     src={member.image}
-//                     alt={member.name}
-//                     fill
-//                     className="object-cover"
-//                   />
-//                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-//                   <div className="absolute bottom-4 left-4">
-//                     <div className="bg-[#C9A24D] text-white text-xs font-bold px-3 py-1 rounded-full">
-//                       {member.experience} Experience
-//                     </div>
-//                   </div>
-//                 </div>
-                
-//                 <div className="p-6">
-//                   <h3 className="text-xl font-bold text-[#111827] mb-1">{member.name}</h3>
-//                   <div className="text-[#C9A24D] font-semibold mb-3">{member.role}</div>
-//                   <div className="text-sm text-[#3F3F46] mb-4">{member.specialty}</div>
-//                   <div className="text-[#111827] italic border-l-4 border-[#C9A24D] pl-4 py-2">
-//                     "{member.quote}"
-//                   </div>
-//                 </div>
-//               </div>
-//             ))}
-//           </div>
-//         </div>
-//       </section>
-
-//       {/* Timeline */}
-//       <section className="py-20 px-4 max-w-7xl mx-auto">
-//         <div className="text-center mb-16">
-//           <h2 className="text-4xl font-bold text-[#111827] mb-4">
-//             Our Journey Through the Years
-//           </h2>
-//           <p className="text-lg text-[#3F3F46] max-w-3xl mx-auto">
-//             Milestones that shaped our commitment to excellence in tiling.
-//           </p>
-//         </div>
-        
-//         <div className="relative">
-//           {/* Timeline line */}
-//           <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-[#C9A24D] via-[#B89246] to-[#C9A24D]"></div>
-          
-//           {/* Timeline items */}
-//           <div className="space-y-12">
-//             {milestones.map((milestone, index) => (
-//               <div key={index} className={`relative flex ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-center`}>
-//                 <div className="flex-1"></div>
-                
-//                 {/* Timeline dot */}
-//                 <div className="absolute left-1/2 transform -translate-x-1/2 md:relative md:left-auto md:transform-none">
-//                   <div className="w-8 h-8 bg-gradient-to-br from-[#C9A24D] to-[#B89246] rounded-full border-4 border-white shadow-lg"></div>
-//                 </div>
-                
-//                 {/* Content */}
-//                 <div className={`flex-1 ${index % 2 === 0 ? 'md:text-right md:pr-12' : 'md:pl-12'} mt-8 md:mt-0`}>
-//                   <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
-//                     <div className="text-2xl font-bold text-[#C9A24D] mb-2">{milestone.year}</div>
-//                     <h3 className="text-xl font-bold text-[#111827] mb-2">{milestone.event}</h3>
-//                     <p className="text-[#3F3F46]">{milestone.detail}</p>
-//                   </div>
-//                 </div>
-//               </div>
-//             ))}
-//           </div>
-//         </div>
-//       </section>
-
-//       {/* CTA Section */}
-//       <section className="py-20 px-4 bg-gradient-to-r from-[#111827] to-[#3F3F46]">
-//         <div className="max-w-4xl mx-auto text-center">
-//           <h2 className="text-4xl font-bold text-white mb-6">
-//             Ready to Transform Your Space?
-//           </h2>
-//           <p className="text-xl text-gray-300 mb-8">
-//             Join over 1000 satisfied customers who trust Garda Tiling for their projects.
-//           </p>
-          
-//           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-//             <button className="bg-gradient-to-r from-[#C9A24D] to-[#B89246] text-white font-bold py-3 px-8 rounded-xl hover:shadow-lg transition-all">
-//               Get Your Free Quote
-//             </button>
-//             <button className="bg-white text-[#111827] font-bold py-3 px-8 rounded-xl hover:bg-gray-100 transition-all">
-//               View Our Gallery
-//             </button>
-//           </div>
-          
-//           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-//             <div className="flex items-center justify-center gap-3 text-white">
-//               <FaPhone className="text-[#C9A24D]" />
-//               <div>
-//                 <div className="font-semibold">Call Us</div>
-//                 <div className="text-lg">(03) 0000 0000</div>
-//               </div>
-//             </div>
-            
-//             <div className="flex items-center justify-center gap-3 text-white">
-//               <FaEnvelope className="text-[#C9A24D]" />
-//               <div>
-//                 <div className="font-semibold">Email Us</div>
-//                 <div className="text-lg">hello@garda-tiling.com</div>
-//               </div>
-//             </div>
-            
-//             <div className="flex items-center justify-center gap-3 text-white">
-//               <FaMapMarkerAlt className="text-[#C9A24D]" />
-//               <div>
-//                 <div className="font-semibold">Service Area</div>
-//                 <div className="text-lg">All Brisbane</div>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//       </section>
-
-//       {/* Certifications */}
-//       <section className="py-16 px-4">
-//         <div className="max-w-7xl mx-auto">
-//           <div className="text-center mb-12">
-//             <h3 className="text-2xl font-bold text-[#111827] mb-4">
-//               Certified & Licensed Professionals
-//             </h3>
-//             <p className="text-[#3F3F46]">
-//               Fully compliant with Australian building standards and regulations
-//             </p>
-//           </div>
-          
-//           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-//             {[
-//               { name: "Waterproofing License", number: "WP123456" },
-//               { name: "Building Practitioner", number: "BP789012" },
-//               { name: "Occupational License", number: "OL345678" },
-//               { name: "Insurance Coverage", number: "$10M Public Liability" }
-//             ].map((cert, index) => (
-//               <div key={index} className="text-center">
-//                 <div className="w-16 h-16 bg-gradient-to-br from-[#C9A24D]/10 to-[#B89246]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-//                   <FaShieldAlt className="w-8 h-8 text-[#C9A24D]" />
-//                 </div>
-//                 <div className="font-semibold text-[#111827]">{cert.name}</div>
-//                 <div className="text-sm text-[#3F3F46]">{cert.number}</div>
-//               </div>
-//             ))}
-//           </div>
-//         </div>
-//       </section>
-//     </div>
-//   );
-// }
-
-
-"use client"
-
-import Image from 'next/image';
-import { 
-  FaAward, FaShieldAlt, FaUsers, FaHandshake, 
-  FaClock, FaStar, FaMapMarkerAlt, FaPhone, 
-  FaEnvelope, FaCheckCircle, FaTools, FaRulerCombined 
-} from 'react-icons/fa';
+// ─── COMPONENT ───────────────────────────────────────────────────────────────
 
 export default function About() {
-  const teamMembers = [
-    {
-      name: "Michael Garda",
-      role: "Founder & Master Tiler",
-      experience: "15+ years",
-      specialty: "Waterproofing & Bathroom Renovations",
-      image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=400&h=400&fit=crop",
-      quote: "Precision in every tile, excellence in every project."
-    },
-    {
-      name: "Sarah Johnson",
-      role: "Project Manager",
-      experience: "10+ years",
-      specialty: "Commercial Projects",
-      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop",
-      quote: "Ensuring every project exceeds expectations."
-    },
-    {
-      name: "David Chen",
-      role: "Senior Tiler",
-      experience: "12+ years",
-      specialty: "Large Format & Natural Stone",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w-400&h=400&fit=crop",
-      quote: "Quality workmanship speaks for itself."
-    }
-  ];
-
-  const values = [
-    {
-      icon: <FaAward className="w-8 h-8" />,
-      title: "Excellence",
-      description: "We never compromise on quality. Every tile is laid with precision and care.",
-      color: "from-[#C9A24D] to-[#B89246]"
-    },
-    {
-      icon: <FaShieldAlt className="w-8 h-8" />,
-      title: "Reliability",
-      description: "Licensed, insured, and committed to Australian building standards.",
-      color: "from-[#111827] to-[#3F3F46]"
-    },
-    {
-      icon: <FaHandshake className="w-8 h-8" />,
-      title: "Integrity",
-      description: "Honest quotes, transparent pricing, and clear communication.",
-      color: "from-[#C9A24D] to-[#B89246]"
-    },
-    {
-      icon: <FaClock className="w-8 h-8" />,
-      title: "Timeliness",
-      description: "We respect your time and deliver projects on schedule.",
-      color: "from-[#111827] to-[#3F3F46]"
-    }
-  ];
-
-  const milestones = [
-    { year: "2010", event: "Founded Garda Tiling", detail: "Started with residential bathroom renovations" },
-    { year: "2013", event: "Waterproofing Certification", detail: "Became certified waterproofing specialists" },
-    { year: "2016", event: "Commercial Expansion", detail: "Started commercial tiling projects" },
-    { year: "2019", event: "Team Growth", detail: "Expanded to 10+ specialist tilers" },
-    { year: "2022", event: "Premium Service Launch", detail: "Introduced luxury tiling services" },
-    { year: "2024", event: "1000+ Projects", detail: "Successfully completed over 1000 projects" }
-  ];
-
   return (
-    <div className="w-full bg-gray-50 py-16 px-8 ">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden rounded-t-[32px] animate-scale-in">
-        <div className="absolute inset-0 bg-gradient-to-r from-[#111827]/95 to-[#3F3F46]/90 z-10 "></div>
-        <div className="relative z-20 py-20 px-4 max-w-7xl mx-auto">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6 animate-fade-in-down">
-              <FaStar className="text-[#C9A24D] animate-float" />
-              <span className="text-white font-medium">BRISBANE'S TRUSTED TILING EXPERTS</span>
-            </div>
-            
-            <h1 className="text-5xl md:text-5xl font-bold text-white mb-6 leading-tight animate-fade-in-up animation-delay-200">
-              Crafting Beautiful Spaces
-              <span className="block text-[#C9A24D] animate-fade-in-up animation-delay-400">Since 2010</span>
-            </h1>
-            
-            <p className="text-xl text-white/90 mb-8 animate-fade-in-up animation-delay-500">
-              We transform Brisbane homes and businesses with precision tiling, expert waterproofing, 
-              and unparalleled craftsmanship. Your vision, our expertise.
-            </p>
-            
-            <div className="flex flex-wrap gap-4 animate-fade-in-up animation-delay-700">
-              <button className="bg-gradient-to-r from-[#C9A24D] to-[#B89246] text-white font-bold py-3 px-8 rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
-                <span className="relative z-10">View Our Work</span>
-                <div className="absolute inset-0 bg-white/20 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
-              </button>
-              <button className="bg-white text-[#111827] font-bold py-3 px-8 rounded-xl hover:bg-gray-100 hover:-translate-y-1 transition-all duration-300 hover:shadow-lg">
-                Get Free Quote
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
+    <div className="w-full bg-background text-text-primary overflow-x-hidden">
 
-      {/* Our Story */}
-      <section className="py-20 px-4 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="animate-fade-in-up animation-delay-300">
-            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A24D]/10 to-[#B89246]/10 px-4 py-2 rounded-full mb-6 animate-fade-in-left">
-              <span className="text-sm font-semibold text-[#C9A24D]">OUR JOURNEY</span>
-            </div>
-            
-            <h2 className="text-4xl font-bold text-[#111827] mb-6 animate-fade-in-up animation-delay-400">
-              From Humble Beginnings to Brisbane's Premier Tiling Service
-            </h2>
-            
-            <p className="text-lg text-[#3F3F46] mb-6 animate-fade-in-up animation-delay-500">
-              Founded in 2010 by Michael Garda, what started as a one-man operation has grown into 
-              Brisbane's most trusted tiling and waterproofing company. Our commitment to excellence 
-              has earned us a reputation for quality workmanship and reliable service.
-            </p>
-            
-            <p className="text-lg text-[#3F3F46] mb-8 animate-fade-in-up animation-delay-600">
-              Today, we're proud to serve homeowners and businesses across Brisbane with a team of 
-              certified professionals who share our passion for creating beautiful, durable spaces.
-            </p>
-            
-            <div className="grid grid-cols-2 gap-6">
-              <div className="bg-gradient-to-br from-[#C9A24D]/5 to-transparent p-6 rounded-xl hover-lift transition-all duration-300 animate-fade-in-up animation-delay-700">
-                <div className="text-3xl font-bold text-[#C9A24D] mb-2 group-hover:animate-pulse-scale">1000+</div>
-                <div className="text-[#111827] font-semibold">Projects Completed</div>
-              </div>
-              <div className="bg-gradient-to-br from-[#111827]/5 to-transparent p-6 rounded-xl hover-lift transition-all duration-300 animate-fade-in-up animation-delay-800">
-                <div className="text-3xl font-bold text-[#111827] mb-2 group-hover:animate-pulse-scale">15+</div>
-                <div className="text-[#111827] font-semibold">Years Experience</div>
-              </div>
-            </div>
-          </div>
-          
-          <div className="relative animate-fade-in-up animation-delay-700">
-            <div className="relative h-[400px] lg:h-[500px] rounded-2xl overflow-hidden shadow-2xl group hover:scale-[1.02] transition-transform duration-500">
-              <Image
-                src="https://images.unsplash.com/photo-1540518614846-7eded433c457?w=800&h=600&fit=crop"
-                alt="Our team at work"
-                fill
-                className="object-cover group-hover:scale-110 transition-transform duration-700"
-              />
-            </div>
-            <div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-xl shadow-lg max-w-xs animate-fade-in-up animation-delay-900 hover-lift hover:shadow-xl transition-all duration-300">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-12 h-12 bg-gradient-to-br from-[#C9A24D] to-[#B89246] rounded-full flex items-center justify-center group-hover:animate-float">
-                  <FaHandshake className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <div className="font-bold text-[#111827]">Michael Garda</div>
-                  <div className="text-sm text-[#C9A24D]">Founder</div>
-                </div>
-              </div>
-              <p className="text-[#3F3F46] italic">
-                "We don't just lay tiles; we build relationships through quality work."
+      {/* ═══════════════════════════ HERO ═══════════════════════════ */}
+      <section className="relative w-full py-32 px-4 sm:px-6 lg:px-8 bg-primary overflow-hidden">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
+
+          <motion.div
+            initial={{ opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            {/* Pill */}
+            <span className="inline-flex items-center gap-2 bg-accent-secondary text-white rounded-full px-3 py-1.5 font-manrope text-xs mb-6">
+              <Star size={12} />
+              Brisbane&apos;s Trusted Tiling Experts
+            </span>
+
+            <h1 className="font-bebas text-5xl sm:text-6xl tracking-tight text-background">
+              Crafting Beautiful <span className="text-white/60">Spaces Since 2010</span>
+            </h1>
+
+            <div className="mt-6 pl-4 border-l-4 border-accent">
+              <p className="font-manrope text-background/60 leading-relaxed">
+                We transform Brisbane homes and businesses with precision tiling, expert
+                waterproofing, and unparalleled craftsmanship. Your vision, our expertise.
               </p>
             </div>
-          </div>
+
+            <div className="flex flex-wrap gap-4 mt-8">
+              <Link
+                href="/projects"
+                className="inline-flex px-7 py-3 rounded-full bg-white text-primary font-manrope text-sm font-semibold shadow-md hover:scale-105 transition-all duration-300"
+              >
+                View Our Work
+              </Link>
+              <Link
+                href="/contact"
+                className="inline-flex px-7 py-3 rounded-full border border-white/30 text-white font-manrope text-sm font-semibold hover:bg-white/10 transition-all duration-300"
+              >
+                Get Free Quote
+              </Link>
+            </div>
+          </motion.div>
+
+          {/* Stats card */}
+          <motion.div
+            className="hidden lg:block"
+            initial={{ opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <div className="bg-card border border-border rounded-3xl p-10 shadow-lg hover:-translate-y-2 hover:shadow-xl transition-all duration-500">
+              <div className="grid grid-cols-2 gap-6">
+                {[
+                  ["1000+", "Projects Completed"],
+                  ["15+",   "Years Experience"],
+                  ["50+",   "Suburbs Covered"],
+                  ["100%",  "Licensed & Insured"],
+                ].map(([stat, label]) => (
+                  <div key={label} className="text-center">
+                    <div className="font-bebas text-4xl text-accent">{stat}</div>
+                    <div className="font-manrope text-xs text-text-muted mt-1">{label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Decorative shapes */}
+        <div className="absolute -right-20 top-40 rotate-45 w-72 h-72 bg-accent-secondary/20 rounded-3xl hidden lg:block" />
+        <div className="absolute -left-28 bottom-24 rotate-45 w-96 h-96 bg-white/5 rounded-3xl" />
+      </section>
+
+      {/* ═══════════════════════════ OUR STORY ═══════════════════════════ */}
+      <section className="py-28 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+          <motion.div {...fadeUp()}>
+            <span className="inline-flex items-center gap-2 bg-accent-secondary text-white rounded-full px-3 py-1.5 font-manrope text-xs mb-6">
+              Our Journey
+            </span>
+
+            <h2 className="font-bebas text-4xl tracking-tight text-primary">
+              From Humble Beginnings to Brisbane&apos;s{" "}
+              <span className="text-text-primary">Premier Tiling Service</span>
+            </h2>
+
+            <p className="mt-5 font-manrope text-text-muted leading-relaxed">
+              Founded in 2010 by Michael Garda, what started as a one-man operation has grown
+              into Brisbane&apos;s most trusted tiling and waterproofing company. Our commitment
+              to excellence has earned us a reputation for quality workmanship and reliable service.
+            </p>
+
+            <p className="mt-4 font-manrope text-text-muted leading-relaxed">
+              Today, we&apos;re proud to serve homeowners and businesses across Brisbane with a team
+              of certified professionals who share our passion for creating beautiful, durable spaces.
+            </p>
+
+            <div className="mt-8 grid grid-cols-2 gap-4">
+              {[
+                ["1000+", "Projects Completed"],
+                ["15+",   "Years Experience"],
+              ].map(([stat, label]) => (
+                <div key={label} className="bg-card border border-border rounded-2xl p-6 text-center">
+                  <div className="font-bebas text-3xl text-accent">{stat}</div>
+                  <div className="font-manrope text-sm text-text-muted mt-1">{label}</div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div {...fadeUp(0.15)} className="relative">
+            <div className="relative h-[400px] rounded-3xl overflow-hidden shadow-2xl group">
+              <img
+                src="https://images.unsplash.com/photo-1540518614846-7eded433c457?w=800&h=600&fit=crop"
+                alt="Our team at work"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+            </div>
+            {/* Floating badge */}
+            <div className="absolute -bottom-5 -right-5 bg-card border border-border rounded-2xl p-5 shadow-lg">
+              <div className="flex items-center gap-2 font-manrope text-sm font-semibold text-text-primary">
+                <CheckCircle2 size={16} className="text-accent" />
+                AS 3740 Certified
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Our Values */}
-      <section className="py-20 px-4 bg-gradient-to-b from-gray-50 to-white">
+      {/* ═══════════════════════════ VALUES ═══════════════════════════ */}
+      <section className="py-24 px-4 sm:px-6 lg:px-8 bg-primary">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16 animate-fade-in-up animation-delay-300">
-            <h2 className="text-4xl font-bold text-[#111827] mb-4">
-              Why Choose Garda Tiling
+
+          <motion.div className="text-center mb-16" {...fadeUp()}>
+            <h2 className="font-bebas text-4xl tracking-tight text-background">
+              Our Core <span className="text-white/60">Values</span>
             </h2>
-            <p className="text-lg text-[#3F3F46] max-w-3xl mx-auto">
-              Our core values guide every project we undertake, ensuring exceptional results every time.
+            <p className="mt-4 max-w-2xl mx-auto font-manrope text-background/60">
+              The principles that guide every project we take on.
             </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {values.map((value, index) => (
-              <div 
-                key={index} 
-                className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover-lift animate-fade-in-up group"
-                style={{ animationDelay: `${400 + index * 100}ms` }}
+          </motion.div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {values.map(({ icon: Icon, title, desc }, i) => (
+              <motion.div
+                key={title}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="bg-card border border-border rounded-2xl p-6 shadow-md hover:-translate-y-2 hover:shadow-xl transition-all duration-500 group"
               >
-                <div className={`w-16 h-16 bg-gradient-to-br ${value.color} rounded-xl flex items-center justify-center text-white mb-6 group-hover:animate-float`}>
-                  {value.icon}
+                <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors duration-300">
+                  <Icon size={18} className="text-accent" />
                 </div>
-                <h3 className="text-xl font-bold text-[#111827] mb-3 group-hover:text-[#C9A24D] transition-colors duration-300">
-                  {value.title}
-                </h3>
-                <p className="text-[#3F3F46]">{value.description}</p>
-              </div>
+                <h4 className="font-bebas text-xl mb-2">{title}</h4>
+                <p className="font-manrope text-sm text-text-muted">{desc}</p>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Our Process */}
-      <section className="py-20 px-4 max-w-7xl mx-auto">
-        <div className="text-center mb-16 animate-fade-in-up animation-delay-300">
-          <h2 className="text-4xl font-bold text-[#111827] mb-4">
-            Our Proven Process
-          </h2>
-          <p className="text-lg text-[#3F3F46] max-w-3xl mx-auto">
-            From consultation to completion, we follow a meticulous process to ensure perfect results.
-          </p>
+      {/* ═══════════════════════════ TEAM ═══════════════════════════ */}
+      <section className="py-28 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+
+          <motion.div className="text-center mb-16" {...fadeUp()}>
+            <h2 className="font-bebas text-4xl tracking-tight text-primary">
+              Meet the <span className="text-text-primary">Team</span>
+            </h2>
+            <p className="mt-4 max-w-2xl mx-auto font-manrope text-text-muted">
+              Certified professionals who bring skill and dedication to every project.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {teamMembers.map((member, i) => (
+              <motion.div
+                key={member.name}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="bg-card border border-border rounded-2xl overflow-hidden shadow-md hover:-translate-y-2 hover:shadow-xl transition-all duration-500 group"
+              >
+                {/* Image */}
+                <div className="relative h-56 overflow-hidden">
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                  <span className="absolute bottom-3 left-3 bg-accent text-white font-manrope text-xs font-semibold px-3 py-1 rounded-full">
+                    {member.experience} Experience
+                  </span>
+                </div>
+
+                {/* Content */}
+                <div className="p-6">
+                  <h3 className="font-bebas text-2xl text-text-primary">{member.name}</h3>
+                  <div className="font-manrope text-sm text-accent font-semibold mb-1">{member.role}</div>
+                  <div className="font-manrope text-xs text-text-muted mb-4">{member.specialty}</div>
+                  <div className="pl-4 border-l-4 border-accent font-manrope text-sm text-text-muted italic">
+                    &ldquo;{member.quote}&rdquo;
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      </section>
+
+      {/* ═══════════════════════════ TIMELINE ═══════════════════════════ */}
+      <section className="py-28 px-4 sm:px-6 lg:px-8 bg-primary">
+        <div className="max-w-5xl mx-auto">
+
+          <motion.div className="text-center mb-16" {...fadeUp()}>
+            <h2 className="font-bebas text-4xl tracking-tight text-background">
+              Our Journey <span className="text-white/60">Through the Years</span>
+            </h2>
+            <p className="mt-4 max-w-2xl mx-auto font-manrope text-background/60">
+              Milestones that shaped our commitment to excellence in tiling.
+            </p>
+          </motion.div>
+
+          <div className="relative">
+            {/* Centre line — desktop only */}
+            <div className="hidden md:block absolute left-1/2 -translate-x-1/2 w-0.5 h-full bg-accent/30" />
+
+            <div className="space-y-10">
+              {milestones.map((milestone, i) => {
+                const isEven = i % 2 === 0;
+                return (
+                  <motion.div
+                    key={milestone.year}
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: i * 0.08 }}
+                    className={`relative flex flex-col md:flex-row ${isEven ? "" : "md:flex-row-reverse"} items-center gap-6`}
+                  >
+                    <div className="flex-1" />
+
+                    {/* Dot */}
+                    <div className="w-4 h-4 rounded-full bg-accent border-4 border-primary shrink-0 z-10" />
+
+                    {/* Card */}
+                    <div className={`flex-1 ${isEven ? "md:text-right" : ""}`}>
+                      <div className="bg-card border border-border rounded-2xl p-6 shadow-md hover:-translate-y-1 hover:shadow-xl transition-all duration-500 inline-block w-full">
+                        <div className="font-bebas text-2xl text-accent mb-1">{milestone.year}</div>
+                        <h3 className="font-bebas text-xl text-text-primary">{milestone.event}</h3>
+                        <p className="font-manrope text-sm text-text-muted mt-1">{milestone.detail}</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════ CERTIFICATIONS ═══════════════════════════ */}
+      <section className="py-24 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+
+          <motion.div className="text-center mb-12" {...fadeUp()}>
+            <h2 className="font-bebas text-4xl tracking-tight text-primary">
+              Certified &amp; Licensed <span className="text-text-primary">Professionals</span>
+            </h2>
+            <p className="mt-4 font-manrope text-text-muted">
+              Fully compliant with Australian building standards and regulations.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {certifications.map((cert, i) => (
+              <motion.div
+                key={cert.name}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="bg-card border border-border rounded-2xl p-6 text-center hover:-translate-y-2 hover:shadow-xl transition-all duration-500 group"
+              >
+                <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-accent/20 transition-colors duration-300">
+                  <ShieldCheck size={20} className="text-accent" />
+                </div>
+                <div className="font-bebas text-lg text-text-primary">{cert.name}</div>
+                <div className="font-manrope text-xs text-text-muted mt-1">{cert.number}</div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════ CTA ═══════════════════════════ */}
+      <motion.section
+        className="py-28 px-4 sm:px-6 lg:px-8 bg-primary text-center"
+        {...fadeUp()}
+      >
+        <h2 className="font-bebas text-4xl sm:text-5xl tracking-tight text-background">
+          Ready to Transform <span className="text-white/60">Your Space?</span>
+        </h2>
+        <p className="mt-4 max-w-xl mx-auto font-manrope text-background/60">
+          Join over 1000 satisfied customers who trust Garda Tiling for their projects.
+        </p>
+
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+          <Link
+            href="/contact"
+            className="inline-flex px-8 py-3 rounded-full bg-white text-primary font-manrope text-sm font-semibold shadow-lg hover:scale-105 transition-all duration-300"
+          >
+            Get Your Free Quote
+          </Link>
+          <Link
+            href="/projects"
+            className="inline-flex px-8 py-3 rounded-full border border-white/30 text-white font-manrope text-sm font-semibold hover:bg-white/10 transition-all duration-300"
+          >
+            View Our Gallery
+          </Link>
+        </div>
+
+        {/* Contact row */}
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto">
           {[
-            {
-              step: "01",
-              title: "Consultation",
-              description: "Free site inspection & detailed quote",
-              icon: <FaRulerCombined className="w-6 h-6" />
-            },
-            {
-              step: "02",
-              title: "Planning",
-              description: "Material selection & project timeline",
-              icon: <FaTools className="w-6 h-6" />
-            },
-            {
-              step: "03",
-              title: "Installation",
-              description: "Precision work with quality materials",
-              icon: <FaCheckCircle className="w-6 h-6" />
-            },
-            {
-              step: "04",
-              title: "Completion",
-              description: "Final inspection & warranty handover",
-              icon: <FaShieldAlt className="w-6 h-6" />
-            }
-          ].map((process, index) => (
-            <div key={index} className="relative animate-fade-in-up" style={{ animationDelay: `${500 + index * 100}ms` }}>
-              <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover-lift hover:shadow-xl transition-all duration-300 group">
-                <div className="text-5xl font-bold text-gray-100 mb-4 group-hover:animate-fade-in-up">{process.step}</div>
-                <div className="w-12 h-12 bg-gradient-to-br from-[#C9A24D] to-[#B89246] rounded-lg flex items-center justify-center text-white mb-4 group-hover:animate-float">
-                  {process.icon}
-                </div>
-                <h3 className="text-xl font-bold text-[#111827] mb-2 group-hover:text-[#C9A24D] transition-colors duration-300">
-                  {process.title}
-                </h3>
-                <p className="text-[#3F3F46] group-hover:text-[#3F3F46] transition-colors duration-300">
-                  {process.description}
-                </p>
+            { icon: Phone,  label: "Call Us",      value: "(03) 0000 0000" },
+            { icon: Mail,   label: "Email Us",     value: "hello@garda-tiling.com" },
+            { icon: MapPin, label: "Service Area", value: "All Brisbane" },
+          ].map(({ icon: Icon, label, value }) => (
+            <div key={label} className="flex items-center justify-center gap-3 text-background/80">
+              <Icon size={16} className="text-accent shrink-0" />
+              <div className="text-left">
+                <div className="font-manrope text-xs text-background/50">{label}</div>
+                <div className="font-manrope text-sm font-semibold">{value}</div>
               </div>
-              {index < 3 && (
-                <div className="hidden lg:block absolute top-1/2 -right-4 transform -translate-y-1/2 animate-fade-in-right animation-delay-300">
-                  <div className="w-8 h-0.5 bg-gray-300"></div>
-                </div>
-              )}
             </div>
           ))}
         </div>
-      </section>
+      </motion.section>
 
-      {/* Our Team */}
-      <section className="py-20 px-4 bg-gradient-to-b from-gray-50 to-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16 animate-fade-in-up animation-delay-300">
-            <h2 className="text-4xl font-bold text-[#111827] mb-4">
-              Meet Our Expert Team
-            </h2>
-            <p className="text-lg text-[#3F3F46] max-w-3xl mx-auto">
-              Certified professionals with years of experience in tiling and waterproofing.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {teamMembers.map((member, index) => (
-              <div 
-                key={index} 
-                className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover-lift animate-fade-in-up group"
-                style={{ animationDelay: `${400 + index * 150}ms` }}
-              >
-                <div className="relative h-64 group/image">
-                  <Image
-                    src={member.image}
-                    alt={member.name}
-                    fill
-                    className="object-cover group-hover/image:scale-110 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                  <div className="absolute bottom-4 left-4">
-                    <div className="bg-[#C9A24D] text-white text-xs font-bold px-3 py-1 rounded-full group-hover:animate-bounce-in">
-                      {member.experience} Experience
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-[#111827] mb-1 group-hover:text-[#C9A24D] transition-colors duration-300">
-                    {member.name}
-                  </h3>
-                  <div className="text-[#C9A24D] font-semibold mb-3">{member.role}</div>
-                  <div className="text-sm text-[#3F3F46] mb-4">{member.specialty}</div>
-                  <div className="text-[#111827] italic border-l-4 border-[#C9A24D] pl-4 py-2 group-hover:border-l-8 transition-all duration-300">
-                    "{member.quote}"
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Timeline */}
-      <section className="py-20 px-4 max-w-7xl mx-auto">
-        <div className="text-center mb-16 animate-fade-in-up animation-delay-300">
-          <h2 className="text-4xl font-bold text-[#111827] mb-4">
-            Our Journey Through the Years
-          </h2>
-          <p className="text-lg text-[#3F3F46] max-w-3xl mx-auto">
-            Milestones that shaped our commitment to excellence in tiling.
-          </p>
-        </div>
-        
-        <div className="relative">
-          {/* Timeline line */}
-          <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-[#C9A24D] via-[#B89246] to-[#C9A24D] animate-fade-in-up"></div>
-          
-          {/* Timeline items */}
-          <div className="space-y-12">
-            {milestones.map((milestone, index) => (
-              <div 
-                key={index} 
-                className={`relative flex ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-center animate-fade-in-up`}
-                style={{ animationDelay: `${400 + index * 100}ms` }}
-              >
-                <div className="flex-1"></div>
-                
-                {/* Timeline dot */}
-                <div className="absolute left-1/2 transform -translate-x-1/2 md:relative md:left-auto md:transform-none">
-                  <div className="w-8 h-8 bg-gradient-to-br from-[#C9A24D] to-[#B89246] rounded-full border-4 border-white shadow-lg group-hover:animate-pulse-scale"></div>
-                </div>
-                
-                {/* Content */}
-                <div className={`flex-1 ${index % 2 === 0 ? 'md:text-right md:pr-12' : 'md:pl-12'} mt-8 md:mt-0`}>
-                  <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 hover-lift hover:shadow-xl transition-all duration-300 group">
-                    <div className="text-2xl font-bold text-[#C9A24D] mb-2 group-hover:animate-scale-in">
-                      {milestone.year}
-                    </div>
-                    <h3 className="text-xl font-bold text-[#111827] mb-2 group-hover:text-[#C9A24D] transition-colors duration-300">
-                      {milestone.event}
-                    </h3>
-                    <p className="text-[#3F3F46]">{milestone.detail}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 px-4 bg-gradient-to-r from-[#111827] to-[#3F3F46] hover-glow animate-fade-in-up animation-delay-400">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold text-white mb-6 animate-fade-in-up animation-delay-500">
-            Ready to Transform Your Space?
-          </h2>
-          <p className="text-xl text-gray-300 mb-8 animate-fade-in-up animation-delay-600">
-            Join over 1000 satisfied customers who trust Garda Tiling for their projects.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 animate-fade-in-up animation-delay-700">
-            <button className="bg-gradient-to-r from-[#C9A24D] to-[#B89246] text-white font-bold py-3 px-8 rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
-              <span className="relative z-10">Get Your Free Quote</span>
-              <div className="absolute inset-0 bg-white/20 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
-            </button>
-            <button className="bg-white text-[#111827] font-bold py-3 px-8 rounded-xl hover:bg-gray-100 hover:-translate-y-1 transition-all duration-300 hover:shadow-lg">
-              View Our Gallery
-            </button>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { icon: FaPhone, label: "Call Us", value: "(03) 0000 0000" },
-              { icon: FaEnvelope, label: "Email Us", value: "hello@garda-tiling.com" },
-              { icon: FaMapMarkerAlt, label: "Service Area", value: "All Brisbane" }
-            ].map((contact, index) => (
-              <div 
-                key={index}
-                className="flex items-center justify-center gap-3 text-white group cursor-pointer animate-fade-in-up"
-                style={{ animationDelay: `${800 + index * 100}ms` }}
-              >
-                <contact.icon className="text-[#C9A24D] group-hover:animate-float text-xl" />
-                <div>
-                  <div className="font-semibold">{contact.label}</div>
-                  <div className="text-lg group-hover:text-[#C9A24D] transition-colors duration-300">
-                    {contact.value}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Certifications */}
-      <section className="py-16 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12 animate-fade-in-up animation-delay-300">
-            <h3 className="text-2xl font-bold text-[#111827] mb-4">
-              Certified & Licensed Professionals
-            </h3>
-            <p className="text-[#3F3F46] animate-fade-in-up animation-delay-400">
-              Fully compliant with Australian building standards and regulations
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {[
-              { name: "Waterproofing License", number: "WP123456" },
-              { name: "Building Practitioner", number: "BP789012" },
-              { name: "Occupational License", number: "OL345678" },
-              { name: "Insurance Coverage", number: "$10M Public Liability" }
-            ].map((cert, index) => (
-              <div 
-                key={index} 
-                className="text-center animate-fade-in-up hover-lift transition-all duration-300 group"
-                style={{ animationDelay: `${500 + index * 100}ms` }}
-              >
-                <div className="w-16 h-16 bg-gradient-to-br from-[#C9A24D]/10 to-[#B89246]/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:animate-float">
-                  <FaShieldAlt className="w-8 h-8 text-[#C9A24D]" />
-                </div>
-                <div className="font-semibold text-[#111827] group-hover:text-[#C9A24D] transition-colors duration-300">
-                  {cert.name}
-                </div>
-                <div className="text-sm text-[#3F3F46] group-hover:text-[#111827] transition-colors duration-300">
-                  {cert.number}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
     </div>
   );
 }
