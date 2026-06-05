@@ -1,18 +1,9 @@
-import { notFound } from "next/navigation";
-import { servicesData } from "@/components/lib/servicesData";
-import ServiceDetail from "@/components/ServicesTab/ServiceDetailPage";
+import ServiceDetailLoader from "@/components/ServicesTab/ServiceDetailLoader";
+
+export const dynamic = "force-dynamic";
+export const dynamicParams = true;
 
 export default async function Page({ params }) {
   const { slug } = await params;
-
-  const service = servicesData.find(
-    (s) => s.slug === slug
-  );
-
-  if (!service) {
-    notFound();
-  }
-
-  return <ServiceDetail service={service} />;
-  
+  return <ServiceDetailLoader slug={slug} />;
 }

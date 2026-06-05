@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useSiteSections } from "@/lib/cms/useSiteSections";
 
-const steps = [
+const DEFAULT_STEPS = [
   {
     number: "1.",
     title: "Site Inspection",
@@ -34,6 +35,11 @@ const steps = [
 ];
 
 export default function HowItWorks() {
+  const { getSection } = useSiteSections("home");
+  const section = getSection("how-it-works");
+  const c = section?.content || {};
+  const steps = Array.isArray(c.steps) && c.steps.length ? c.steps : DEFAULT_STEPS;
+
   return (
     <section className="w-full overflow-hidden bg-background py-24 px-4 sm:px-6 lg:px-8 relative">
       {/* ================= DECORATIVE SHAPES (BACKGROUND ONLY) ================= */}

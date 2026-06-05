@@ -1,6 +1,20 @@
 "use client";
 
+import { useTestimonials } from "@/lib/cms/useTestimonials";
+
 export default function WhatOurClientsSay() {
+  const { testimonials, loading } = useTestimonials();
+
+  if (loading) {
+    return (
+      <section className="relative w-full py-20 bg-background">
+        <div className="max-w-7xl mx-auto text-center font-manrope text-text-muted text-sm">
+          Loading testimonials…
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="relative w-full pb-50 bg-background pt-10 md:pt-20 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
@@ -17,13 +31,9 @@ export default function WhatOurClientsSay() {
 
         {/* TESTIMONIAL GRID */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-          <TestimonialCard text="Garda Tiling did an excellent job on our bathroom renovation. The team was professional, punctual, and the finish was flawless." />
-
-          <TestimonialCard text="Very impressed with the quality of work and attention to detail. Everything was explained clearly and completed on time." />
-
-          <TestimonialCard text="Great communication from start to finish. The waterproofing and tiling were done properly and the site was left clean every day." />
-
-          <TestimonialCard text="Reliable, honest, and skilled workmanship. We are extremely happy with the final result and would definitely use Garda Tiling again." />
+          {testimonials.slice(0, 4).map((t, i) => (
+            <TestimonialCard key={t.id || i} text={t.text} author={t.author} />
+          ))}
         </div>
 
         {/* DECORATIVE FOOTER ELEMENT */}
@@ -40,7 +50,7 @@ export default function WhatOurClientsSay() {
 }
 
 /* CARD COMPONENT */
-function TestimonialCard({ text }) {
+function TestimonialCard({ text, author }) {
   return (
     <div
       className="
@@ -59,9 +69,11 @@ function TestimonialCard({ text }) {
     >
       <p className="mb-6 text-text-muted">“{text}”</p>
 
-      <span className="block text-xs font-semibold text-text-primary">
-        — Homeowner, Max Williams
-      </span>
+      {author && (
+        <span className="block text-xs font-semibold text-text-primary">
+          — {author}
+        </span>
+      )}
     </div>
   );
 }

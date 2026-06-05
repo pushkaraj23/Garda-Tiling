@@ -2,6 +2,8 @@ import "./globals.css";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 import { Bebas_Neue, Manrope } from "next/font/google";
+import Script from "next/script";
+import { CMS_API_BASE_KEY, getDevApiDefault } from "@/lib/cms/runtimeConfig";
 
 const bebasNeue = Bebas_Neue({
   subsets: ["latin"],
@@ -23,9 +25,20 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const cmsApiBase =
+    process.env.NEXT_PUBLIC_API_BASE_URL ||
+    (process.env.NODE_ENV === "development" ? getDevApiDefault() : "");
+
   return (
     <html lang="en">
       <body className={`${bebasNeue.variable} ${manrope.variable} antialiased`}>
+        <Script
+          id="garda-cms-api-base"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `window.${CMS_API_BASE_KEY}=${JSON.stringify(cmsApiBase)};`,
+          }}
+        />
         <Header />
         {children}
         <Footer />

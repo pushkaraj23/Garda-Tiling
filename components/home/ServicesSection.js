@@ -1,6 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useServices } from "@/lib/cms/useServices";
+import { toHomeServiceCard } from "@/lib/cms/mappers";
 
 const container = {
   hidden: {},
@@ -14,8 +16,7 @@ const item = {
   show: { opacity: 1, y: 0 },
 };
 
-export default function ServicesSection() {
-  const services = [
+const DEFAULT_HOME_SERVICES = [
     {
       title: "Bathroom Tiling",
       subtitle:
@@ -70,7 +71,27 @@ export default function ServicesSection() {
       img: "https://images.unsplash.com/photo-1691036365036-71da57ac5919?w=800&auto=format&fit=crop&q=60",
       path: "/services/custom-tiling-projects",
     },
-  ];
+];
+
+export default function ServicesSection() {
+  const { services: cmsServices, loading, source } = useServices();
+  const services = loading
+    ? []
+    : cmsServices.length
+      ? cmsServices.slice(0, 8).map(toHomeServiceCard)
+      : source === "fallback"
+        ? DEFAULT_HOME_SERVICES
+        : [];
+
+  if (loading) {
+    return (
+      <section className="relative w-full py-16 px-4 md:px-8">
+        <div className="max-w-7xl mx-auto text-center font-manrope text-text-muted text-sm">
+          Loading services…
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="relative w-full py-16 sm:py-20 px-4 md:px-8 overflow-hidden">

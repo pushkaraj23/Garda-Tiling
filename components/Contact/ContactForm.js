@@ -135,18 +135,40 @@ export default function ContactForm({ selectedService = "" }) {
     setStatus({ type: "", message: "" });
 
     try {
+      const payload = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.mobile,
+        mobile: formData.mobile,
+        suburb: formData.suburb,
+        jobType: formData.jobType,
+        details: [
+          formData.message,
+          formData.approxSqm ? `Approx area: ${formData.approxSqm} sqm` : null,
+          formData.waterproofing ? `Waterproofing: ${formData.waterproofing}` : null,
+          formData.tileRemoval ? `Tile removal: ${formData.tileRemoval}` : null,
+        ]
+          .filter(Boolean)
+          .join("\n"),
+        metadata: {
+          approxSqm: formData.approxSqm,
+          waterproofing: formData.waterproofing,
+          tileRemoval: formData.tileRemoval,
+        },
+      };
+
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
-      const data = await response.json();
+      const data = await response.json().catch(() => ({}));
 
       if (response.ok) {
-        setStatus({ type: "success", message: "Quote request submitted. We'll contact you within 24 hours." });
+        setStatus({ type: "success", message: data.message || "Quote request submitted. We'll contact you within 24 hours." });
         setFormData({ ...INITIAL, jobType: selectedService || INITIAL.jobType });
       } else {
-        setStatus({ type: "error", message: data.error || "Something went wrong. Please try again." });
+        setStatus({ type: "error", message: data.message || data.error || "Something went wrong. Please try again." });
       }
     } catch {
       setStatus({ type: "error", message: "Network error. Please check your connection and try again." });

@@ -6,6 +6,8 @@ import ServicesSection from "@/components/home/ServicesSection";
 import WhatOurClientsSay from "@/components/home/WhatOurClientsSay";
 import WhyChooseSection from "@/components/home/WhyChooseSection";
 
+export const dynamic = "force-dynamic";
+
 export default function page() {
   return (
     <div className="min-h-screen overflow-x-hidden">

@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { projectDetailPath } from "@/lib/cms/paths";
+import CmsImage from "@/components/common/CmsImage";
 import { motion } from "framer-motion";
 import {
   ArrowLeft,
@@ -24,8 +26,6 @@ import {
   AlertTriangle,
   Lightbulb,
 } from "lucide-react";
-import { projects } from "../lib/projectData";
-
 const fadeInUp = {
   hidden: { opacity: 0, y: 24 },
   visible: (i = 0) => ({
@@ -48,7 +48,7 @@ const staggerItem = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
 };
 
-export default function ProjectDetail({ project }) {
+export default function ProjectDetail({ project, relatedProjects = [] }) {
   const router = useRouter();
   const [selectedImage, setSelectedImage] = useState(0);
 
@@ -116,9 +116,13 @@ export default function ProjectDetail({ project }) {
     }
   };
 
-  const relatedProjects = projects
-    .filter((p) => p.category === project.category && p.id !== project.id)
-    .slice(0, 3);
+  const timeline = [project.startDate, project.completionDate].filter(Boolean).join(" – ");
+  const infoItems = [
+    { icon: User, label: "Client", value: project.client },
+    { icon: Calendar, label: "Timeline", value: timeline },
+    { icon: DollarSign, label: "Project Value", value: project.budget },
+    { icon: Clock, label: "Duration", value: project.duration },
+  ].filter((item) => item.value && String(item.value).trim());
 
   return (
     <div className="w-full min-h-screen bg-[#ffffff] overflow-x-hidden pt-24 sm:pt-28">
@@ -162,13 +166,12 @@ export default function ProjectDetail({ project }) {
           />
 
           {hasImages ? (
-            <Image
+            <CmsImage
               src={project.images[selectedImage]}
-              alt={`${project.title}`}
+              alt={project.title}
               fill
               className="object-cover"
               priority
-              sizes="100vw"
             />
           ) : (
             <div className="w-full h-full bg-[#64748b]/20 flex items-center justify-center">
@@ -321,17 +324,7 @@ export default function ProjectDetail({ project }) {
 
               {/* Info grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                {[
-                  { icon: User, label: "Client", value: project.client },
-                  {
-                    icon: Calendar,
-                    label: "Timeline",
-                    value:
-                      `${project.startDate || ""} – ${project.completionDate || ""}`.trim() || "N/A",
-                  },
-                  { icon: DollarSign, label: "Project Value", value: project.budget },
-                  { icon: Clock, label: "Duration", value: project.duration },
-                ].map((item, i) => (
+                {infoItems.map((item, i) => (
                   <motion.div
                     key={item.label}
                     className="flex items-center gap-4 bg-white p-4 sm:p-5 rounded-xl border border-[#e5e7eb]"
@@ -408,17 +401,47 @@ export default function ProjectDetail({ project }) {
                           : {}
                       }
                     >
-                      <Image
+                      <CmsImage
                         src={img}
                         alt={`${project.title} ${i + 1}`}
                         fill
                         className="object-cover"
-                        sizes="25vw"
                       />
                       {selectedImage === i && (
                         <div className="absolute inset-0 bg-[#2563eb]/10" />
                       )}
                     </motion.button>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+
+            {/* Team */}
+            {project.team?.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                <h3 className="font-bebas text-2xl text-[#111827] mb-5">PROJECT TEAM</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {project.team.map((member, i) => (
+                    <motion.div
+                      key={`${member.name}-${i}`}
+                      className="bg-white p-5 rounded-xl border border-[#e5e7eb] flex items-center gap-4"
+                      initial={{ opacity: 0, y: 16 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.06 }}
+                    >
+                      <div className="w-11 h-11 rounded-full bg-[#2563eb]/10 flex items-center justify-center">
+                        <User size={18} className="text-[#2563eb]" />
+                      </div>
+                      <div>
+                        <p className="font-semibold text-[#111827] font-manrope">{member.name}</p>
+                        <p className="text-sm text-[#6b7280] font-manrope">{member.role}</p>
+                      </div>
+                    </motion.div>
                   ))}
                 </div>
               </motion.div>
@@ -515,7 +538,7 @@ export default function ProjectDetail({ project }) {
                         {label}
                       </div>
                       <div className="relative h-64">
-                        <Image src={src} alt={label} fill className="object-cover" />
+                        <CmsImage src={src} alt={label} fill className="object-cover" />
                       </div>
                     </motion.div>
                   ))}
@@ -777,7 +800,7 @@ export default function ProjectDetail({ project }) {
                   <h4 className="font-bebas text-xl text-[#111827] mb-5">SIMILAR PROJECTS</h4>
                   <div className="space-y-3">
                     {relatedProjects.map((r) => (
-                      <Link key={r.id} href={`/projects/${r.slug}`}>
+                      <Link key={r.id} href={projectDetailPath(r.slug)}>
                         <motion.div
                           className="flex gap-3.5 p-3.5 rounded-xl border border-[#e5e7eb] hover:border-[#2563eb]/40 cursor-pointer"
                           whileHover={{
@@ -788,7 +811,7 @@ export default function ProjectDetail({ project }) {
                         >
                           {r.images?.[0] && (
                             <div className="relative w-14 h-14 rounded-lg overflow-hidden flex-shrink-0">
-                              <Image
+                              <CmsImage
                                 src={r.images[0]}
                                 alt={r.title}
                                 fill
@@ -895,7 +918,7 @@ export default function ProjectDetail({ project }) {
               {relatedProjects.map((r, i) => (
                 <motion.div
                   key={r.id}
-                  onClick={() => router.push(`/projects/${r.slug}`)}
+                  onClick={() => router.push(projectDetailPath(r.slug))}
                   className="group bg-white rounded-2xl overflow-hidden border border-[#e5e7eb] cursor-pointer project-card-glow"
                   initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -909,7 +932,7 @@ export default function ProjectDetail({ project }) {
                 >
                   {r.images?.[0] && (
                     <div className="relative h-48 overflow-hidden image-zoom-container">
-                      <Image
+                      <CmsImage
                         src={r.images[0]}
                         alt={r.title}
                         fill

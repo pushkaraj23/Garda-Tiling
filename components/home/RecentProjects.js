@@ -2,38 +2,36 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useHomeProjects } from "@/lib/cms/useProjects";
 
 const HOVER_MODE = "overlay"; // "overlay" | "cursor"
 
 export default function RecentProjects() {
-  const projects = [
-    {
-      title: "Bathroom Renovation",
-      subtitle: "Modern tiling with waterproof finish",
-      img: "https://images.unsplash.com/photo-1658370230118-24aa79649d6c",
-      link: "/projects/bathroom-renovation",
-    },
-    {
-      title: "Luxury Bathroom",
-      subtitle: "Large format tiles & clean detailing",
-      img: "https://images.unsplash.com/photo-1576698483491-8c43f0862543",
-      link: "/projects/luxury-bathroom",
-    },
-    {
-      title: "Pool & Wet Area",
-      subtitle: "Slip-resistant outdoor tiling",
-      img: "https://images.unsplash.com/photo-1742134131017-44d377a611b1",
-      link: "/projects/pool-and-wet-area",
-    },
-    {
-      title: "Marble Finish Bathroom",
-      subtitle: "Premium stone-look tiling",
-      img: "https://images.unsplash.com/photo-1618760918333-972c632d697c",
-      link: "/projects/marble-finish",
-    },
-  ];
+  const { homeProjects, loading } = useHomeProjects(4);
+  const projects = homeProjects;
 
   const [cursor, setCursor] = useState({ x: 0, y: 0, content: null });
+
+  if (loading) {
+    return (
+      <section className="w-full py-20 px-4 sm:px-6 lg:px-8 bg-background">
+        <div className="max-w-7xl mx-auto text-center font-manrope text-text-muted text-sm">
+          Loading recent projects…
+        </div>
+      </section>
+    );
+  }
+
+  if (!projects.length) {
+    return null;
+  }
+
+  const cards = [
+    projects[0],
+    projects[1] ?? projects[0],
+    projects[2] ?? projects[0],
+    projects[3] ?? projects[0],
+  ];
 
   return (
     <section className="w-full overflow-hidden relative bg-background overflow-x-hidden py-20 max-sm:py-10 px-4 sm:px-6 lg:px-8">
@@ -129,36 +127,36 @@ export default function RecentProjects() {
           {/* TOP */}
           <section className="flex w-full">
             <DiamondCard
-              image={projects[0].img}
-              title={projects[0].title}
-              subtitle={projects[0].subtitle}
-              link={projects[0].link}
+              image={cards[0].img}
+              title={cards[0].title}
+              subtitle={cards[0].subtitle}
+              link={cards[0].link}
             />
           </section>
 
           {/* MIDDLE ROW */}
           <section className="flex gap-5 full">
             <DiamondCard
-              image={projects[1].img}
-              title={projects[1].title}
-              subtitle={projects[1].subtitle}
-              link={projects[1].link}
+              image={cards[1].img}
+              title={cards[1].title}
+              subtitle={cards[1].subtitle}
+              link={cards[1].link}
             />
             <DiamondCard
-              image={projects[2].img}
-              title={projects[2].title}
-              subtitle={projects[2].subtitle}
-              link={projects[2].link}
+              image={cards[2].img}
+              title={cards[2].title}
+              subtitle={cards[2].subtitle}
+              link={cards[2].link}
             />
           </section>
 
           {/* BOTTOM */}
           <section className="flex w-full justify-end">
             <DiamondCard
-              image={projects[3].img}
-              title={projects[3].title}
-              subtitle={projects[3].subtitle}
-              link={projects[3].link}
+              image={cards[3].img}
+              title={cards[3].title}
+              subtitle={cards[3].subtitle}
+              link={cards[3].link}
             />
           </section>
         </section>

@@ -15,7 +15,8 @@ import {
   PanelBottom,
   Layers,
 } from "lucide-react";
-import { servicesData } from "../lib/servicesData";
+import { useServices } from "@/lib/cms/useServices";
+import { serviceDetailPath } from "@/lib/cms/paths";
 
 // Map each service slug to a unique Lucide icon
 const serviceIconMap = {
@@ -67,6 +68,26 @@ const whyChooseItems = [
 ];
 
 export default function ServicesList() {
+  const { services, loading, source } = useServices();
+
+  if (loading) {
+    return (
+      <div className="w-full min-h-screen bg-background flex items-center justify-center pt-24">
+        <p className="font-manrope text-text-muted text-sm">Loading services…</p>
+      </div>
+    );
+  }
+
+  if (!services.length && source !== "fallback") {
+    return (
+      <div className="w-full min-h-screen bg-background flex items-center justify-center pt-24 px-6 text-center">
+        <p className="font-manrope text-text-muted text-sm max-w-md">
+          No services published yet. Add active services in Website Settings → Services CMS.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full min-h-screen bg-background overflow-hidden pt-24 sm:pt-28">
       {/* ── Hero ────────────────────────────────────────── */}
@@ -192,13 +213,13 @@ export default function ServicesList() {
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
         >
-          {servicesData.map((service) => {
+          {services.map((service) => {
             // Resolve unique icon — fall back to Layers if slug not in map
             const ServiceIcon = serviceIconMap[service.slug] ?? Layers;
 
             return (
               <motion.div key={service.id} variants={itemVariants}>
-                <Link href={`/services/${service.slug}`} className="block h-full group">
+                <Link href={serviceDetailPath(service.slug)} className="block h-full group">
                   <motion.article
                     className="h-full bg-card rounded-3xl overflow-hidden border border-border/60 shadow-soft hover:shadow-2xl transition-all duration-500 flex flex-col"
                     whileHover={{ y: -10 }}

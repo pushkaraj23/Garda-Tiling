@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import CmsImage from "@/components/common/CmsImage";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
@@ -13,7 +14,8 @@ import {
   MapPin,
   Layers,
 } from "lucide-react";
-import { projects } from "../lib/projectData";
+import { useProjects } from "@/lib/cms/useProjects";
+import { projectDetailPath } from "@/lib/cms/paths";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -33,7 +35,16 @@ const cardVariants = {
 };
 
 export default function ProjectList() {
+  const { projects, loading } = useProjects();
   const router = useRouter();
+
+  if (loading) {
+    return (
+      <div className="w-full min-h-screen bg-[#ffffff] flex items-center justify-center pt-24">
+        <p className="font-manrope text-text-muted text-sm">Loading projects…</p>
+      </div>
+    );
+  }
 
   const getStatusIcon = (status) => {
     switch (status) {
@@ -226,7 +237,7 @@ export default function ProjectList() {
                 transition: "all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
                 boxShadow: "0 2px 8px rgba(17,24,39,0.08), 0 12px 32px rgba(31,41,51,0.06)",
               }}
-              onClick={() => router.push(`/projects/${project.slug}`)}
+              onClick={() => router.push(projectDetailPath(project.slug))}
               whileHover={{
                 y: -8,
                 boxShadow: "0 20px 40px rgba(37,99,235,0.15), 0 8px 16px rgba(17,24,39,0.1)",
@@ -257,13 +268,12 @@ export default function ProjectList() {
                 </div>
 
                 {project.images?.length > 0 ? (
-                  <Image
+                  <CmsImage
                     src={project.images[0]}
                     alt={project.title}
                     fill
                     className="object-cover transition-transform duration-700"
                     style={{ transformOrigin: "center" }}
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                 ) : (
                   <div className="w-full h-full bg-[#64748b]/10 flex items-center justify-center">

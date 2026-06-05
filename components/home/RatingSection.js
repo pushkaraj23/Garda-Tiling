@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useSiteSections } from "@/lib/cms/useSiteSections";
 
 const container = {
   hidden: {},
@@ -16,7 +17,22 @@ const item = {
   show: { opacity: 1, y: 0 },
 };
 
+const DEFAULT_CARDS = [
+  { img: "/home/Rating.svg", title: "10+ Years Experience", desc: "Serving residential and commercial clients with proven workmanship" },
+  { img: "/home/WaterProof.svg", title: "Licensed & Insured", desc: "Fully compliant with Australian standards and safety requirements" },
+  { img: "/home/Workmanship.svg", title: "Waterproofing Certified", desc: "All waterproofing carried out as per AS 3740 guidelines" },
+  { img: "/home/License.svg", title: "Workmanship Warranty", desc: "Quality workmanship backed by a written warranty" },
+];
+
 export default function RatingSection() {
+  const { getSection } = useSiteSections("home");
+  const section = getSection("rating");
+  const c = section?.content || {};
+  const ratingLine = c.ratingLine || c.rating || "4.9 / 5";
+  const ratingSubtitle = c.ratingSubtitle || "AVERAGE GOOGLE RATING";
+  const description = c.description || c.subtext || "Based on 120+ Completed Projects across City & Surrounding Suburbs";
+  const cards = Array.isArray(c.cards) && c.cards.length ? c.cards : DEFAULT_CARDS;
+
   return (
     <section className="w-full bg-linear-to-t from-card via-background to-background py-12 sm:py-16 md:py-22 px-4 sm:px-6 md:px-8">
       <div className="max-w-7xl mx-auto">
@@ -30,15 +46,15 @@ export default function RatingSection() {
         >
           <div className="inline-flex items-center gap-2 bg-linear-to-r from-transparent via-accent-secondary/75 to-transparent w-full sm:w-auto sm:min-w-md md:min-w-xl lg:min-w-3xl justify-center py-2 px-4 sm:px-6 rounded-lg">
             <span className="font-bebas text-text-primary text-4xl sm:text-5xl tracking-wide">
-              <span className="text-yellow-500 text-shadow-sm">★</span> 4.9 / 5 <span className="text-yellow-500 text-shadow-sm">★</span>
+              <span className="text-yellow-500 text-shadow-sm">★</span> {ratingLine} <span className="text-yellow-500 text-shadow-sm">★</span>
               <span className="block text-2xl text-text-primary">
-                AVERAGE GOOGLE RATING
+                {ratingSubtitle}
               </span>
             </span>
           </div>
 
           <p className="mt-8 text-sm sm:text-md font-manrope text-text-muted px-4 sm:px-0">
-            Based on 120+ Completed Projects across City & Surrounding Suburbs
+            {description}
           </p>
         </motion.div>
 
@@ -50,28 +66,7 @@ export default function RatingSection() {
           viewport={{ once: true }}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 lg:gap-7"
         >
-          {[
-            {
-              img: "/home/Rating.svg",
-              title: "10+ Years Experience",
-              desc: "Serving residential and commercial clients with proven workmanship",
-            },
-            {
-              img: "/home/WaterProof.svg",
-              title: "Licensed & Insured",
-              desc: "Fully compliant with Australian standards and safety requirements",
-            },
-            {
-              img: "/home/Workmanship.svg",
-              title: "Waterproofing Certified",
-              desc: "All waterproofing carried out as per AS 3740 guidelines",
-            },
-            {
-              img: "/home/License.svg",
-              title: "Workmanship Warranty",
-              desc: "Quality workmanship backed by a written warranty",
-            },
-          ].map((card, i) => (
+          {cards.map((card, i) => (
             <motion.div
               key={i}
               variants={item}
