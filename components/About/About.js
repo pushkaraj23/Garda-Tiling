@@ -3,61 +3,21 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
-  Award, ShieldCheck, Handshake, Clock,
+  ShieldCheck,
   CheckCircle2, Phone, Mail, MapPin, Star
 } from "lucide-react";
-
-// ─── DATA ────────────────────────────────────────────────────────────────────
-
-const teamMembers = [
-  {
-    name: "Michael Garda",
-    role: "Founder & Master Tiler",
-    experience: "15+ years",
-    specialty: "Waterproofing & Bathroom Renovations",
-    image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=400&h=400&fit=crop",
-    quote: "Precision in every tile, excellence in every project.",
-  },
-  {
-    name: "Sarah Johnson",
-    role: "Project Manager",
-    experience: "10+ years",
-    specialty: "Commercial Projects",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop",
-    quote: "Ensuring every project exceeds expectations.",
-  },
-  {
-    name: "David Chen",
-    role: "Senior Tiler",
-    experience: "12+ years",
-    specialty: "Large Format & Natural Stone",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
-    quote: "Quality workmanship speaks for itself.",
-  },
-];
-
-const values = [
-  { icon: Award,      title: "Excellence",   desc: "We never compromise on quality. Every tile is laid with precision and care." },
-  { icon: ShieldCheck, title: "Reliability", desc: "Licensed, insured, and committed to Australian building standards." },
-  { icon: Handshake,  title: "Integrity",    desc: "Honest quotes, transparent pricing, and clear communication." },
-  { icon: Clock,      title: "Timeliness",   desc: "We respect your time and deliver projects on schedule." },
-];
-
-const milestones = [
-  { year: "2010", event: "Founded Garda Tiling",       detail: "Started with residential bathroom renovations" },
-  { year: "2013", event: "Waterproofing Certification", detail: "Became certified waterproofing specialists" },
-  { year: "2016", event: "Commercial Expansion",        detail: "Started commercial tiling projects" },
-  { year: "2019", event: "Team Growth",                 detail: "Expanded to 10+ specialist tilers" },
-  { year: "2022", event: "Premium Service Launch",      detail: "Introduced luxury tiling services" },
-  { year: "2024", event: "1000+ Projects",              detail: "Successfully completed over 1000 projects" },
-];
-
-const certifications = [
-  { name: "Waterproofing License",   number: "WP123456" },
-  { name: "Building Practitioner",   number: "BP789012" },
-  { name: "Occupational License",    number: "OL345678" },
-  { name: "Insurance Coverage",      number: "$10M Public Liability" },
-];
+import { useSiteSections } from "@/lib/cms/useSiteSections";
+import { getSectionContent } from "@/lib/cms/sectionHelpers";
+import { resolveIcon } from "@/lib/cms/iconMap";
+import {
+  ABOUT_HERO_DEFAULTS,
+  ABOUT_STORY_DEFAULTS,
+  ABOUT_VALUES_DEFAULTS,
+  ABOUT_TEAM_DEFAULTS,
+  ABOUT_TIMELINE_DEFAULTS,
+  ABOUT_CERTIFICATIONS_DEFAULTS,
+  ABOUT_CTA_DEFAULTS,
+} from "@/lib/cms/defaults/aboutDefaults";
 
 // ─── ANIMATION HELPERS ───────────────────────────────────────────────────────
 
@@ -71,6 +31,24 @@ const fadeUp = (delay = 0) => ({
 // ─── COMPONENT ───────────────────────────────────────────────────────────────
 
 export default function About() {
+  const { getSection } = useSiteSections("about");
+  const hero = getSectionContent(getSection, "hero", ABOUT_HERO_DEFAULTS);
+  const story = getSectionContent(getSection, "story", ABOUT_STORY_DEFAULTS);
+  const valuesBlock = getSectionContent(getSection, "values", ABOUT_VALUES_DEFAULTS);
+  const team = getSectionContent(getSection, "team", ABOUT_TEAM_DEFAULTS);
+  const timeline = getSectionContent(getSection, "timeline", ABOUT_TIMELINE_DEFAULTS);
+  const certs = getSectionContent(getSection, "certifications", ABOUT_CERTIFICATIONS_DEFAULTS);
+  const cta = getSectionContent(getSection, "cta", ABOUT_CTA_DEFAULTS);
+
+  const teamMembers = team.members || [];
+  const values = (valuesBlock.cards || []).map((card) => ({
+    icon: resolveIcon(card.iconKey),
+    title: card.title,
+    desc: card.text || card.desc,
+  }));
+  const milestones = timeline.milestones || [];
+  const certifications = certs.items || [];
+
   return (
     <div className="w-full bg-background text-text-primary overflow-x-hidden">
 
@@ -86,33 +64,31 @@ export default function About() {
             {/* Pill */}
             <span className="inline-flex items-center gap-2 bg-accent-secondary text-white rounded-full px-3 py-1.5 font-manrope text-xs mb-6">
               <Star size={12} />
-              Brisbane&apos;s Trusted Tiling Experts
+              {hero.pill}
             </span>
 
             <h1 className="font-bebas text-5xl sm:text-6xl tracking-tight text-background">
-              Crafting Beautiful <span className="text-white/60">Spaces Since 2010</span>
+              {hero.headline} <span className="text-white/60">{hero.headlineAccent}</span>
             </h1>
 
             <div className="mt-6 pl-4 border-l-4 border-accent">
-              <p className="font-manrope text-background/60 leading-relaxed">
-                We transform Brisbane homes and businesses with precision tiling, expert
-                waterproofing, and unparalleled craftsmanship. Your vision, our expertise.
-              </p>
+              <p className="font-manrope text-background/60 leading-relaxed">{hero.description}</p>
             </div>
 
             <div className="flex flex-wrap gap-4 mt-8">
-              <Link
-                href="/projects"
-                className="inline-flex px-7 py-3 rounded-full bg-white text-primary font-manrope text-sm font-semibold shadow-md hover:scale-105 transition-all duration-300"
-              >
-                View Our Work
-              </Link>
-              <Link
-                href="/contact"
-                className="inline-flex px-7 py-3 rounded-full border border-white/30 text-white font-manrope text-sm font-semibold hover:bg-white/10 transition-all duration-300"
-              >
-                Get Free Quote
-              </Link>
+              {(hero.ctas || []).map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`inline-flex px-7 py-3 rounded-full font-manrope text-sm font-semibold transition-all duration-300 ${
+                    item.href === "/contact"
+                      ? "border border-white/30 text-white hover:bg-white/10"
+                      : "bg-white text-primary shadow-md hover:scale-105"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
             </div>
           </motion.div>
 
@@ -125,15 +101,10 @@ export default function About() {
           >
             <div className="bg-card border border-border rounded-3xl p-10 shadow-lg hover:-translate-y-2 hover:shadow-xl transition-all duration-500">
               <div className="grid grid-cols-2 gap-6">
-                {[
-                  ["1000+", "Projects Completed"],
-                  ["15+",   "Years Experience"],
-                  ["50+",   "Suburbs Covered"],
-                  ["100%",  "Licensed & Insured"],
-                ].map(([stat, label]) => (
-                  <div key={label} className="text-center">
-                    <div className="font-bebas text-4xl text-accent">{stat}</div>
-                    <div className="font-manrope text-xs text-text-muted mt-1">{label}</div>
+                {(hero.stats || []).map((stat) => (
+                  <div key={stat.label} className="text-center">
+                    <div className="font-bebas text-4xl text-accent">{stat.value}</div>
+                    <div className="font-manrope text-xs text-text-muted mt-1">{stat.label}</div>
                   </div>
                 ))}
               </div>
@@ -152,33 +123,25 @@ export default function About() {
 
           <motion.div {...fadeUp()}>
             <span className="inline-flex items-center gap-2 bg-accent-secondary text-white rounded-full px-3 py-1.5 font-manrope text-xs mb-6">
-              Our Journey
+              {story.pill}
             </span>
 
             <h2 className="font-bebas text-4xl tracking-tight text-primary">
-              From Humble Beginnings to Brisbane&apos;s{" "}
-              <span className="text-text-primary">Premier Tiling Service</span>
+              {story.headline}{" "}
+              <span className="text-text-primary">{story.headlineAccent}</span>
             </h2>
 
-            <p className="mt-5 font-manrope text-text-muted leading-relaxed">
-              Founded in 2010 by Michael Garda, what started as a one-man operation has grown
-              into Brisbane&apos;s most trusted tiling and waterproofing company. Our commitment
-              to excellence has earned us a reputation for quality workmanship and reliable service.
-            </p>
-
-            <p className="mt-4 font-manrope text-text-muted leading-relaxed">
-              Today, we&apos;re proud to serve homeowners and businesses across Brisbane with a team
-              of certified professionals who share our passion for creating beautiful, durable spaces.
-            </p>
+            {(story.paragraphs || []).map((para, i) => (
+              <p key={i} className={`${i === 0 ? "mt-5" : "mt-4"} font-manrope text-text-muted leading-relaxed`}>
+                {para}
+              </p>
+            ))}
 
             <div className="mt-8 grid grid-cols-2 gap-4">
-              {[
-                ["1000+", "Projects Completed"],
-                ["15+",   "Years Experience"],
-              ].map(([stat, label]) => (
-                <div key={label} className="bg-card border border-border rounded-2xl p-6 text-center">
-                  <div className="font-bebas text-3xl text-accent">{stat}</div>
-                  <div className="font-manrope text-sm text-text-muted mt-1">{label}</div>
+              {(story.stats || []).map((stat) => (
+                <div key={stat.label} className="bg-card border border-border rounded-2xl p-6 text-center">
+                  <div className="font-bebas text-3xl text-accent">{stat.value}</div>
+                  <div className="font-manrope text-sm text-text-muted mt-1">{stat.label}</div>
                 </div>
               ))}
             </div>
@@ -187,7 +150,7 @@ export default function About() {
           <motion.div {...fadeUp(0.15)} className="relative">
             <div className="relative h-[400px] rounded-3xl overflow-hidden shadow-2xl group">
               <img
-                src="https://images.unsplash.com/photo-1540518614846-7eded433c457?w=800&h=600&fit=crop"
+                src={story.image}
                 alt="Our team at work"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
               />
@@ -196,7 +159,7 @@ export default function About() {
             <div className="absolute -bottom-5 -right-5 bg-card border border-border rounded-2xl p-5 shadow-lg">
               <div className="flex items-center gap-2 font-manrope text-sm font-semibold text-text-primary">
                 <CheckCircle2 size={16} className="text-accent" />
-                AS 3740 Certified
+                {story.badge}
               </div>
             </div>
           </motion.div>
@@ -209,11 +172,9 @@ export default function About() {
 
           <motion.div className="text-center mb-16" {...fadeUp()}>
             <h2 className="font-bebas text-4xl tracking-tight text-background">
-              Our Core <span className="text-white/60">Values</span>
+              {valuesBlock.headline} <span className="text-white/60">{valuesBlock.headlineAccent}</span>
             </h2>
-            <p className="mt-4 max-w-2xl mx-auto font-manrope text-background/60">
-              The principles that guide every project we take on.
-            </p>
+            <p className="mt-4 max-w-2xl mx-auto font-manrope text-background/60">{valuesBlock.description}</p>
           </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -243,11 +204,9 @@ export default function About() {
 
           <motion.div className="text-center mb-16" {...fadeUp()}>
             <h2 className="font-bebas text-4xl tracking-tight text-primary">
-              Meet the <span className="text-text-primary">Team</span>
+              {team.headline} <span className="text-text-primary">{team.headlineAccent}</span>
             </h2>
-            <p className="mt-4 max-w-2xl mx-auto font-manrope text-text-muted">
-              Certified professionals who bring skill and dedication to every project.
-            </p>
+            <p className="mt-4 max-w-2xl mx-auto font-manrope text-text-muted">{team.description}</p>
           </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -294,11 +253,9 @@ export default function About() {
 
           <motion.div className="text-center mb-16" {...fadeUp()}>
             <h2 className="font-bebas text-4xl tracking-tight text-background">
-              Our Journey <span className="text-white/60">Through the Years</span>
+              {timeline.headline} <span className="text-white/60">{timeline.headlineAccent}</span>
             </h2>
-            <p className="mt-4 max-w-2xl mx-auto font-manrope text-background/60">
-              Milestones that shaped our commitment to excellence in tiling.
-            </p>
+            <p className="mt-4 max-w-2xl mx-auto font-manrope text-background/60">{timeline.description}</p>
           </motion.div>
 
           <div className="relative">
@@ -344,11 +301,9 @@ export default function About() {
 
           <motion.div className="text-center mb-12" {...fadeUp()}>
             <h2 className="font-bebas text-4xl tracking-tight text-primary">
-              Certified &amp; Licensed <span className="text-text-primary">Professionals</span>
+              {certs.headline} <span className="text-text-primary">{certs.headlineAccent}</span>
             </h2>
-            <p className="mt-4 font-manrope text-text-muted">
-              Fully compliant with Australian building standards and regulations.
-            </p>
+            <p className="mt-4 font-manrope text-text-muted">{certs.description}</p>
           </motion.div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -378,34 +333,30 @@ export default function About() {
         {...fadeUp()}
       >
         <h2 className="font-bebas text-4xl sm:text-5xl tracking-tight text-background">
-          Ready to Transform <span className="text-white/60">Your Space?</span>
+          {cta.headline} <span className="text-white/60">{cta.headlineAccent}</span>
         </h2>
-        <p className="mt-4 max-w-xl mx-auto font-manrope text-background/60">
-          Join over 1000 satisfied customers who trust Garda Tiling for their projects.
-        </p>
+        <p className="mt-4 max-w-xl mx-auto font-manrope text-background/60">{cta.description}</p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-          <Link
-            href="/contact"
-            className="inline-flex px-8 py-3 rounded-full bg-white text-primary font-manrope text-sm font-semibold shadow-lg hover:scale-105 transition-all duration-300"
-          >
-            Get Your Free Quote
-          </Link>
-          <Link
-            href="/projects"
-            className="inline-flex px-8 py-3 rounded-full border border-white/30 text-white font-manrope text-sm font-semibold hover:bg-white/10 transition-all duration-300"
-          >
-            View Our Gallery
-          </Link>
+          {(cta.ctas || []).map((item, i) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`inline-flex px-8 py-3 rounded-full font-manrope text-sm font-semibold transition-all duration-300 ${
+                i === 0
+                  ? "bg-white text-primary shadow-lg hover:scale-105"
+                  : "border border-white/30 text-white hover:bg-white/10"
+              }`}
+            >
+              {item.label}
+            </Link>
+          ))}
         </div>
 
-        {/* Contact row */}
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto">
-          {[
-            { icon: Phone,  label: "Call Us",      value: "(03) 0000 0000" },
-            { icon: Mail,   label: "Email Us",     value: "hello@garda-tiling.com" },
-            { icon: MapPin, label: "Service Area", value: "All Brisbane" },
-          ].map(({ icon: Icon, label, value }) => (
+          {(cta.contacts || []).map(({ label, value, type }) => {
+            const Icon = type === "phone" ? Phone : type === "email" ? Mail : MapPin;
+            return (
             <div key={label} className="flex items-center justify-center gap-3 text-background/80">
               <Icon size={16} className="text-accent shrink-0" />
               <div className="text-left">
@@ -413,7 +364,8 @@ export default function About() {
                 <div className="font-manrope text-sm font-semibold">{value}</div>
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
       </motion.section>
 

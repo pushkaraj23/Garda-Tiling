@@ -2,6 +2,9 @@
 
 import { motion } from "framer-motion";
 import { useServices } from "@/lib/cms/useServices";
+import { useSiteSections } from "@/lib/cms/useSiteSections";
+import { getSectionContent } from "@/lib/cms/sectionHelpers";
+import { SERVICES_INTRO_DEFAULTS } from "@/lib/cms/defaults/homeDefaults";
 import { toHomeServiceCard } from "@/lib/cms/mappers";
 
 const container = {
@@ -74,6 +77,8 @@ const DEFAULT_HOME_SERVICES = [
 ];
 
 export default function ServicesSection() {
+  const { getSection } = useSiteSections("home");
+  const intro = getSectionContent(getSection, "services-intro", SERVICES_INTRO_DEFAULTS);
   const { services: cmsServices, loading, source } = useServices();
   const services = loading
     ? []
@@ -98,7 +103,7 @@ export default function ServicesSection() {
       {/* BACKGROUND */}
       <div className="absolute inset-0">
         <img
-          src="/home/servicesBg.svg"
+          src={intro.backgroundImg || "/home/servicesBg.svg"}
           alt="Tiling Services Background"
           className="w-full h-full blur-md object-cover"
         />
@@ -115,12 +120,10 @@ export default function ServicesSection() {
           className="text-center mb-12 sm:mb-16"
         >
           <h2 className="font-bebas text-white text-3xl tracking-wide sm:text-4xl lg:text-5xl tracking-tight mb-4">
-            OUR TILING & WATERPROOFING SERVICES
+            {intro.headline}
           </h2>
           <p className="font-manrope text-background/60 font-thin max-w-2xl mx-auto text-sm sm:text-base">
-            Professional tiling solutions for bathrooms, outdoor spaces, and wet
-            areas — delivered with precision, compliance, and long-lasting
-            quality.
+            {intro.description}
           </p>
         </motion.div>
 

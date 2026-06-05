@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import { useSiteSections } from "@/lib/cms/useSiteSections";
+import { getSectionContent } from "@/lib/cms/sectionHelpers";
+import { HOW_IT_WORKS_DEFAULTS } from "@/lib/cms/defaults/homeDefaults";
 
 const DEFAULT_STEPS = [
   {
@@ -36,8 +38,10 @@ const DEFAULT_STEPS = [
 
 export default function HowItWorks() {
   const { getSection } = useSiteSections("home");
-  const section = getSection("how-it-works");
-  const c = section?.content || {};
+  const c = getSectionContent(getSection, "how-it-works", {
+    ...HOW_IT_WORKS_DEFAULTS,
+    steps: DEFAULT_STEPS,
+  });
   const steps = Array.isArray(c.steps) && c.steps.length ? c.steps : DEFAULT_STEPS;
 
   return (
@@ -63,12 +67,9 @@ export default function HowItWorks() {
         {/* HEADER */}
         <div className="text-center max-w-md mx-auto mb-20">
           <h2 className="font-bebas text-4xl sm:text-5xl tracking-tight text-primary">
-            HOW IT <span className="text-text-primary">WORKS</span>
+            {c.headline} <span className="text-text-primary">{c.headlineAccent}</span>
           </h2>
-          <p className="mt-3 font-manrope text-text-primary text-sm sm:text-base">
-            A simple, transparent process designed to make your tiling project
-            stress-free from start to finish.
-          </p>
+          <p className="mt-3 font-manrope text-text-primary text-sm sm:text-base">{c.description}</p>
         </div>
 
         {/* DESKTOP PROCESS */}

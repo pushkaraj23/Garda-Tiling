@@ -1,11 +1,11 @@
 import About from "@/components/About/About";
-import CmsPageIntro from "@/components/cms/CmsPageIntro";
+
+export const dynamic = "force-dynamic";
 
 export default function AboutPage() {
   return (
     <div className="">
-      <CmsPageIntro slug="about" fallbackTitle="About Garda Tiling" />
-      <About/>
+      <About />
     </div>
-  )
+  );
 }

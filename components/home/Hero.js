@@ -3,13 +3,8 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useSiteSections } from "@/lib/cms/useSiteSections";
-
-const DEFAULT_PILLS = [
-  "Licensed & Insured",
-  "Waterproofing Compliance",
-  "Clean Finish Guaranteed",
-  "On-Time Completion",
-];
+import { getSectionContent } from "@/lib/cms/sectionHelpers";
+import { HERO_DEFAULTS } from "@/lib/cms/defaults/homeDefaults";
 
 const container = {
   hidden: {},
@@ -24,20 +19,16 @@ const item = {
 export default function Hero() {
   const { getSection } = useSiteSections("home");
   const hero = getSection("hero");
-  const c = hero?.content || {};
+  const c = getSectionContent(getSection, "hero", HERO_DEFAULTS);
 
-  const pills = Array.isArray(c.pills) && c.pills.length ? c.pills : DEFAULT_PILLS;
-  const subtext =
-    c.subtext ||
-    c.text ||
-    "High-quality residential and commercial tiling, delivered with precision, compliance, and long-lasting finishes.";
-  const headline =
-    c.headline || hero?.title || "BATHROOM TILING & WATERPROOFING EXPERTS IN BRISBANE";
-  const footnote = c.footnote || "Free on-site inspection • Clear pricing • No hidden costs";
-  const quoteHref = c.quoteHref || "/quote";
-  const quoteLabel = c.quoteLabel || "Get a Free Quote";
-  const phoneHref = c.phoneHref || "tel:+61400000000";
-  const videoSrc = c.videoSrc || hero?.media?.videoSrc || "https://www.pexels.com/download/video/7578552/";
+  const pills = Array.isArray(c.pills) && c.pills.length ? c.pills : HERO_DEFAULTS.pills;
+  const subtext = c.subtext || c.text || HERO_DEFAULTS.subtext;
+  const headline = c.headline || hero?.title || HERO_DEFAULTS.headline;
+  const footnote = c.footnote || HERO_DEFAULTS.footnote;
+  const quoteHref = c.quoteHref || HERO_DEFAULTS.quoteHref;
+  const quoteLabel = c.quoteLabel || HERO_DEFAULTS.quoteLabel;
+  const phoneHref = c.phoneHref || HERO_DEFAULTS.phoneHref;
+  const videoSrc = c.videoSrc || hero?.media?.videoSrc || HERO_DEFAULTS.videoSrc;
 
   return (
     <section className="w-full bg-background mt-12 px-4 sm:px-6 lg:px-8">

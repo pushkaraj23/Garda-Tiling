@@ -1,8 +1,13 @@
 "use client";
 
 import { useTestimonials } from "@/lib/cms/useTestimonials";
+import { useSiteSections } from "@/lib/cms/useSiteSections";
+import { getSectionContent } from "@/lib/cms/sectionHelpers";
+import { TESTIMONIALS_INTRO_DEFAULTS } from "@/lib/cms/defaults/homeDefaults";
 
 export default function WhatOurClientsSay() {
+  const { getSection } = useSiteSections("home");
+  const intro = getSectionContent(getSection, "testimonials-intro", TESTIMONIALS_INTRO_DEFAULTS);
   const { testimonials, loading } = useTestimonials();
 
   if (loading) {
@@ -21,11 +26,10 @@ export default function WhatOurClientsSay() {
         {/* HEADER */}
         <div className="text-center mb-20">
           <h3 className="font-bebas text-4xl sm:text-5xl tracking-tight text-primary uppercase">
-            What Our <span className="text-text-primary">Clients Say</span>
+            {intro.headline} <span className="text-text-primary">{intro.headlineAccent}</span>
           </h3>
           <p className="mt-4 text-sm sm:text-base font-manrope text-text-muted max-w-xl mx-auto">
-            We take pride in delivering quality workmanship and a smooth
-            experience — here’s what our clients have to say.
+            {intro.description}
           </p>
         </div>
 

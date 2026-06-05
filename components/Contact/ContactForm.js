@@ -8,16 +8,19 @@ import {
   ArrowRight, Loader2, CheckCircle2, Lock,
   Clock, Star
 } from "lucide-react";
+import { useSiteSections } from "@/lib/cms/useSiteSections";
+import { useServiceAreas } from "@/lib/cms/useServiceAreas";
+import { useServices } from "@/lib/cms/useServices";
+import { getSectionContent } from "@/lib/cms/sectionHelpers";
+import { CONTACT_HERO_DEFAULTS, CONTACT_SIDEBAR_DEFAULTS } from "@/lib/cms/defaults/contactDefaults";
 
-// ─── DATA ────────────────────────────────────────────────────────────────────
-
-const suburbs = [
+const FALLBACK_SUBURBS = [
   "Brisbane CBD", "Inner West", "Eastern Suburbs", "Northern Beaches",
   "North Shore", "Western Brisbane", "South West Brisbane",
   "Sutherland Shire", "Parramatta Region", "Hills District", "Other Suburb",
 ];
 
-const jobTypes = [
+const FALLBACK_JOB_TYPES = [
   "Bathroom Tiling & Waterproofing",
   "Kitchen Splashback Tiling",
   "Outdoor & Pool Tiling",
@@ -122,6 +125,16 @@ function SectionLabel({ icon: Icon, label }) {
 // ─── MAIN COMPONENT ──────────────────────────────────────────────────────────
 
 export default function ContactForm({ selectedService = "" }) {
+  const { getSection } = useSiteSections("contact");
+  const hero = getSectionContent(getSection, "hero", CONTACT_HERO_DEFAULTS);
+  const sidebar = getSectionContent(getSection, "sidebar", CONTACT_SIDEBAR_DEFAULTS);
+  const { areas } = useServiceAreas();
+  const { services } = useServices();
+  const suburbs = areas.length ? [...areas, "Other Suburb"] : FALLBACK_SUBURBS;
+  const jobTypes = services.length
+    ? [...services.map((s) => s.title), "Other Service"]
+    : FALLBACK_JOB_TYPES;
+
   const [formData, setFormData] = useState({ ...INITIAL, jobType: selectedService || INITIAL.jobType });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState({ type: "", message: "" });
@@ -165,13 +178,16 @@ export default function ContactForm({ selectedService = "" }) {
       const data = await response.json().catch(() => ({}));
 
       if (response.ok) {
-        setStatus({ type: "success", message: data.message || "Quote request submitted. We'll contact you within 24 hours." });
+        setStatus({
+          type: "success",
+          message: data.message || sidebar.successMessage,
+        });
         setFormData({ ...INITIAL, jobType: selectedService || INITIAL.jobType });
       } else {
-        setStatus({ type: "error", message: data.message || data.error || "Something went wrong. Please try again." });
+        setStatus({ type: "error", message: data.message || data.error || sidebar.errorMessage });
       }
     } catch {
-      setStatus({ type: "error", message: "Network error. Please check your connection and try again." });
+      setStatus({ type: "error", message: sidebar.errorMessage });
     } finally {
       setIsSubmitting(false);
     }
@@ -190,14 +206,13 @@ export default function ContactForm({ selectedService = "" }) {
           >
             <span className="inline-flex items-center gap-2 bg-accent-secondary text-white rounded-full px-3 py-1.5 font-manrope text-xs mb-6">
               <Star size={12} />
-              Brisbane&apos;s Trusted Tiling Experts
+              {hero.pill}
             </span>
             <h1 className="font-bebas text-5xl sm:text-6xl tracking-tight text-background">
-              Get a Free <span className="text-white/60">Quote Today</span>
+              {hero.headline} <span className="text-white/60">{hero.headlineAccent}</span>
             </h1>
             <p className="mt-5 max-w-2xl mx-auto font-manrope text-background/60 leading-relaxed">
-              Fill in the form and our team will provide a detailed, no-obligation quote
-              within 24 hours.
+              {hero.description}
             </p>
           </motion.div>
         </div>
@@ -343,7 +358,7 @@ export default function ContactForm({ selectedService = "" }) {
                       </>
                     ) : (
                       <>
-                        Get Detailed Quote
+                        {sidebar.submitLabel}
                         <ArrowRight size={16} />
                       </>
                     )}
@@ -351,7 +366,7 @@ export default function ContactForm({ selectedService = "" }) {
 
                   <div className="mt-4 flex items-center justify-center gap-2 font-manrope text-xs text-text-muted">
                     <Lock size={12} />
-                    Your information is secure &amp; confidential — response within 24 hours.
+                    {sidebar.privacyNote}
                   </div>
                 </div>
               </form>
@@ -368,13 +383,13 @@ export default function ContactForm({ selectedService = "" }) {
           >
             {/* Contact info card */}
             <div className="bg-primary rounded-3xl p-8 text-background">
-              <h3 className="font-bebas text-2xl mb-6">Contact Us Directly</h3>
+              <h3 className="font-bebas text-2xl mb-6">{sidebar.contactTitle}</h3>
               <div className="space-y-5">
                 {[
-                  { icon: Phone,  label: "Call Us",      value: "(03) 0000 0000" },
-                  { icon: Mail,   label: "Email Us",     value: "hello@garda-tiling.com" },
-                  { icon: MapPin, label: "Service Area", value: "All Brisbane & Surrounds" },
-                  { icon: Clock,  label: "Hours",        value: "Mon–Sat: 7am – 6pm" },
+                  { icon: Phone, label: "Call Us", value: sidebar.phone },
+                  { icon: Mail, label: "Email Us", value: sidebar.email },
+                  { icon: MapPin, label: "Service Area", value: sidebar.serviceArea },
+                  { icon: Clock, label: "Hours", value: sidebar.hours },
                 ].map(({ icon: Icon, label, value }) => (
                   <div key={label} className="flex items-start gap-4">
                     <div className="w-9 h-9 rounded-full bg-accent/20 flex items-center justify-center shrink-0">
@@ -391,15 +406,9 @@ export default function ContactForm({ selectedService = "" }) {
 
             {/* Why choose card */}
             <div className="bg-card border border-border rounded-3xl p-8 shadow-md">
-              <h3 className="font-bebas text-xl mb-5">Why Choose Garda?</h3>
+              <h3 className="font-bebas text-xl mb-5">{sidebar.whyTitle}</h3>
               <ul className="space-y-3">
-                {[
-                  "Free, no-obligation quote",
-                  "Response within 24 hours",
-                  "AS 3740 certified waterproofing",
-                  "Licensed & fully insured",
-                  "1000+ projects completed",
-                ].map((item) => (
+                {(sidebar.trustPoints || []).map((item) => (
                   <li key={item} className="flex items-center gap-3 font-manrope text-sm text-text-muted">
                     <CheckCircle2 size={14} className="text-accent shrink-0" />
                     {item}

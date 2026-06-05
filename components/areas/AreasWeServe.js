@@ -4,20 +4,16 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { MapPin, Zap, Map, Clock, HeadphonesIcon, CheckCircle2 } from "lucide-react";
 import { useServiceAreas } from "@/lib/cms/useServiceAreas";
-
-const whyLocal = [
-  { icon: Zap, title: "Fast Response", desc: "Quick inspections and project starts" },
-  { icon: Map, title: "Local Knowledge", desc: "Built for Brisbane conditions" },
-  { icon: Clock, title: "Reliable Scheduling", desc: "Clear timelines & site presence" },
-  { icon: HeadphonesIcon, title: "Ongoing Support", desc: "Easy follow-ups after completion" },
-];
-
-const services = [
-  "Bathroom & laundry tiling",
-  "AS 3740 compliant waterproofing",
-  "Outdoor, balcony & pool areas",
-  "Commercial & retail tiling",
-];
+import { useSiteSections } from "@/lib/cms/useSiteSections";
+import { getSectionContent } from "@/lib/cms/sectionHelpers";
+import { resolveIcon } from "@/lib/cms/iconMap";
+import {
+  AREAS_HERO_DEFAULTS,
+  AREAS_SIDE_CARD_DEFAULTS,
+  AREAS_COVERAGE_DEFAULTS,
+  AREAS_WHY_LOCAL_DEFAULTS,
+  AREAS_CTA_DEFAULTS,
+} from "@/lib/cms/defaults/areasDefaults";
 
 const fadeUp = {
   initial: { opacity: 0, y: 24 },
@@ -34,6 +30,18 @@ const stagger = {
 };
 
 export default function AreasWeServe() {
+  const { getSection } = useSiteSections("areas-we-serve");
+  const hero = getSectionContent(getSection, "hero", AREAS_HERO_DEFAULTS);
+  const sideCard = getSectionContent(getSection, "side-card", AREAS_SIDE_CARD_DEFAULTS);
+  const coverage = getSectionContent(getSection, "coverage", AREAS_COVERAGE_DEFAULTS);
+  const whyLocalBlock = getSectionContent(getSection, "why-local", AREAS_WHY_LOCAL_DEFAULTS);
+  const cta = getSectionContent(getSection, "cta", AREAS_CTA_DEFAULTS);
+  const whyLocal = (whyLocalBlock.cards || []).map((card) => ({
+    icon: resolveIcon(card.iconKey, Zap),
+    title: card.title,
+    desc: card.text || card.desc,
+  }));
+  const services = coverage.services || [];
   const { areas: serviceAreas, loading } = useServiceAreas();
 
   if (loading) {
@@ -57,26 +65,22 @@ export default function AreasWeServe() {
           >
             <span className="inline-flex items-center gap-2 bg-accent-secondary text-white rounded-full px-3 py-1.5 font-manrope text-xs mb-6">
               <MapPin size={12} />
-              Brisbane &amp; Surrounds
+              {hero.pill}
             </span>
 
             <h1 className="font-bebas text-5xl sm:text-6xl tracking-tight text-primary">
-              Areas We <span className="text-text-primary">Serve</span>
+              {hero.headline} <span className="text-text-primary">{hero.headlineAccent}</span>
             </h1>
 
             <div className="mt-6 pl-4 border-l-4 border-accent">
-              <p className="font-manrope text-text-muted leading-relaxed">
-                Garda Tiling delivers professional tiling and waterproofing
-                services across Brisbane and surrounding suburbs — combining
-                quality craftsmanship, compliance, and reliable timelines.
-              </p>
+              <p className="font-manrope text-text-muted leading-relaxed">{hero.description}</p>
             </div>
 
             <Link
-              href="/contact"
+              href={hero.ctaHref || "/contact"}
               className="inline-flex mt-8 px-7 py-3 rounded-full bg-primary text-white font-manrope text-sm font-semibold shadow-md hover:scale-105 transition-all duration-300"
             >
-              Check Availability
+              {hero.ctaLabel}
             </Link>
           </motion.div>
 
@@ -91,13 +95,9 @@ export default function AreasWeServe() {
                 <div className="w-9 h-9 rounded-full bg-accent/10 flex items-center justify-center">
                   <MapPin size={16} className="text-accent" />
                 </div>
-                <h3 className="font-bebas text-2xl">Trusted Across Brisbane</h3>
+                <h3 className="font-bebas text-2xl">{sideCard.title}</h3>
               </div>
-              <p className="font-manrope text-text-muted text-sm leading-relaxed">
-                From inner-city apartments to large suburban homes and
-                commercial spaces, our team operates city-wide with the same
-                attention to detail and professionalism.
-              </p>
+              <p className="font-manrope text-text-muted text-sm leading-relaxed">{sideCard.description}</p>
             </div>
           </motion.div>
         </div>
@@ -111,13 +111,9 @@ export default function AreasWeServe() {
 
           <motion.div {...fadeUp}>
             <h2 className="font-bebas text-4xl tracking-tight text-background">
-              Comprehensive Local Coverage
+              {coverage.headline}
             </h2>
-            <p className="mt-5 font-manrope text-background/60 leading-relaxed">
-              Our mobile teams are strategically positioned to service a wide
-              geographic area efficiently, ensuring fast inspections, accurate
-              quoting, and on-time execution.
-            </p>
+            <p className="mt-5 font-manrope text-background/60 leading-relaxed">{coverage.description}</p>
 
             <ul className="mt-8 space-y-4 font-manrope text-sm">
               {services.map((item) => (
@@ -133,7 +129,7 @@ export default function AreasWeServe() {
             <div className="bg-card border border-border rounded-3xl p-10 shadow-lg">
               <div className="flex items-center gap-3 mb-8">
                 <MapPin size={18} className="text-accent" />
-                <h3 className="font-bebas text-2xl">Primary Service Areas</h3>
+                <h3 className="font-bebas text-2xl">{coverage.areasTitle}</h3>
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
@@ -159,12 +155,9 @@ export default function AreasWeServe() {
         <div className="max-w-7xl mx-auto text-center">
           <motion.div {...fadeUp}>
             <h2 className="font-bebas text-4xl tracking-tight text-primary">
-              Why Choose a <span className="text-text-primary">Local Tiling Team?</span>
+              {whyLocalBlock.headline} <span className="text-text-primary">{whyLocalBlock.headlineAccent}</span>
             </h2>
-            <p className="mt-4 max-w-2xl mx-auto font-manrope text-text-muted">
-              Local expertise means smoother communication, faster turnaround, and
-              long-term accountability.
-            </p>
+            <p className="mt-4 max-w-2xl mx-auto font-manrope text-text-muted">{whyLocalBlock.description}</p>
           </motion.div>
 
           <motion.div
@@ -196,19 +189,16 @@ export default function AreasWeServe() {
         {...fadeUp}
       >
         <h2 className="font-bebas text-4xl sm:text-5xl tracking-tight text-background">
-          Not Sure If We Cover <span className="text-white/70">Your Area?</span>
+          {cta.headline} <span className="text-white/70">{cta.headlineAccent}</span>
         </h2>
 
-        <p className="mt-4 max-w-xl mx-auto font-manrope text-background/60">
-          Get in touch and our team will confirm availability and guide you
-          through the next steps.
-        </p>
+        <p className="mt-4 max-w-xl mx-auto font-manrope text-background/60">{cta.description}</p>
 
         <Link
-          href="/contact"
+          href={cta.ctaHref || "/contact"}
           className="inline-flex mt-8 px-8 py-3 rounded-full bg-white text-primary font-manrope text-sm font-semibold shadow-lg hover:scale-105 transition-all duration-300"
         >
-          Contact Garda Tiling
+          {cta.ctaLabel}
         </Link>
       </motion.section>
 

@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import { useSiteSections } from "@/lib/cms/useSiteSections";
+import { getSectionContent } from "@/lib/cms/sectionHelpers";
+import { RATING_DEFAULTS } from "@/lib/cms/defaults/homeDefaults";
 
 const container = {
   hidden: {},
@@ -17,21 +19,13 @@ const item = {
   show: { opacity: 1, y: 0 },
 };
 
-const DEFAULT_CARDS = [
-  { img: "/home/Rating.svg", title: "10+ Years Experience", desc: "Serving residential and commercial clients with proven workmanship" },
-  { img: "/home/WaterProof.svg", title: "Licensed & Insured", desc: "Fully compliant with Australian standards and safety requirements" },
-  { img: "/home/Workmanship.svg", title: "Waterproofing Certified", desc: "All waterproofing carried out as per AS 3740 guidelines" },
-  { img: "/home/License.svg", title: "Workmanship Warranty", desc: "Quality workmanship backed by a written warranty" },
-];
-
 export default function RatingSection() {
   const { getSection } = useSiteSections("home");
-  const section = getSection("rating");
-  const c = section?.content || {};
-  const ratingLine = c.ratingLine || c.rating || "4.9 / 5";
-  const ratingSubtitle = c.ratingSubtitle || "AVERAGE GOOGLE RATING";
-  const description = c.description || c.subtext || "Based on 120+ Completed Projects across City & Surrounding Suburbs";
-  const cards = Array.isArray(c.cards) && c.cards.length ? c.cards : DEFAULT_CARDS;
+  const c = getSectionContent(getSection, "rating", RATING_DEFAULTS);
+  const ratingLine = c.ratingLine || c.rating || RATING_DEFAULTS.ratingLine;
+  const ratingSubtitle = c.ratingSubtitle || RATING_DEFAULTS.ratingSubtitle;
+  const description = c.description || c.subtext || RATING_DEFAULTS.description;
+  const cards = Array.isArray(c.cards) && c.cards.length ? c.cards : RATING_DEFAULTS.cards;
 
   return (
     <section className="w-full bg-linear-to-t from-card via-background to-background py-12 sm:py-16 md:py-22 px-4 sm:px-6 md:px-8">

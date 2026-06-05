@@ -2,24 +2,22 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useSiteSections } from "@/lib/cms/useSiteSections";
+import { getSectionContent } from "@/lib/cms/sectionHelpers";
+import { QUOTE_PAGE_DEFAULTS } from "@/lib/cms/defaults/quoteDefaults";
 
 export default function InstantQuote() {
+  const { getSection } = useSiteSections("quote");
+  const copy = getSectionContent(getSection, "page", QUOTE_PAGE_DEFAULTS);
+
   const [messages, setMessages] = useState([
-    {
-      role: "bot",
-      text: "Hi 👋 I’m the Garda Tiling Quote Assistant. Let’s get you an accurate estimate. What type of area needs tiling?",
-    },
+    { role: "bot", text: copy.initialBotMessage },
   ]);
 
   const [input, setInput] = useState("");
 
-  const quote = {
-    areaType: "Bathroom",
-    size: "Medium (6–10 sqm)",
-    waterproofing: "Yes",
-    tileType: "Porcelain",
-    estimatedPrice: "$3,200 – $3,800",
-  };
+  const quote = copy.sampleQuote || QUOTE_PAGE_DEFAULTS.sampleQuote;
+  const labels = copy.summaryLabels || QUOTE_PAGE_DEFAULTS.summaryLabels;
 
   const sendMessage = () => {
     if (!input.trim()) return;
@@ -29,7 +27,7 @@ export default function InstantQuote() {
       { role: "user", text: input },
       {
         role: "bot",
-        text: "Got it. Thanks! I’ll update the estimate based on this. Any waterproofing required?",
+        text: copy.followUpBotMessage,
       },
     ]);
 
@@ -42,31 +40,20 @@ export default function InstantQuote() {
         {/* ================= LEFT : QUOTE SUMMARY ================= */}
         <aside className="lg:col-span-4 order-2 lg:order-1">
           <div className="sticky top-24 bg-card border border-border rounded-3xl p-8 shadow-lg">
-            <h2 className="font-bebas text-3xl text-primary tracking-tight">
-              Your Quote Summary
-            </h2>
-
-            <p className="mt-2 text-sm font-manrope text-text-muted">
-              Live estimate based on your inputs
-            </p>
+            <h2 className="font-bebas text-3xl text-primary tracking-tight">{copy.summaryTitle}</h2>
+            <p className="mt-2 text-sm font-manrope text-text-muted">{copy.summarySubtitle}</p>
 
             <div className="mt-8 space-y-5 text-sm font-manrope">
-              <QuoteRow label="Area Type" value={quote.areaType} />
-              <QuoteRow label="Project Size" value={quote.size} />
-              <QuoteRow label="Waterproofing" value={quote.waterproofing} />
-              <QuoteRow label="Tile Type" value={quote.tileType} />
+              <QuoteRow label={labels.areaType} value={quote.areaType} />
+              <QuoteRow label={labels.projectSize} value={quote.size} />
+              <QuoteRow label={labels.waterproofing} value={quote.waterproofing} />
+              <QuoteRow label={labels.tileType} value={quote.tileType} />
             </div>
 
             <div className="mt-8 pt-6 border-t border-border">
-              <p className="text-xs uppercase text-text-muted tracking-wide">
-                Estimated Range
-              </p>
-              <p className="mt-2 text-2xl font-bebas text-primary">
-                {quote.estimatedPrice}
-              </p>
-              <p className="mt-2 text-xs text-text-muted">
-                Final pricing confirmed after site inspection.
-              </p>
+              <p className="text-xs uppercase text-text-muted tracking-wide">{copy.estimatedLabel}</p>
+              <p className="mt-2 text-2xl font-bebas text-primary">{quote.estimatedPrice}</p>
+              <p className="mt-2 text-xs text-text-muted">{copy.estimatedNote}</p>
             </div>
 
             <button
@@ -77,7 +64,7 @@ export default function InstantQuote() {
                 hover:scale-[1.02] transition
               "
             >
-              Request Final Quote
+              {copy.ctaLabel}
             </button>
           </div>
         </aside>
@@ -87,12 +74,8 @@ export default function InstantQuote() {
           <div className="bg-card border border-border rounded-3xl shadow-lg flex flex-col h-[75vh]">
             {/* HEADER */}
             <div className="px-6 py-4 border-b border-border">
-              <h1 className="font-bebas text-2xl text-primary">
-                Instant Tiling Quote
-              </h1>
-              <p className="text-xs font-manrope text-text-muted">
-                Answer a few questions to receive a tailored estimate
-              </p>
+              <h1 className="font-bebas text-2xl text-primary">{copy.chatTitle}</h1>
+              <p className="text-xs font-manrope text-text-muted">{copy.disclaimer}</p>
             </div>
 
             {/* CHAT BODY */}

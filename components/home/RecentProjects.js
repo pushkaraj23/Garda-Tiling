@@ -3,10 +3,15 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useHomeProjects } from "@/lib/cms/useProjects";
+import { useSiteSections } from "@/lib/cms/useSiteSections";
+import { getSectionContent } from "@/lib/cms/sectionHelpers";
+import { RECENT_PROJECTS_DEFAULTS } from "@/lib/cms/defaults/homeDefaults";
 
 const HOVER_MODE = "overlay"; // "overlay" | "cursor"
 
 export default function RecentProjects() {
+  const { getSection } = useSiteSections("home");
+  const copy = getSectionContent(getSection, "recent-projects", RECENT_PROJECTS_DEFAULTS);
   const { homeProjects, loading } = useHomeProjects(4);
   const projects = homeProjects;
 
@@ -41,23 +46,15 @@ export default function RecentProjects() {
           {/* Heading */}
           <div>
             <h2 className="font-bebas text-4xl sm:text-6xl tracking-tight text-primary">
-              RECENT <span className="text-text-primary">PROJECTS</span>
+              {copy.headline} <span className="text-text-primary">{copy.headlineAccent}</span>
             </h2>
 
-            <p className="mt-4 font-manrope text-text-muted">
-              Take a look at some of our recently completed tiling and
-              waterproofing projects across the city and surrounding suburbs.
-            </p>
+            <p className="mt-4 font-manrope text-text-muted">{copy.description}</p>
           </div>
 
           {/* TRUST POINTS */}
           <div className="grid grid-cols-2 gap-4">
-            {[
-              "Licensed & Insured",
-              "AS 3740 Compliant",
-              "Clean Finish Guaranteed",
-              "On-Time Delivery",
-            ].map((point, i) => (
+            {(copy.trustPoints || []).map((point, i) => (
               <div
                 key={i}
                 className="
@@ -79,32 +76,18 @@ export default function RecentProjects() {
 
           {/* STATS */}
           <div className="flex gap-8">
-            <div>
-              <p className="font-bebas text-3xl text-text-primary">120+</p>
-              <p className="font-manrope text-sm text-text-muted">
-                Projects Completed
-              </p>
-            </div>
-
-            <div>
-              <p className="font-bebas text-3xl text-text-primary">10+</p>
-              <p className="font-manrope text-sm text-text-muted">
-                Years Experience
-              </p>
-            </div>
-
-            <div>
-              <p className="font-bebas text-3xl text-text-primary">4.9★</p>
-              <p className="font-manrope text-sm text-text-muted">
-                Google Rating
-              </p>
-            </div>
+            {(copy.stats || []).map((stat) => (
+              <div key={stat.label}>
+                <p className="font-bebas text-3xl text-text-primary">{stat.value}</p>
+                <p className="font-manrope text-sm text-text-muted">{stat.label}</p>
+              </div>
+            ))}
           </div>
 
           {/* CTA */}
           <div className="flex items-center gap-4">
             <Link
-              href="/projects"
+              href={copy.ctaHref || "/projects"}
               className="
         inline-flex items-center justify-center
         px-7 py-3 rounded-full overflow-hidden
@@ -113,12 +96,10 @@ export default function RecentProjects() {
         shadow-lg hover:scale-105 transition
       "
             >
-              View All Projects
+              {copy.ctaLabel}
             </Link>
 
-            <span className="text-sm font-manrope text-text-muted">
-              Real work. Real results.
-            </span>
+            <span className="text-sm font-manrope text-text-muted">{copy.ctaTagline}</span>
           </div>
         </div>
 

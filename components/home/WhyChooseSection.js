@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import { useSiteSections } from "@/lib/cms/useSiteSections";
+import { getSectionContent } from "@/lib/cms/sectionHelpers";
+import { WHY_CHOOSE_DEFAULTS } from "@/lib/cms/defaults/homeDefaults";
 
 const container = {
   hidden: {},
@@ -13,35 +15,8 @@ const item = {
   show: { opacity: 1, y: 0 },
 };
 
-const DEFAULT_CARDS = [
-  {
-    title: "Quality Workmanship",
-    text: "Every project is executed with precision, attention to detail, and a commitment to long-lasting results.",
-    img: "https://plus.unsplash.com/premium_photo-1681566677639-e39bdc971459?w=900&auto=format&fit=crop&q=60",
-    className: "col-span-12 lg:col-span-5 h-90",
-  },
-  {
-    title: "Waterproofing Compliance",
-    text: "All waterproofing work strictly follows Australian Standards, ensuring durability and peace of mind.",
-    img: "https://plus.unsplash.com/premium_photo-1681566677089-08f136195c9a?w=800&auto=format&fit=crop&q=60",
-    className: "col-span-12 lg:col-span-4 h-90",
-  },
-  {
-    title: "Clear Timelines",
-    text: "We follow defined schedules and keep you informed — no delays, no surprises.",
-    img: "https://plus.unsplash.com/premium_photo-1663127307844-6dc4b2ccef85?w=700&auto=format&fit=crop&q=60",
-    className: "col-span-12 lg:col-span-3 lg:row-span-2 h-70 lg:h-auto",
-  },
-  {
-    title: "Clean & Respectful Work",
-    text: "Your space is treated with care. We maintain a clean site and leave your property tidy upon completion.",
-    img: "https://plus.unsplash.com/premium_photo-1682210260871-5fcfeb4cd20e?w=900&auto=format&fit=crop&q=60",
-    className: "col-span-12 lg:col-span-9 h-65",
-  },
-];
-
-function normalizeCards(raw) {
-  if (!Array.isArray(raw)) return DEFAULT_CARDS;
+function normalizeCards(raw, fallback) {
+  if (!Array.isArray(raw)) return fallback;
   const mapped = raw
     .map((card) => ({
       title: card.title || card.name || "",
@@ -50,19 +25,15 @@ function normalizeCards(raw) {
       className: card.className || card.class_name || "col-span-12 lg:col-span-6 h-65",
     }))
     .filter((c) => c.title && c.text);
-  return mapped.length ? mapped : DEFAULT_CARDS;
+  return mapped.length ? mapped : fallback;
 }
 
 export default function WhyChooseSection() {
   const { getSection } = useSiteSections("home");
-  const section = getSection("why-choose");
-  const c = section?.content || {};
-  const headline = c.headline || section?.title || "WHY CHOOSE GARDA TILING";
-  const description =
-    c.description ||
-    c.text ||
-    "We don't just install tiles — we deliver durable finishes, compliant waterproofing, and a clean, stress-free experience from start to finish.";
-  const cards = normalizeCards(c.cards);
+  const c = getSectionContent(getSection, "why-choose", WHY_CHOOSE_DEFAULTS);
+  const headline = c.headline || WHY_CHOOSE_DEFAULTS.headline;
+  const description = c.description || c.text || WHY_CHOOSE_DEFAULTS.description;
+  const cards = normalizeCards(c.cards, WHY_CHOOSE_DEFAULTS.cards);
 
   return (
     <section className="w-full bg-background py-20 px-4 sm:px-6 lg:px-8">
